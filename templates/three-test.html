@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}
+    THREE.JSテスト用ページ
+{% endblock %}
+
+{% block extra_links %}
+	<link rel="stylesheet" href="{{url_for('static', filename='css/three-test.css')}}">
+{% endblock %}
+
+{% block content %}
+    <div id="webgl"></div>
+
+    <select name="" id="backgroundSelector">
+        <option value="template1">黒</option>
+        <option value="template2">白</option>
+        <option value="template3">灰</option>
+    </select>
+    <select name="" id="visualizerSelector">
+        <option value="box-visualizer">箱型</option>
+        <option value="test">なし</option>
+    </select>
+
+    <button id="addVisualizer">ビジュアライザーの追加</button>
+
+    <select name="" id="allVisualierSelector"></select>
+    <div id="controller"></div>
+
+    <label for="input_music">音楽を選択してください</label>
+    <input type="file" id="input_music">
+
+    <label for="playbackBar">再生位置</label>
+    <input type="range" id="playbackBar" min="0" max="100" value="0">
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{{ url_for('static', filename='js/three-test/main.js') }}" type="module"></script>
+{% endblock %}
