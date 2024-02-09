@@ -5,23 +5,12 @@
 {% endblock %}
 
 {% block extra_links %}
-	<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/index/style.css')}}">
 {% endblock %}
 
 {% block content %}
-	<h1>Hello, World!</h1>
-	<div id="webgl"></div>
-	<label for="">音楽のアップロード
-		<input type="file" id="fileInput">
-	</label>
-	<label for="box_size">箱のサイズ
-		<input type="range" id="box_size" name="box_size" min="0" max="100">
-	</label>
-	<label>色を選択
-		<input type="color" id="color_picker" name="color_picker">
-	</label>
+	<h1>トップページ</h1>
 {% endblock %}
 
 {% block extra_scripts %}
-	<script src="{{ url_for('static', filename='js/main.js') }}" type="module"></script>
 {% endblock %}

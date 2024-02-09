@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block extra_links %}
-	<link rel="stylesheet" href="{{url_for('static', filename='css/three-test.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/editor/style.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -33,5 +33,5 @@
 {% endblock %}
 
 {% block extra_scripts %}
-    <script src="{{ url_for('static', filename='js/three-test/main.js') }}" type="module"></script>
+    <script src="{{ url_for('static', filename='js/editor/main.js') }}" type="module"></script>
 {% endblock %}
