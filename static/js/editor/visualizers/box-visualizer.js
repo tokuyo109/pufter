@@ -2,11 +2,11 @@
 import * as THREE from "three";
 
 export default class BoxVisualizer {
-    constructor(stage, analyser) {
+    constructor(stage, musicManager) {
         this.id = null;
         this.name = "BoxVisualizer";
         this.stage = stage;
-        this.analyser = analyser;
+        this.musicManager = musicManager;
         this.mesh = null;
         this.param = {
             width: 1,
@@ -29,7 +29,7 @@ export default class BoxVisualizer {
         const geometry = new THREE.BoxGeometry(
             this.param.width,
             this.param.height,
-            this.param.depth    
+            this.param.depth
         );
         const material = new THREE.MeshBasicMaterial(
             { color: this.param.color, wireframe: this.param.wireframe }
@@ -41,8 +41,7 @@ export default class BoxVisualizer {
 
     update() {
         if (this.mesh) {
-            const data = new Uint8Array(this.analyser.frequencyBinCount);
-            this.analyser.getByteFrequencyData(data);
+            const data = this.musicManager.getAnalyzedData();
             const scale = (data[0] / 128.0) + this.param.scaleBase;
             this.mesh.scale.set(scale, scale, scale);
         }

@@ -1,4 +1,5 @@
 // 音楽ファイルを管理するクラス
+// music-managerに以降
 export default class AudioVisualizer {
     constructor(input_element) {
         this.audioContext = new AudioContext();
@@ -56,7 +57,7 @@ export default class AudioVisualizer {
         const source = this.audioContext.createBufferSource();
         // 曲は同じなので使いまわす
         source.buffer = this.source.buffer
-        
+
         // 更新 & 再生
         this.source = source;
         this.source.connect(this.analyser);

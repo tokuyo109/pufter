@@ -1,6 +1,6 @@
 // 編集ページ全体の管理ファイル
 import Stage from "./stage.js";
-import AudioVisualizer from "./audio-visualizer.js";
+import MusicManager from "./music-manager.js";
 import Background from "./background.js";
 import Visualizer from "./visualizer.js";
 
@@ -11,9 +11,9 @@ const changeBackground = (stage, selectedTemplate) => {
 }
 
 // ビジュアライザーを追加する
-const addVisualizer = (stage, audioVisualizer) => {
+const addVisualizer = (stage, musicManager) => {
     const selectedTemplate = document.getElementById("visualizerSelector").value;
-    const visualizer = new Visualizer(stage, audioVisualizer.analyser);
+    const visualizer = new Visualizer(stage, musicManager);
     visualizer.setTemplate(selectedTemplate);
 }
 
@@ -24,13 +24,13 @@ const choiceVisualizer = (stage, selectedId) => {
 }
 
 // イベントリスナーを設定する
-const setUpEventListeners = (stage, audioVisualizer) => {
+const setUpEventListeners = (stage, musicManager) => {
     document.getElementById("backgroundSelector").addEventListener("change", (event) => {
         changeBackground(stage, event.target.value);
     })
 
     document.getElementById("addVisualizer").addEventListener("click", () => {
-        addVisualizer(stage, audioVisualizer);
+        addVisualizer(stage, musicManager);
     })
 
     document.getElementById("allVisualierSelector").addEventListener("change", (event) => {
@@ -41,10 +41,9 @@ const setUpEventListeners = (stage, audioVisualizer) => {
 (() => {
     const stage = new Stage();
     stage.init();
+    const musicManager = new MusicManager();
 
-    const audioVisualizer = new AudioVisualizer(document.getElementById("input_music"));
-
-    setUpEventListeners(stage, audioVisualizer);
+    setUpEventListeners(stage, musicManager);
 
     // アニメーションループを開始する
     const _raf = () => {
