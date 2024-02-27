@@ -3,19 +3,25 @@
 
 import { World } from "ecsy";
 import * as THREE from "three";
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import {
     Scene, Camera, Renderer,
     Mesh,
     Position, Rotation, Scale, // Transform
-    UIControllable,
+    UIControllable, Visualizer
 } from "./components/index.js";
 import {
     RenderingSystem,
     TransformSystem,
-    EntityManagementSystem
+    EntityManagementSystem,
+    VisualizerSystem
 } from "./systems/index.js";
+import MusicManager from "./musicManager.js";
+import {
+    createCube, createSphere, createCone,
+    createCylinder, createDodecahedron, createCapsule,
+    createTours
+} from "./generateMesh.js";
 
 // Worldオブジェクトの作成
 const world = new World();
@@ -31,13 +37,16 @@ world
     .registerComponent(Position)
     .registerComponent(Rotation)
     .registerComponent(Scale)
-    .registerComponent(UIControllable);
+
+    .registerComponent(UIControllable)
+    .registerComponent(Visualizer);
 
 // システムの登録
 world
     .registerSystem(RenderingSystem)
     .registerSystem(TransformSystem)
-    .registerSystem(EntityManagementSystem);
+    .registerSystem(EntityManagementSystem)
+    .registerSystem(VisualizerSystem);
 
 // Sceneオブジェクトの作成
 const scene = new THREE.Scene();
@@ -72,7 +81,7 @@ scene.add(gridHelper);
 
 // エンティティを作成し、Scene、Camera、Rendererコンポーネントを追加
 const sceneEntity = world.createEntity()
-    .addComponent(Scene, { scene: scene })
+    .addComponent(Scene, { scene: scene, fog: new THREE.Fog(0x000000, 50, 2000) })
     .addComponent(Camera, { camera: camera })
     .addComponent(Renderer, {
         renderer: renderer,
@@ -98,24 +107,15 @@ const onWindowResize = () => {
 }
 window.addEventListener("resize", onWindowResize, false);
 
-// 立方体を生成する関数
-const createCube = () => {
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    return new THREE.Mesh(geometry, material);
-}
-
-// 球体を生成する関数
-const createSphere = () => {
-    const geometry = new THREE.SphereGeometry(0.5, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    return new THREE.Mesh(geometry, material);
-}
-
 // 利用可能なオブジェクトのリスト
 const availableObjects = [
     { name: "Cube", createFunction: createCube },
-    { name: "Sphere", createFunction: createSphere }
+    { name: "Sphere", createFunction: createSphere },
+    { name: "Cone", createFunction: createCone },
+    { name: "Cylinder", createFunction: createCylinder },
+    { name: "Dodecahedron", createFunction: createDodecahedron },
+    { name: "Capsule", createFunction: createCapsule },
+    { name: "Tours", createFunction: createTours },
 ]
 
 // UIを追加
@@ -135,8 +135,8 @@ addObjectButton.addEventListener("click", () => {
         if (object.name === selectedObjectName) {
             const entity = world.createEntity()
                 .addComponent(Mesh, { value: object.createFunction() })
-                .addComponent(Position, { x: Math.random() * 2, y: Math.random() * 2, z: Math.random() * 2 })
-                .addComponent(Rotation, { x: 0, y: 0, z: 0 })
+                .addComponent(Position, { x: (Math.random() * 10) - 5, y: Math.random() * 5, z: (Math.random() * 10) - 5 })
+                .addComponent(Rotation, { x: Math.random() * 2, y: Math.random() * 2, z: Math.random() * 2 })
                 .addComponent(Scale, { x: 1, y: 1, z: 1 })
                 .addComponent(UIControllable)
             console.log(sceneEntity.getComponent(Scene).scene);
@@ -144,6 +144,10 @@ addObjectButton.addEventListener("click", () => {
         }
     })
 })
+
+// world.createEntity()
+//     .addComponent(Visualizer);
+const musicManager = new MusicManager();
 
 let lastTime = performance.now();
 const run = () => {

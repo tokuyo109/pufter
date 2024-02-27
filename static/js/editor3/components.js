@@ -1,3 +1,4 @@
+// 現在は使用していない
 // components.js
 import { Component, Types } from "ecsy";
 

@@ -13,3 +13,4 @@ export { default as Scale } from "./Scale.js";
 
 // Marker
 export { default as UIControllable } from "./UIControllable.js";
+export { default as Visualizer } from "./Visualizer.js";

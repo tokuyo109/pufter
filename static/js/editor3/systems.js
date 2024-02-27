@@ -1,3 +1,4 @@
+// 現在は使用していない
 // systems.js
 import { System } from "ecsy";
 import { Position, Rotation, Mesh, Group } from "./components.js";
