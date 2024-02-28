@@ -9,6 +9,11 @@ import {
     UIControllable
 } from "../components/index.js";
 
+/*
+this.output.innerHTMLで直接再代入しないでください。
+DOMが再描画され、EventListenerが初期化されます。
+*/
+
 export default class EntityManagementSystem extends System {
     init() {
         // コンポーネントごとにUIメタデータを用意する
@@ -17,6 +22,12 @@ export default class EntityManagementSystem extends System {
         this.UIMetadata = {
             Mesh: {
                 label: "Mesh",
+                fields: [
+                    { key: "color", type: "color" }
+                ]
+            },
+            Renderer: {
+                label: "Renderer",
                 fields: [
                     { key: "color", type: "color" }
                 ]
@@ -43,6 +54,12 @@ export default class EntityManagementSystem extends System {
                     { key: "scaleX", type: "number", step: "0.1" },
                     { key: "scaleY", type: "number", step: "0.1" },
                     { key: "scaleZ", type: "number", step: "0.1" }
+                ]
+            },
+            Visualizer: {
+                label: "Visualizer",
+                fields: [
+
                 ]
             }
         }
@@ -83,6 +100,11 @@ export default class EntityManagementSystem extends System {
                     if (entity.hasComponent(Scale)) {
                         this.setScaleUI(entity);
                     }
+
+                    // エンティティがVisualizerコンポーネントを持つか
+                    if (entity.hasComponent(Visualizer)) {
+                        // ここに処理を記述
+                    }
                 }
             })
         });
@@ -116,9 +138,17 @@ export default class EntityManagementSystem extends System {
     }
 
     // レンダラーを編集するUIを生成する
+    // 背景色を変更するUIの生成プログラムはここで記述する
     setRendererUI(entity) {
         const rendererComponent = entity.getMutableComponent(Renderer);
         console.log(rendererComponent);
+
+        const label = this.UIMetadata.Renderer.label;
+        const labelElement = document.createElement("label");
+        labelElement.setAttribute("for", "color-picker");
+        // labelElement.setAttribute("for", label);
+        labelElement.textContent = label;
+
     }
 
     // ポジションを編集するUIを生成する
@@ -162,25 +192,13 @@ export default class EntityManagementSystem extends System {
     }
 
     updatePositionX(entity, newValue) {
-        const mesh = entity.getMutableComponent(Mesh).value;
-        const position = entity.getMutableComponent(Position);
-
-        position.x = newValue;
-        mesh.position.x = position.x;
+        entity.getMutableComponent(Position).x = newValue;
     }
     updatePositionY(entity, newValue) {
-        const mesh = entity.getMutableComponent(Mesh).value;
-        const position = entity.getMutableComponent(Position);
-
-        position.y = newValue;
-        mesh.position.y = position.y;
+        entity.getMutableComponent(Position).y = newValue;
     }
     updatePositionZ(entity, newValue) {
-        const mesh = entity.getMutableComponent(Mesh).value;
-        const position = entity.getMutableComponent(Position);
-
-        position.z = newValue;
-        mesh.position.z = position.z;
+        entity.getMutableComponent(Position).z = newValue;
     }
 
     // ロテーションを編集するUIを生成する
@@ -225,25 +243,13 @@ export default class EntityManagementSystem extends System {
 
     // Rotationの変更を反映させる
     updateRotationX(entity, newValue) {
-        const mesh = entity.getMutableComponent(Mesh).value;
-        const rotation = entity.getMutableComponent(Rotation);
-
-        rotation.x = newValue;
-        mesh.rotation.x = rotation.x;
+        entity.getMutableComponent(Rotation).x = newValue;
     }
     updateRotationY(entity, newValue) {
-        const mesh = entity.getMutableComponent(Mesh).value;
-        const rotation = entity.getMutableComponent(Rotation);
-
-        rotation.y = newValue;
-        mesh.rotation.y = rotation.y;
+        entity.getMutableComponent(Rotation).y = newValue;
     }
     updateRotationZ(entity, newValue) {
-        const mesh = entity.getMutableComponent(Mesh).value;
-        const rotation = entity.getMutableComponent(Rotation);
-
-        rotation.z = newValue;
-        mesh.rotation.z = rotation.z;
+        entity.getMutableComponent(Rotation).z = newValue;
     }
 
     // スケールを編集するUIを生成する
@@ -287,28 +293,18 @@ export default class EntityManagementSystem extends System {
     }
 
     // Scaleの変更を反映させる
-    updateScaleX(entity, input) {
-        const mesh = entity.getMutableComponent(Mesh).value;
-        const scale = entity.getMutableComponent(Scale);
-
-        scale.x = input;
-        mesh.scale.x = scale.x;
+    updateScaleX(entity, newValue) {
+        entity.getMutableComponent(Scale).x = newValue;
     }
-    updateScaleY(entity, input) {
-        const mesh = entity.getMutableComponent(Mesh).value;
-        const scale = entity.getMutableComponent(Scale);
-
-        scale.y = input;
-        mesh.scale.y = scale.y;
+    updateScaleY(entity, newValue) {
+        entity.getMutableComponent(Scale).y = newValue;
     }
-    updateScaleZ(entity, input) {
-        const mesh = entity.getMutableComponent(Mesh).value;
-        const scale = entity.getMutableComponent(Scale);
-
-        scale.z = input;
-        mesh.scale.z = scale.z;
+    updateScaleZ(entity, newValue) {
+        entity.getMutableComponent(Scale).z = newValue;
     }
 }
+
+
 
 EntityManagementSystem.queries = {
     entities: {

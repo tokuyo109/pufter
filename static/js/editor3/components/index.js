@@ -5,6 +5,7 @@ export { default as Renderer } from "./Renderer.js"
 
 // Mesh, Group
 export { default as Mesh } from "./Mesh.js";
+export { default as Group } from "./Group.js";
 
 // Transform
 export { default as Position } from "./Position.js";

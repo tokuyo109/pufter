@@ -1,4 +1,5 @@
 // Position、Rotation、Scaleの更新を行う
+// Groupに対しても同じ処理を行いたい。
 import * as THREE from "three";
 import { System } from "ecsy";
 
@@ -17,6 +18,20 @@ export default class TransformSystem extends System {
         // Meshを持つエンティティが追加されたとき
         this.queries.mesh.added.forEach(entity => {
             const mesh = entity.getComponent(Mesh).value;
+
+            if (entity.hasComponent(Position)) {
+                this._setPositionMesh(entity, mesh);
+            }
+            if (entity.hasComponent(Rotation)) {
+                this._setRotationMesh(entity, mesh);
+            }
+            if (entity.hasComponent(Scale)) {
+                this._setScaleMesh(entity, mesh);
+            }
+        })
+
+        this.queries.mesh.changed.forEach(entity => {
+            const mesh = entity.getMutableComponent(Mesh).value;
 
             if (entity.hasComponent(Position)) {
                 this._setPositionMesh(entity, mesh);

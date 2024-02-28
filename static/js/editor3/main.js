@@ -6,7 +6,7 @@ import * as THREE from "three";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import {
     Scene, Camera, Renderer,
-    Mesh,
+    Mesh, Group,
     Position, Rotation, Scale, // Transform
     UIControllable, Visualizer
 } from "./components/index.js";
@@ -21,7 +21,7 @@ import {
     createCube, createSphere, createCone,
     createCylinder, createDodecahedron, createCapsule,
     createTours
-} from "./generateMesh.js";
+} from "./generateObject.js";
 
 // Worldオブジェクトの作成
 const world = new World();
@@ -33,6 +33,7 @@ world
     .registerComponent(Renderer)
 
     .registerComponent(Mesh)
+    .registerComponent(Group)
 
     .registerComponent(Position)
     .registerComponent(Rotation)
@@ -42,6 +43,7 @@ world
     .registerComponent(Visualizer);
 
 // システムの登録
+// 登録の順番で実行される
 world
     .registerSystem(RenderingSystem)
     .registerSystem(TransformSystem)
@@ -108,6 +110,8 @@ const onWindowResize = () => {
 window.addEventListener("resize", onWindowResize, false);
 
 // 利用可能なオブジェクトのリスト
+// MeshとGroupで処理を分けるためにtypeキーを作成した方が良いかもしれない
+// type: "mesh" type: group:みたいな感じ
 const availableObjects = [
     { name: "Cube", createFunction: createCube },
     { name: "Sphere", createFunction: createSphere },
@@ -131,6 +135,7 @@ const addObjectButton = document.querySelector("#addObjectButton");
 addObjectButton.addEventListener("click", () => {
     const selectedObjectName = selectorContainer.value;
 
+    // 選択された要素のエンティティを生成する
     availableObjects.forEach(object => {
         if (object.name === selectedObjectName) {
             const entity = world.createEntity()
@@ -139,6 +144,7 @@ addObjectButton.addEventListener("click", () => {
                 .addComponent(Rotation, { x: Math.random() * 2, y: Math.random() * 2, z: Math.random() * 2 })
                 .addComponent(Scale, { x: 1, y: 1, z: 1 })
                 .addComponent(UIControllable)
+                .addComponent(Visualizer);
             console.log(sceneEntity.getComponent(Scene).scene);
             sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Mesh).value);
         }
