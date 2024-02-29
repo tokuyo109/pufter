@@ -29,9 +29,8 @@ export default class MusicManager {
         this._init();
     }
 
-    // 音源の解析データを提供する
+    // 現在位置の音源データ(要素数1024)を返す
     getFrequencyData() {
-        // 現在位置の音源データ(要素数1024)を返す
         const data = new Uint8Array(this.analyser.frequencyBinCount);
         this.analyser.getByteFrequencyData(data);
         return data;
@@ -123,6 +122,7 @@ export default class MusicManager {
             })
         }
     }
+
 
     // 音源を停止する
     _stop() {

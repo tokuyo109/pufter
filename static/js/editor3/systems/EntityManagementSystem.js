@@ -1,3 +1,5 @@
+import * as THREE from "three";
+
 // ecsyのSystemをインポートする
 import { System } from "ecsy";
 
@@ -6,8 +8,11 @@ import {
     Scene, Renderer,
     Mesh,
     Position, Rotation, Scale,
-    UIControllable
+    UIControllable, Visualizer
 } from "../components/index.js";
+
+// lil-guiをインポートする
+import GUI from "lil-gui";
 
 /*
 this.output.innerHTMLで直接再代入しないでください。
@@ -32,30 +37,6 @@ export default class EntityManagementSystem extends System {
                     { key: "color", type: "color" }
                 ]
             },
-            Position: {
-                label: "Position",
-                fields: [
-                    { key: "positionX", type: "number", step: "0.1" },
-                    { key: "positionY", type: "number", step: "0.1" },
-                    { key: "positionZ", type: "number", step: "0.1" }
-                ]
-            },
-            Rotation: {
-                label: "Rotation",
-                fields: [
-                    { key: "rotationX", type: "number", step: "0.1" },
-                    { key: "rotationY", type: "number", step: "0.1" },
-                    { key: "rotationZ", type: "number", step: "0.1" }
-                ]
-            },
-            Scale: {
-                label: "Scale",
-                fields: [
-                    { key: "scaleX", type: "number", step: "0.1" },
-                    { key: "scaleY", type: "number", step: "0.1" },
-                    { key: "scaleZ", type: "number", step: "0.1" }
-                ]
-            },
             Visualizer: {
                 label: "Visualizer",
                 fields: [
@@ -64,11 +45,22 @@ export default class EntityManagementSystem extends System {
             }
         }
 
+        // lil-guiインスタンスが格納される
+        this.gui = null;
+        // エンティティのリスト
         this.select = document.querySelector("#entitySelector");
+        // GUIの出力先
         this.output = document.querySelector("#UIOutoput");
 
         // セレクトが変更されたときにUIを更新する
         this.select.addEventListener("change", (event) => {
+            // lil-gui処理
+            if (this.gui) {
+                this.gui.destroy();
+                this.gui = null;
+            }
+            this.gui = new GUI();
+
             // 過去のUIを空にする
             this.output.innerHTML = "";
             this.queries.entities.results.forEach(entity => {
@@ -79,6 +71,11 @@ export default class EntityManagementSystem extends System {
                     // エンティティがRendererコンポーネントを持つか
                     if (entity.hasComponent(Renderer)) {
                         this.setRendererUI(entity);
+                    }
+
+                    // エンティティがMeshコンポーネントを持つか
+                    if (entity.hasComponent(Mesh)) {
+                        this.setMeshUI(entity);
                     }
 
                     // // エンティティがSceneコンポーネントを持つか
@@ -142,53 +139,98 @@ export default class EntityManagementSystem extends System {
     setRendererUI(entity) {
         const rendererComponent = entity.getMutableComponent(Renderer);
         console.log(rendererComponent);
-
+        const field = this.UIMetadata.Renderer.fields;
         const label = this.UIMetadata.Renderer.label;
         const labelElement = document.createElement("label");
-        labelElement.setAttribute("for", "color-picker");
-        // labelElement.setAttribute("for", label);
+
+        console.log(label);
+
+        labelElement.setAttribute("for", label);
         labelElement.textContent = label;
 
+        this.output.appendChild(labelElement);
+
+
+        const input = document.createElement("input");
+        input.setAttribute("name", label)
+        input.setAttribute("id", field.key)
+        input.setAttribute("type", field.type)
+        input.value = rendererComponent.clearColor
+
+        //イベントリスナー
+        input.addEventListener("change", (event) => {
+            const newValue = event.target.value;
+            this.updateclearColor(entity, newValue, rendererComponent);
+        });
+        this.output.appendChild(input)
+
+    }
+    updateclearColor(entity, newValue, rendererComponent) {
+        rendererComponent.clearColor = newValue
+    };
+
+    // メッシュを編集するUIを生成する
+    setMeshUI(entity) {
+        const meshComponent = entity.getComponent(Mesh).value;
+
+        // フォルダ作成
+        const meshFolder = this.gui.addFolder("mesh");
+
+
+        // ジオメトリ変更UIの表示
+        const geometryObj = {
+            cube: () => new THREE.BoxGeometry(1, 1, 1),
+            sphere: () => new THREE.SphereGeometry(0.5, 32, 32)
+        }
+
+        meshFolder.add(geometryObj, "cube", geometryObj).onChange((func) => {
+            this.updateGeometry(entity, func);
+        })
+
+        // 色変更UIの表示
+        const color = meshComponent.material.color;
+        const [r, g, b] = color;
+        const colorObj = {
+            color: { r: r, g: g, b: b }
+        }
+
+        meshFolder.addColor(colorObj, "color").onChange((value) => {
+            this.updateMeshColor(entity, value)
+        });
+    }
+
+    // ジオメトリを更新する
+    updateGeometry(entity, func) {
+        entity.getMutableComponent(Mesh).value.geometry = func();
+        // console.log(entity.getMutableComponent(Mesh).value.geometry);
+    }
+
+    // 色を更新する
+    updateMeshColor(entity, value) {
+        const { r, g, b } = value;
+        entity.getMutableComponent(Mesh).value.material.color.set(new THREE.Color(r, g, b));
     }
 
     // ポジションを編集するUIを生成する
     setPositionUI(entity) {
         const { x, y, z } = entity.getComponent(Position);
 
-        const label = this.UIMetadata.Position.label;
-        const labelElement = document.createElement("label");
-        labelElement.setAttribute("for", label);
-        labelElement.textContent = label;
+        const positionFolder = this.gui.addFolder("position");
+        const positionObj = {
+            X: x,
+            Y: y,
+            Z: z
+        }
 
-        this.output.appendChild(labelElement);
-
-        this.UIMetadata.Position.fields.forEach(field => {
-            let value;
-            switch (field.key) {
-                case "positionX": value = x; break;
-                case "positionY": value = y; break;
-                case "positionZ": value = z; break;
-            }
-
-            const input = document.createElement("input");
-            input.setAttribute("name", label);
-            input.setAttribute("id", field.key);
-            input.setAttribute("type", field.type);
-            input.setAttribute("step", field.step);
-            input.value = value;
-
-            // イベントリスナーをここで追加
-            input.addEventListener("change", (event) => {
-                const newValue = parseFloat(event.target.value);
-                switch (event.target.id) {
-                    case "positionX": this.updatePositionX(entity, newValue); break;
-                    case "positionY": this.updatePositionY(entity, newValue); break;
-                    case "positionZ": this.updatePositionZ(entity, newValue); break;
-                }
-            });
-
-            this.output.appendChild(input);
+        positionFolder.add(positionObj, "X", -5, 5).onChange((value) => {
+            this.updatePositionX(entity, value);
         });
+        positionFolder.add(positionObj, "Y", -5, 5).onChange((value) => {
+            this.updatePositionY(entity, value);
+        });
+        positionFolder.add(positionObj, "Z", -5, 5).onChange((value) => {
+            this.updatePositionZ(entity, value);
+        })
     }
 
     updatePositionX(entity, newValue) {
@@ -205,40 +247,22 @@ export default class EntityManagementSystem extends System {
     setRotationUI(entity) {
         const { x, y, z } = entity.getComponent(Rotation);
 
-        const label = this.UIMetadata.Rotation.label;
-        const labelElement = document.createElement("label");
-        labelElement.setAttribute("for", label);
-        labelElement.textContent = label;
+        const rotationFolder = this.gui.addFolder("rotation");
+        const rotationObj = {
+            X: x,
+            Y: y,
+            Z: z
+        }
 
-        this.output.appendChild(labelElement);
-
-        this.UIMetadata.Rotation.fields.forEach(field => {
-            let value;
-            switch (field.key) {
-                case "rotationX": value = x; break;
-                case "rotationY": value = y; break;
-                case "rotationZ": value = z; break;
-            }
-
-            const input = document.createElement("input");
-            input.setAttribute("name", label);
-            input.setAttribute("id", field.key);
-            input.setAttribute("type", field.type);
-            input.setAttribute("step", field.step);
-            input.value = value;
-
-            // イベントリスナーをここで追加
-            input.addEventListener("change", (event) => {
-                const newValue = parseFloat(event.target.value);
-                switch (event.target.id) {
-                    case "rotationX": this.updateRotationX(entity, newValue); break;
-                    case "rotationY": this.updateRotationY(entity, newValue); break;
-                    case "rotationZ": this.updateRotationZ(entity, newValue); break;
-                }
-            });
-
-            this.output.appendChild(input);
+        rotationFolder.add(rotationObj, "X", -5, 5).onChange((value) => {
+            this.updateRotationX(entity, value);
         });
+        rotationFolder.add(rotationObj, "Y", -5, 5).onChange((value) => {
+            this.updateRotationY(entity, value);
+        });
+        rotationFolder.add(rotationObj, "Z", -5, 5).onChange((value) => {
+            this.updateRotationZ(entity, value);
+        })
     }
 
     // Rotationの変更を反映させる
@@ -256,40 +280,22 @@ export default class EntityManagementSystem extends System {
     setScaleUI(entity) {
         const { x, y, z } = entity.getComponent(Scale);
 
-        const label = this.UIMetadata.Scale.label;
-        const labelElement = document.createElement("label");
-        labelElement.setAttribute("for", label);
-        labelElement.textContent = label;
+        const scaleFolder = this.gui.addFolder("scale");
+        const scaleObj = {
+            X: x,
+            Y: y,
+            Z: z
+        }
 
-        this.output.appendChild(labelElement);
-
-        this.UIMetadata.Scale.fields.forEach(field => {
-            let value;
-            switch (field.key) {
-                case "scaleX": value = x; break;
-                case "scaleY": value = y; break;
-                case "scaleZ": value = z; break;
-            }
-
-            const input = document.createElement("input");
-            input.setAttribute("name", label);
-            input.setAttribute("id", field.key);
-            input.setAttribute("type", field.type);
-            input.setAttribute("step", field.step);
-            input.value = value;
-
-            // イベントリスナーをここで追加
-            input.addEventListener("change", (event) => {
-                const newValue = parseFloat(event.target.value);
-                switch (event.target.id) {
-                    case "scaleX": this.updateScaleX(entity, newValue); break;
-                    case "scaleY": this.updateScaleY(entity, newValue); break;
-                    case "scaleZ": this.updateScaleZ(entity, newValue); break;
-                }
-            });
-
-            this.output.appendChild(input);
+        scaleFolder.add(scaleObj, "X", -5, 5).onChange((value) => {
+            this.updateScaleX(entity, value);
         });
+        scaleFolder.add(scaleObj, "Y", -5, 5).onChange((value) => {
+            this.updateScaleY(entity, value);
+        });
+        scaleFolder.add(scaleObj, "Z", -5, 5).onChange((value) => {
+            this.updateScaleZ(entity, value);
+        })
     }
 
     // Scaleの変更を反映させる
@@ -303,8 +309,6 @@ export default class EntityManagementSystem extends System {
         entity.getMutableComponent(Scale).z = newValue;
     }
 }
-
-
 
 EntityManagementSystem.queries = {
     entities: {
