@@ -19,6 +19,7 @@ export default class MusicManager {
         this.currentPosition = 0; // 現在の再生位置
         this.intervalID = null;
         this.isDragging = false; // 再生バーが操作されているか否か
+        this.initialized = false;
 
         this.fileElement = document.querySelector("#musicFile");
         this.volumeElement = document.querySelector("#volumeBar")
@@ -29,8 +30,9 @@ export default class MusicManager {
         this._init();
     }
 
-    // 現在位置の音源データ(要素数1024)を返す
+    // 音源の解析データを提供する
     getFrequencyData() {
+        // 現在位置の音源データ(要素数1024)を返す
         const data = new Uint8Array(this.analyser.frequencyBinCount);
         this.analyser.getByteFrequencyData(data);
         return data;
@@ -38,41 +40,45 @@ export default class MusicManager {
 
     // 初期化処理
     _init() {
-        // ファイルが変更されたとき読み込む
-        this.fileElement.addEventListener("change", (event) => {
-            const file = event.target.files[0];
-            this._load(file);
-        })
+        if (!this.initialized) {
+            // ファイルが変更されたとき読み込む
+            this.fileElement.addEventListener("change", (event) => {
+                const file = event.target.files[0];
+                this._load(file);
+            })
 
-        // 再生ボタンがクリックされたとき再生する
-        this.playButtonElement.addEventListener("click", () => {
-            this._play();
-        })
+            // 再生ボタンがクリックされたとき再生する
+            this.playButtonElement.addEventListener("click", () => {
+                this._play();
+            })
 
-        // 停止ボタンがクリックされたとき停止する
-        this.stopButtonElement.addEventListener("click", () => {
-            this._stop();
-        })
+            // 停止ボタンがクリックされたとき停止する
+            this.stopButtonElement.addEventListener("click", () => {
+                this._stop();
+            })
 
-        // 再生位置が変更されたとき音楽の再生位置を変更する
-        this.positionElement.addEventListener("change", () => {
-            this._changePosition();
-        })
+            // 再生位置が変更されたとき音楽の再生位置を変更する
+            this.positionElement.addEventListener("change", () => {
+                this._changePosition();
+            })
 
-        // マウスダウン時再生バー更新処理を無効にする
-        this.positionElement.addEventListener("mousedown", () => {
-            this.isDragging = true;
-        })
+            // マウスダウン時再生バー更新処理を無効にする
+            this.positionElement.addEventListener("mousedown", () => {
+                this.isDragging = true;
+            })
 
-        // マウスアップ時再生バー更新処理を有効にする
-        this.positionElement.addEventListener("mouseup", () => {
-            this.isDragging = false;
-        })
+            // マウスアップ時再生バー更新処理を有効にする
+            this.positionElement.addEventListener("mouseup", () => {
+                this.isDragging = false;
+            })
 
-        // 音量バーの位置が変更されたとき音量を変更する
-        this.volumeElement.addEventListener("change", () => {
-            this._changeVolume();
-        })
+            // 音量バーの位置が変更されたとき音量を変更する
+            this.volumeElement.addEventListener("change", () => {
+                this._changeVolume();
+            })
+        }
+
+        this.initialized = true;
     }
 
     // 音源を読み込む
@@ -122,7 +128,6 @@ export default class MusicManager {
             })
         }
     }
-
 
     // 音源を停止する
     _stop() {

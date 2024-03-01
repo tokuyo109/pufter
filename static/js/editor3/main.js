@@ -23,6 +23,7 @@ import {
     createTours
 } from "./generateObject.js";
 
+
 // Worldオブジェクトの作成
 const world = new World();
 
@@ -81,6 +82,13 @@ const divisions = 10;
 const gridHelper = new THREE.GridHelper(size, divisions);
 scene.add(gridHelper);
 
+// 光源を作成
+const light = new THREE.DirectionalLight(0xFFFFFF);
+scene.add(light);
+
+const helper = new THREE.DirectionalLightHelper(light, 5);
+scene.add(helper);
+
 // エンティティを作成し、Scene、Camera、Rendererコンポーネントを追加
 const sceneEntity = world.createEntity()
     .addComponent(Scene, { scene: scene, fog: new THREE.Fog(0x000000, 50, 2000) })
@@ -92,22 +100,6 @@ const sceneEntity = world.createEntity()
         size: { width: window.innerWidth, height: window.innerHeight }
     })
     .addComponent(UIControllable);
-
-// レスポンシブ処理
-const onWindowResize = () => {
-    const cameraComponent = sceneEntity.getMutableComponent(Camera);
-    const rendererComponent = sceneEntity.getMutableComponent(Renderer);
-
-    // カメラのアスペクト比を更新
-    cameraComponent.aspect = window.innerWidth / window.innerHeight;
-
-    // レンダラーのサイズを更新
-    rendererComponent.size = {
-        width: window.innerWidth,
-        height: window.innerHeight
-    };
-}
-window.addEventListener("resize", onWindowResize, false);
 
 // 利用可能なオブジェクトのリスト
 // MeshとGroupで処理を分けるためにtypeキーを作成した方が良いかもしれない
@@ -151,9 +143,77 @@ addObjectButton.addEventListener("click", () => {
     })
 })
 
-// world.createEntity()
-//     .addComponent(Visualizer);
-const musicManager = new MusicManager();
+// 利用可能なオブジェクトのリスト
+const newAvaiableObjects = [
+    { name: "Mesh", type: "Mesh", createFunction: createCube },
+    { name: "Floor", type: "Floor", createFunction: null },
+    { name: "Group", type: "Group", createFunction: null },
+    { name: "Path", type: "Path", createFunction: null },
+    { name: "Light", type: "Light", createFunction: null },
+]
+
+// 利用可能なオブジェクトを選択可能にする
+const newSelectorContainer = document.querySelector("#newObjectSelector");
+newAvaiableObjects.forEach(object => {
+    const option = document.createElement("option");
+    option.text = object.name;
+    option.value = object.name;
+    newSelectorContainer.appendChild(option);
+})
+
+// ボタン押下時にエンティティをワールドに追加する
+const newAddObjectButton = document.querySelector("#newAddObjectButton");
+newAddObjectButton.addEventListener("click", () => {
+    console.log("click");
+    // 選択しているオブジェクトを取得
+    const selectedObjectName = newSelectorContainer.value;
+
+    newAvaiableObjects.forEach(object => {
+        if (object.name === selectedObjectName) {
+            switch (object.type) {
+                case "Mesh": addMeshEntity(object.createFunction); break;
+                case "Group": addGroupEntity(object.createFunction); break;
+                case "Floor": addFloorEntity(object.createFunction); break;
+                case "Path": addPathEntity(object.createFunction); break;
+                case "Light": addLightEntity(object.createFunction); break;
+            }
+        }
+    })
+})
+
+const addMeshEntity = (func) => {
+    const entity = world.createEntity()
+        .addComponent(Mesh, { value: func() })
+        .addComponent(Position, { x: (Math.random() * 10) - 5, y: Math.random() * 5, z: (Math.random() * 10) - 5 })
+        .addComponent(Rotation, { x: Math.random() * 2, y: Math.random() * 2, z: Math.random() * 2 })
+        .addComponent(Scale, { x: 1, y: 1, z: 1 })
+        .addComponent(UIControllable)
+        .addComponent(Visualizer)
+    sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Mesh).value);
+}
+
+const addGroupEntity = (func) => {
+    const entity = world.createEntity()
+        .addComponent(Group, { value: new THREE.Group() })
+        .addComponent(Position, { x: (Math.random() * 10) - 5, y: Math.random() * 5, z: (Math.random() * 10) - 5 })
+        .addComponent(Rotation, { x: Math.random() * 2, y: Math.random() * 2, z: Math.random() * 2 })
+        .addComponent(Scale, { x: 1, y: 1, z: 1 })
+        .addComponent(UIControllable)
+    sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Group).value);
+}
+
+const addFloorEntity = (func) => {
+
+}
+
+const addPathEntity = (func) => {
+
+}
+
+const addLightEntity = (func) => {
+
+}
+
 
 let lastTime = performance.now();
 const run = () => {

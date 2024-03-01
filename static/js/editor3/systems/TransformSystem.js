@@ -1,106 +1,75 @@
 // Position、Rotation、Scaleの更新を行う
 // Groupに対しても同じ処理を行いたい。
-import * as THREE from "three";
 import { System } from "ecsy";
 
 import {
-    Mesh,
+    Mesh, Group,
     Position, Rotation, Scale
 } from "../components/index.js";
 
 export default class TransformSystem extends System {
-    // システムの初期化
-    init() {
-    }
-
-    // システムの実行
     execute(delta, now) {
-        // Meshを持つエンティティが追加されたとき
         this.queries.mesh.added.forEach(entity => {
-            const mesh = entity.getComponent(Mesh).value;
+            let componentRef = null;
 
-            if (entity.hasComponent(Position)) {
-                this._setPositionMesh(entity, mesh);
+            if (entity.hasComponent(Mesh)) {
+                componentRef = entity.getMutableComponent(Mesh).value;
+            } else if (entity.hasComponent(Group)) {
+                componentRef = entity.getMutableComponent(Group).value;
             }
-            if (entity.hasComponent(Rotation)) {
-                this._setRotationMesh(entity, mesh);
-            }
-            if (entity.hasComponent(Scale)) {
-                this._setScaleMesh(entity, mesh);
-            }
-        })
+
+            this._updateTransform(entity, componentRef);
+        });
 
         this.queries.mesh.changed.forEach(entity => {
-            const mesh = entity.getMutableComponent(Mesh).value;
+            let componentRef = null;
 
+            if (entity.hasComponent(Mesh)) {
+                componentRef = entity.getMutableComponent(Mesh).value;
+            } else if (entity.hasComponent(Group)) {
+                componentRef = entity.getMutableComponent(Group).value;
+            }
+
+            this._updateTransform(entity, componentRef);
+        });
+    }
+
+    _updateTransform(entity, componentRef) {
+        if (componentRef) {
             if (entity.hasComponent(Position)) {
-                this._setPositionMesh(entity, mesh);
+                this._setPositionComponent(entity, componentRef);
             }
             if (entity.hasComponent(Rotation)) {
-                this._setRotationMesh(entity, mesh);
+                this._setRotationComponent(entity, componentRef);
             }
             if (entity.hasComponent(Scale)) {
-                this._setScaleMesh(entity, mesh);
+                this._setScaleComponent(entity, componentRef);
             }
-        })
-
-        // Meshを持つエンティティが更新されたとき
+        }
     }
 
-    // MeshにPositionをセットする
-    _setPositionMesh(entity, mesh) {
+    _setPositionComponent(entity, componentRef) {
         const { x, y, z } = entity.getComponent(Position);
-        mesh.position.x = x;
-        mesh.position.y = y;
-        mesh.position.z = z;
+        componentRef.position.set(x, y, z);
     }
 
-    // MeshにRotationをセットする
-    _setRotationMesh(entity, mesh) {
+    _setRotationComponent(entity, componentRef) {
         const { x, y, z } = entity.getComponent(Rotation);
-        mesh.rotation.x = x;
-        mesh.rotation.y = y;
-        mesh.rotation.z = z;
+        componentRef.rotation.set(x, y, z);
     }
 
-    // MeshにScaleをセットする
-    _setScaleMesh(entity, mesh) {
+    _setScaleComponent(entity, componentRef) {
         const { x, y, z } = entity.getComponent(Scale);
-        mesh.scale.x = x;
-        mesh.scale.y = y;
-        mesh.scale.z = z;
-    }
-
-    // GroupにPositionをセットする
-    _setPositionGroup(entity, group) {
-
-    }
-
-    // GroupにRotationをセットする
-    _setRotationGroup(entity, group) {
-
-    }
-
-    // GroupにRotationをセットする
-    _setScaleGroup(entity, group) {
-
+        componentRef.scale.set(x, y, z);
     }
 }
 
-// エンティティの追加とコンポーネントの変化を検知
 TransformSystem.queries = {
     mesh: {
-        components: [Mesh, Position, Rotation, Scale],
+        components: [Position, Rotation, Scale],
         listen: {
             added: true,
             changed: [Position, Rotation, Scale]
         }
-    },
-    // group: {
-    //     components: [Group, Position, Rotation, Scale],
-    //     listen: {
-    //         added: true,
-    //         changed: [Position, Rotation, Scale]
-    //     }
-    // }
+    }
 }

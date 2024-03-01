@@ -1,3 +1,5 @@
+// generateObjects.js
+// オブジェクトを生成する関数群
 import * as THREE from "three";
 
 // 立方体を生成する関数
