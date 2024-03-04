@@ -5,5 +5,4 @@ export { default as TransformSystem } from "./TransformSystem.js";
 
 export { default as EntityManagementSystem } from "./EntityManagementSystem.js";
 
-// ビジュアライザーシステム
-export { default as VisualizerSystem } from "./VisualizerSystem.js";
+export { default as AnimationSystem } from "./AnimationSystem.js";

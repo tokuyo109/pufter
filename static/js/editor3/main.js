@@ -6,21 +6,24 @@ import * as THREE from "three";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import {
     Scene, Camera, Renderer,
+    Light,
     Mesh, Group,
     Position, Rotation, Scale, // Transform
-    UIControllable, Visualizer
+    UIControllable,
+    Visualizer, RotationAnimation, CircleSpectrum
 } from "./components/index.js";
 import {
     RenderingSystem,
     TransformSystem,
     EntityManagementSystem,
-    VisualizerSystem
+    AnimationSystem
 } from "./systems/index.js";
 import MusicManager from "./musicManager.js";
 import {
     createCube, createSphere, createCone,
     createCylinder, createDodecahedron, createCapsule,
-    createTours
+    createTours, createFloor, createGroup, createCircleSpectrum,
+    createLight
 } from "./generateObject.js";
 
 
@@ -33,6 +36,8 @@ world
     .registerComponent(Camera)
     .registerComponent(Renderer)
 
+    .registerComponent(Light)
+
     .registerComponent(Mesh)
     .registerComponent(Group)
 
@@ -41,7 +46,10 @@ world
     .registerComponent(Scale)
 
     .registerComponent(UIControllable)
-    .registerComponent(Visualizer);
+    .registerComponent(Visualizer)
+    .registerComponent(RotationAnimation)
+    .registerComponent(CircleSpectrum);
+
 
 // システムの登録
 // 登録の順番で実行される
@@ -49,7 +57,7 @@ world
     .registerSystem(RenderingSystem)
     .registerSystem(TransformSystem)
     .registerSystem(EntityManagementSystem)
-    .registerSystem(VisualizerSystem);
+    .registerSystem(AnimationSystem);
 
 // Sceneオブジェクトの作成
 const scene = new THREE.Scene();
@@ -64,7 +72,7 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.z = 5;
 
 // Rendererオブジェクトの作成
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.querySelector("#webGL").appendChild(renderer.domElement);
 
@@ -101,9 +109,8 @@ const sceneEntity = world.createEntity()
     })
     .addComponent(UIControllable);
 
+// 旧バージョン
 // 利用可能なオブジェクトのリスト
-// MeshとGroupで処理を分けるためにtypeキーを作成した方が良いかもしれない
-// type: "mesh" type: group:みたいな感じ
 const availableObjects = [
     { name: "Cube", createFunction: createCube },
     { name: "Sphere", createFunction: createSphere },
@@ -114,42 +121,44 @@ const availableObjects = [
     { name: "Tours", createFunction: createTours },
 ]
 
-// UIを追加
-const selectorContainer = document.querySelector("#objectSelector");
-availableObjects.forEach(object => {
-    const option = document.createElement("option");
-    option.text = object.name;
-    option.value = object.name;
-    selectorContainer.appendChild(option);
-});
+// // UIを追加
+// const selectorContainer = document.querySelector("#objectSelector");
+// availableObjects.forEach(object => {
+//     const option = document.createElement("option");
+//     option.text = object.name;
+//     option.value = object.name;
+//     selectorContainer.appendChild(option);
+// });
 
-const addObjectButton = document.querySelector("#addObjectButton");
-addObjectButton.addEventListener("click", () => {
-    const selectedObjectName = selectorContainer.value;
+// const addObjectButton = document.querySelector("#addObjectButton");
+// addObjectButton.addEventListener("click", () => {
+//     const selectedObjectName = selectorContainer.value;
 
-    // 選択された要素のエンティティを生成する
-    availableObjects.forEach(object => {
-        if (object.name === selectedObjectName) {
-            const entity = world.createEntity()
-                .addComponent(Mesh, { value: object.createFunction() })
-                .addComponent(Position, { x: (Math.random() * 10) - 5, y: Math.random() * 5, z: (Math.random() * 10) - 5 })
-                .addComponent(Rotation, { x: Math.random() * 2, y: Math.random() * 2, z: Math.random() * 2 })
-                .addComponent(Scale, { x: 1, y: 1, z: 1 })
-                .addComponent(UIControllable)
-                .addComponent(Visualizer);
-            console.log(sceneEntity.getComponent(Scene).scene);
-            sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Mesh).value);
-        }
-    })
-})
+//     // 選択された要素のエンティティを生成する
+//     availableObjects.forEach(object => {
+//         if (object.name === selectedObjectName) {
+//             const entity = world.createEntity()
+//                 .addComponent(Mesh, { value: object.createFunction() })
+//                 .addComponent(Position, { x: (Math.random() * 10) - 5, y: Math.random() * 5, z: (Math.random() * 10) - 5 })
+//                 .addComponent(Rotation, { x: Math.random() * 2, y: Math.random() * 2, z: Math.random() * 2 })
+//                 .addComponent(Scale, { x: 1, y: 1, z: 1 })
+//                 .addComponent(UIControllable)
+//                 .addComponent(Visualizer);
+//             console.log(sceneEntity.getComponent(Scene).scene);
+//             sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Mesh).value);
+//         }
+//     })
+// })
 
 // 利用可能なオブジェクトのリスト
+// createFunctionにはgenerateObject.jsからエクスポートした関数を設定する
 const newAvaiableObjects = [
     { name: "Mesh", type: "Mesh", createFunction: createCube },
-    { name: "Floor", type: "Floor", createFunction: null },
-    { name: "Group", type: "Group", createFunction: null },
+    { name: "Floor", type: "Floor", createFunction: createFloor },
+    { name: "Group", type: "Group", createFunction: createGroup },
+    { name: "CircleSpectrum", type: "Group", createFunction: createCircleSpectrum },
     { name: "Path", type: "Path", createFunction: null },
-    { name: "Light", type: "Light", createFunction: null },
+    { name: "Light", type: "Light", createFunction: createLight },
 ]
 
 // 利用可能なオブジェクトを選択可能にする
@@ -171,19 +180,20 @@ newAddObjectButton.addEventListener("click", () => {
     newAvaiableObjects.forEach(object => {
         if (object.name === selectedObjectName) {
             switch (object.type) {
-                case "Mesh": addMeshEntity(object.createFunction); break;
-                case "Group": addGroupEntity(object.createFunction); break;
-                case "Floor": addFloorEntity(object.createFunction); break;
-                case "Path": addPathEntity(object.createFunction); break;
-                case "Light": addLightEntity(object.createFunction); break;
+                case "Mesh": addMeshEntity(object); break;
+                case "Group": addGroupEntity(object); break;
+                case "Floor": addFloorEntity(object); break;
+                case "Path": addPathEntity(object); break;
+                case "Light": addLightEntity(object); break;
             }
         }
     })
 })
 
-const addMeshEntity = (func) => {
+// メッシュをワールドに追加する
+const addMeshEntity = (object) => {
     const entity = world.createEntity()
-        .addComponent(Mesh, { value: func() })
+        .addComponent(Mesh, { value: object.createFunction() })
         .addComponent(Position, { x: (Math.random() * 10) - 5, y: Math.random() * 5, z: (Math.random() * 10) - 5 })
         .addComponent(Rotation, { x: Math.random() * 2, y: Math.random() * 2, z: Math.random() * 2 })
         .addComponent(Scale, { x: 1, y: 1, z: 1 })
@@ -192,26 +202,57 @@ const addMeshEntity = (func) => {
     sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Mesh).value);
 }
 
-const addGroupEntity = (func) => {
+// グループをワールドに追加する
+const addGroupEntity = (object) => {
     const entity = world.createEntity()
-        .addComponent(Group, { value: new THREE.Group() })
+        .addComponent(Group, { value: object.createFunction() })
         .addComponent(Position, { x: (Math.random() * 10) - 5, y: Math.random() * 5, z: (Math.random() * 10) - 5 })
         .addComponent(Rotation, { x: Math.random() * 2, y: Math.random() * 2, z: Math.random() * 2 })
         .addComponent(Scale, { x: 1, y: 1, z: 1 })
         .addComponent(UIControllable)
+
+    // 円状スペクトラムの場合
+    if (object.name === "CircleSpectrum") {
+        entity
+            .addComponent(CircleSpectrum)
+            .removeComponent(Position)
+            .removeComponent(Scale)
+            .addComponent(Position, { x: 0, y: 0, z: 0 })
+            .addComponent(Scale, { x: 3, y: 3, z: 3 })
+            .addComponent(RotationAnimation, { speedX: 0.001, speedY: 0.001, speedZ: 0.001 });
+    }
     sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Group).value);
 }
 
-const addFloorEntity = (func) => {
+// 床をワールドに追加する
+const addFloorEntity = (object) => {
+    const entity = world.createEntity()
+        .addComponent(Mesh, { value: object.createFunction() })
+        .addComponent(Position, { x: 0, y: 0.1, z: 0 })
+        .addComponent(Rotation, { x: -1.57, y: 0, z: 0 })
+        .addComponent(Scale, { x: 100, y: 100, z: 1 })
+        .addComponent(UIControllable)
+    sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Mesh).value);
+    console.log(entity);
+}
+
+// パスをワールドに追加する
+const addPathEntity = (object) => {
 
 }
 
-const addPathEntity = (func) => {
-
-}
-
-const addLightEntity = (func) => {
-
+// ライトをワールドに追加する
+const addLightEntity = (object) => {
+    // Component関連のメソッド : https://ecsyjs.github.io/ecsy/docs/#/manual/Architecture?id=components
+    // newAvaiableObjectsのcreateFunctionにライトを生成する関数を設定する必要がある
+    console.log("LightClick");
+    const entity = world.createEntity()
+        .addComponent(Light, { value: object.createFunction() })
+        .addComponent(Position, { x: 0, y: 5, z: 0 })
+        .addComponent(Rotation, { x: Math.PI / 2, y: 0, z: 0 })
+        .addComponent(Scale, { x: 1, y: 1, z: 1 })
+        .addComponent(UIControllable)
+    sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Light).value);
 }
 
 

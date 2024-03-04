@@ -3,6 +3,9 @@ export { default as Scene } from "./Scene.js";
 export { default as Camera } from "./Camera.js"
 export { default as Renderer } from "./Renderer.js"
 
+// Light
+export { default as Light } from "./Light.js";
+
 // Mesh, Group
 export { default as Mesh } from "./Mesh.js";
 export { default as Group } from "./Group.js";
@@ -15,3 +18,7 @@ export { default as Scale } from "./Scale.js";
 // Marker
 export { default as UIControllable } from "./UIControllable.js";
 export { default as Visualizer } from "./Visualizer.js";
+
+// Visualizer
+export { default as RotationAnimation } from "./RotationAnimation.js";
+export { default as CircleSpectrum } from "./CircleSpectrum.js";

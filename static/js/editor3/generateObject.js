@@ -2,6 +2,7 @@
 // オブジェクトを生成する関数群
 import * as THREE from "three";
 
+// メッシュ
 // 立方体を生成する関数
 export const createCube = () => {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -49,4 +50,69 @@ export const createTours = () => {
     const geometry = new THREE.TorusGeometry(0.5, 0.2, 64, 64, 6.3);
     const material = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff, wireframe: true });
     return new THREE.Mesh(geometry, material);
+}
+
+// 床を生成する関数
+export const createFloor = () => {
+    // const geometry = new THREE.PlaneGeometry()
+    // const geometry = new THREE.PlaneGeometry(10, 10, 10, 10);
+    const geometry = new THREE.PlaneGeometry(1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false });
+    return new THREE.Mesh(geometry, material)
+}
+
+// グループ
+// 空のグループを生成する関数
+export const createGroup = () => {
+    return new THREE.Group();
+}
+
+// 円のスペクトラムを表示する
+export const createCircleSpectrum = () => {
+    const group = new THREE.Group();
+    group.position.y = 0;
+    group.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
+    const count = 100;
+
+    for (let i = 0; i < count; i++) {
+
+        if (i % 2) {
+            const angle = i / count * Math.PI * 2;
+            const radius = 1;
+            const colors = [];
+            const color1 = new THREE.Color(0x7777ff);
+            const color2 = new THREE.Color(0x8888ff);
+
+            const geometry = new THREE.BoxGeometry(0.1, 0.5, 0.1);
+            geometry.translate(0, -0.25, 0);
+
+            for (let i = 0; i < geometry.attributes.position.count; i++) {
+                colors.push(...(i % 2 === 0) ? [color1.r, color1.g, color1.b] : [color2.r, color2.g, color2.b])
+            }
+
+            geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+
+            const material = new THREE.MeshBasicMaterial({ vertexColors: true, wireframe: true });
+            const mesh = new THREE.Mesh(geometry, material);
+
+
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            const z = Math.cos(angle) * radius;
+            mesh.position.set(x, y, z);
+
+            mesh.rotation.z = angle + Math.PI / 2;
+
+            group.add(mesh);
+        }
+    }
+
+    return group;
+}
+
+// ライト
+// THREE.Lightを返す関数
+export const createLight = () => {
+    const light = new THREE.AmbientLight(0x404040); // soft white light
+    return light;
 }
