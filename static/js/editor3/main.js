@@ -94,8 +94,8 @@ scene.add(gridHelper);
 const light = new THREE.DirectionalLight(0xFFFFFF);
 scene.add(light);
 
-const helper = new THREE.DirectionalLightHelper(light, 5);
-scene.add(helper);
+// const helper = new THREE.DirectionalLightHelper(light, 5);
+// scene.add(helper);
 
 // エンティティを作成し、Scene、Camera、Rendererコンポーネントを追加
 const sceneEntity = world.createEntity()

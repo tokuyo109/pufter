@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+ログインページ
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index/style.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<h1>ようこそ{{result.mail}}さん！</h1>
+<a href="/share">共有ページへ</a>
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

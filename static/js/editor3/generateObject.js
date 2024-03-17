@@ -54,10 +54,8 @@ export const createTours = () => {
 
 // 床を生成する関数
 export const createFloor = () => {
-    // const geometry = new THREE.PlaneGeometry()
-    // const geometry = new THREE.PlaneGeometry(10, 10, 10, 10);
     const geometry = new THREE.PlaneGeometry(1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false });
+    const material = new THREE.MeshPhongMaterial({ color: 0x808080, wireframe: false });
     return new THREE.Mesh(geometry, material)
 }
 
@@ -113,6 +111,9 @@ export const createCircleSpectrum = () => {
 // ライト
 // THREE.Lightを返す関数
 export const createLight = () => {
+    const lightGroup = new THREE.Group();
     const light = new THREE.AmbientLight(0x404040); // soft white light
-    return light;
+    lightGroup.add(light);
+    return lightGroup;
+    // return light;
 }

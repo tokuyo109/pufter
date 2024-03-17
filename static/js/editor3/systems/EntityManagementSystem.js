@@ -4,6 +4,9 @@ import * as THREE from "three";
 // ecsyのSystemをインポートする
 import { System } from "ecsy";
 
+// RectAreaLightの視覚化
+import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
+
 // ecsyのComponentをインポートする
 import {
     Scene, Camera, Renderer,
@@ -53,7 +56,9 @@ export default class EntityManagementSystem extends System {
                     }
 
                     // エンティティがLightコンポーネントを持つか
-
+                    if (entity.hasComponent(Light)) {
+                        this.setLightUI(entity);
+                    }
 
                     // エンティティがMeshコンポーネントを持つか
                     if (entity.hasComponent(Mesh)) {
@@ -149,9 +154,85 @@ export default class EntityManagementSystem extends System {
             .onChange(newValue => entity.getMutableComponent(Renderer).clearColor = newValue);
     }
 
+    // ライトを編集するUIを生成する
+    setLightUI(entity) {
+        const lightGroup = entity.getMutableComponent(Light).value;
+        const lightFolder = this.gui.addFolder("light");
+        let helperFolder = null;
+        let currentHelper = null;
+
+        // ライト変更UIの表示
+        const lightObj = {
+            ambient: () => new THREE.AmbientLight(0x404040),
+            directional: () => new THREE.DirectionalLight(0xffffff, 0.5),
+            hemisphere: () => new THREE.HemisphereLight(0xffffbb, 0x080820, 1),
+            point: () => new THREE.PointLight(0xff0000, 1, 100),
+            rect: () => new THREE.RectAreaLight(0xffffff, 1, 10, 10),
+            spot: () => new THREE.SpotLight(0xffffff)
+        }
+
+        lightFolder.add(lightObj, "ambient", lightObj).name("type").onChange((func) => {
+            // 既存のヘルパーを削除
+            if (currentHelper) {
+                lightGroup.remove(currentHelper);
+                currentHelper = null;
+            }
+
+            // 既存のヘルパーフォルダを削除
+            if (helperFolder) {
+                helperFolder.destroy();
+                helperFolder = null;
+            }
+
+            // ライトの型を変更する
+            const newLight = func();
+            lightGroup.children[0] = newLight;
+
+            // 型に対応するヘルパーを設定する
+            const lightType = newLight.type;
+            switch (lightType) {
+                case "DirectionalLight":
+                    currentHelper = new THREE.DirectionalLightHelper(newLight, 5);
+                    break;
+                case "HemisphereLight":
+                    currentHelper = new THREE.HemisphereLightHelper(newLight, 5);
+                    break;
+                // 他のヘルパーの追加処理
+                case "PointLight":
+                    currentHelper = new THREE.PointLightHelper(newLight, 5);
+                    break;
+                case "SpotLight":
+                    currentHelper = new THREE.SpotLightHelper(newLight, 5);
+                    break;
+                case "RectAreaLight":
+                    currentHelper = new RectAreaLightHelper(newLight, 5);
+                    break;
+            }
+
+            // ヘルパーが存在する場合の処理
+            if (currentHelper) {
+                lightGroup.add(currentHelper);
+                const visible = currentHelper.visible;
+                // ヘルパーの表示・非表示を切り替えるUI
+                helperFolder = lightFolder.addFolder("helper");
+                helperFolder.add({ helper: visible }, "helper").onChange(boolean => {
+                    currentHelper.visible = boolean;
+                })
+            }
+        })
+    }
+
     // メッシュを編集するUIを生成する
     setMeshUI(entity) {
         const meshComponent = entity.getComponent(Mesh).value;
+        // Sceneに追加することができるか試す
+        // const testGeometry = new THREE.BoxGeometry(1, 1, 1);
+        // const testMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        // const testMesh = new THREE.Mesh(testGeometry, testMaterial);
+        // testMesh.position.set(3, 3, 3);
+        // const parentScene = meshComponent.parent;
+        // console.log(parentScene);
+        // parentScene.add(testMesh);
 
         // フォルダ作成
         const meshFolder = this.gui.addFolder("mesh");
