@@ -1,9 +1,9 @@
-// Position、Rotation、Scaleの更新を行う
-// Groupに対しても同じ処理を行いたい。
+// Object3Dを基底とする一部のオブジェクトの位置、回転、サイズを更新する
+// Mesh、Group、Light
 import { System } from "ecsy";
 
 import {
-    Mesh, Group,
+    Mesh, Group, Light,
     Position, Rotation, Scale
 } from "../components/index.js";
 

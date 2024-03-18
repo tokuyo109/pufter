@@ -201,11 +201,11 @@ export default class EntityManagementSystem extends System {
                 case "PointLight":
                     currentHelper = new THREE.PointLightHelper(newLight, 5);
                     break;
-                case "SpotLight":
-                    currentHelper = new THREE.SpotLightHelper(newLight, 5);
-                    break;
                 case "RectAreaLight":
                     currentHelper = new RectAreaLightHelper(newLight, 5);
+                    break;
+                case "SpotLight":
+                    currentHelper = new THREE.SpotLightHelper(newLight, 5);
                     break;
             }
 

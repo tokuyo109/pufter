@@ -111,15 +111,15 @@ const sceneEntity = world.createEntity()
 
 // 旧バージョン
 // 利用可能なオブジェクトのリスト
-const availableObjects = [
-    { name: "Cube", createFunction: createCube },
-    { name: "Sphere", createFunction: createSphere },
-    { name: "Cone", createFunction: createCone },
-    { name: "Cylinder", createFunction: createCylinder },
-    { name: "Dodecahedron", createFunction: createDodecahedron },
-    { name: "Capsule", createFunction: createCapsule },
-    { name: "Tours", createFunction: createTours },
-]
+// const availableObjects = [
+//     { name: "Cube", createFunction: createCube },
+//     { name: "Sphere", createFunction: createSphere },
+//     { name: "Cone", createFunction: createCone },
+//     { name: "Cylinder", createFunction: createCylinder },
+//     { name: "Dodecahedron", createFunction: createDodecahedron },
+//     { name: "Capsule", createFunction: createCapsule },
+//     { name: "Tours", createFunction: createTours },
+// ]
 
 // // UIを追加
 // const selectorContainer = document.querySelector("#objectSelector");

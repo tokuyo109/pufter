@@ -1,35 +1,42 @@
-# ログイン入力チェックページ
-from flask import render_template, Blueprint, request
+from flask import render_template, Blueprint, request, jsonify
+import sqlite3
+import secrets
 
+# Blueprintを作成
 bp = Blueprint("loginCheck", __name__)
+tokens = {}  # ユーザーIDとトークンのマッピングを保持する変数
 
 @bp.route("/loginCheck", methods=["POST"])
 def loginCheck():
-    # 変数
-    tbl={
+    # それぞれの変数
+    tbl ={
         "mail":"メールアドレス",
         "pas":"パスワード"
     }
-    err={}
-    # データの受信
-    result = request.form
-    # 空白チェック
-    err_flg = 0
-    for key, value in result.items():
-        if not value:
-            err[key] = tbl[key] + "が入力されていません。"
-            err_flg = 1
-        else:
-            err[key] = ""
-            # セッションとして格納
-            # session[key] = value
+    # エラーメッセージ格納テーブル
+    err = {}
 
-    # エラー判定
-    if err_flg != 0:
-        return render_template('entry.html',result=result, err=err)
-    # 会員判定
-    # if result['mail'] != "" or result['pass'] != "":
-        # err = {
-        #     "msg":"メールアドレスまたはパスワードが一致しません"
-        # }
-    return render_template('loginCheck.html',result=result, err=err)
+    # フォームから送信されたデータを取得
+    result = request.form
+    mail = result['mail']
+    password = result['pas']
+
+    # データベースからメールアドレスとパスワードのチェック
+    conn = sqlite3.connect('test.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM users WHERE email = ? AND password = ?", (mail, password))
+    user = c.fetchone()
+    conn.close()
+
+    # ユーザーが存在しないか、パスワードが一致しない場合はログイン失敗
+    if user is None:
+        return jsonify({'error': 'メールアドレスまたはパスワードが正しくありません。'}), 401
+
+    # ログイン成功
+    # トークンを生成して返す
+    token = secrets.token_urlsafe(16)
+    tokens[token] = user[0]  # ユーザーIDをトークンに関連付ける
+
+    # ログイン成功時にテンプレートをレンダリングしてHTMLを返す
+    return render_template('loginCheck.html', mail=mail)
+
