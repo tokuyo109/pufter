@@ -4,7 +4,7 @@ import {
     Mesh, Group,
     Position, Rotation, Scale,
     Visualizer, RotationAnimation, CircleSpectrum
-} from "../components/index.js";
+} from "../components/components.js";
 import MusicManager from "../musicManager.js";
 
 export default class AnimationSystem extends System {

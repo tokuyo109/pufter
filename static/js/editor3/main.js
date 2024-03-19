@@ -11,14 +11,13 @@ import {
     Position, Rotation, Scale, // Transform
     UIControllable,
     Visualizer, RotationAnimation, CircleSpectrum
-} from "./components/index.js";
+} from "./components/components.js";
 import {
     RenderingSystem,
     TransformSystem,
-    EntityManagementSystem,
+    UISystem,
     AnimationSystem
 } from "./systems/index.js";
-import MusicManager from "./musicManager.js";
 import {
     createCube, createSphere, createCone,
     createCylinder, createDodecahedron, createCapsule,
@@ -56,7 +55,7 @@ world
 world
     .registerSystem(RenderingSystem)
     .registerSystem(TransformSystem)
-    .registerSystem(EntityManagementSystem)
+    .registerSystem(UISystem)
     .registerSystem(AnimationSystem);
 
 // Sceneオブジェクトの作成
@@ -229,7 +228,7 @@ const addFloorEntity = (object) => {
     const entity = world.createEntity()
         .addComponent(Mesh, { value: object.createFunction() })
         .addComponent(Position, { x: 0, y: 0.1, z: 0 })
-        .addComponent(Rotation, { x: -1.57, y: 0, z: 0 })
+        .addComponent(Rotation, { x: Math.PI / 2 * -1, y: 0, z: 0 })
         .addComponent(Scale, { x: 100, y: 100, z: 1 })
         .addComponent(UIControllable)
     sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Mesh).value);

@@ -1,9 +1,11 @@
 // シーン、カメラ、レンダラーを描画、更新するシステム
 import { System } from "ecsy";
 
-import Scene from "./../components/Scene.js"
-import Camera from "./../components/Camera.js"
-import Renderer from "./../components/Renderer.js"
+// import Scene from "./../components/Scene.js"
+// import Camera from "./../components/Camera.js"
+// import Renderer from "./../components/Renderer.js"
+
+import { Scene, Camera, Renderer } from "../components/components.js";
 
 export default class RenderingSystem extends System {
     // システムの初期化

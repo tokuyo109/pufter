@@ -15,12 +15,12 @@ import {
     Position, Rotation, Scale,
     UIControllable, Visualizer, CircleSpectrum,
     RotationAnimation
-} from "../components/index.js";
+} from "../components/components.js";
 
 // lil-guiをインポートする
 import GUI from "lil-gui";
 
-export default class EntityManagementSystem extends System {
+export default class UISystem extends System {
     init() {
         // lil-guiインスタンスが格納される
         this.gui = null;
@@ -160,6 +160,7 @@ export default class EntityManagementSystem extends System {
         const lightFolder = this.gui.addFolder("light");
         let helperFolder = null;
         let currentHelper = null;
+        let intensityController = null;
 
         // ライト変更UIの表示
         const lightObj = {
@@ -208,6 +209,17 @@ export default class EntityManagementSystem extends System {
                     currentHelper = new THREE.SpotLightHelper(newLight, 5);
                     break;
             }
+
+            // 既存のintensityを削除
+            if (intensityController) {
+                intensityController.destroy();
+            }
+            //! Lightを編集するとき初手出てこない
+            // 明るさを変更できるUI
+            intensityController = lightFolder.add({ intensity: newLight.intensity }, 'intensity', 0, 2).name('明るさ');
+            intensityController.onChange(value => {
+                updateIntensity(value);
+            });
 
             // ヘルパーが存在する場合の処理
             if (currentHelper) {
@@ -390,7 +402,7 @@ export default class EntityManagementSystem extends System {
 }
 
 // UIControllableが付与されているエンティティのみ処理する
-EntityManagementSystem.queries = {
+UISystem.queries = {
     entities: {
         components: [UIControllable],
         listen: {

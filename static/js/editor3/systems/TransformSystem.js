@@ -5,7 +5,7 @@ import { System } from "ecsy";
 import {
     Mesh, Group, Light,
     Position, Rotation, Scale
-} from "../components/index.js";
+} from "../components/components.js";
 
 export default class TransformSystem extends System {
     execute(delta, now) {
