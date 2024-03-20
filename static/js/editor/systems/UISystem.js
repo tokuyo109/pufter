@@ -9,11 +9,20 @@ import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js
 
 // ecsyのComponentをインポートする
 import {
-    Scene, Camera, Renderer,
+    Scene,
+    Camera,
+    Renderer,
     Light,
-    Mesh, Group,
-    Position, Rotation, Scale,
-    UIControllable, Visualizer, CircleSpectrum,
+    Object3D,
+    Mesh,
+    Group,
+    Position,
+    Rotation,
+    Scale,
+    UIControllable,
+    Visualizer,
+    CircleSpectrum,
+    LineSpectrum,
     RotationAnimation
 } from "../components/components.js";
 
@@ -41,9 +50,9 @@ export default class UISystem extends System {
                 // エンティティが持つコンポーネントごとに処理を分岐させる
                 if (entity.id === selectedID) {
                     // // エンティティがSceneコンポーネントを持つか
-                    // if (entity.hasComponent(Scene)) {
-                    //     this.setSceneUI(entity);
-                    // }
+                    if (entity.hasComponent(Scene)) {
+                        this.setSceneUI(entity);
+                    }
 
                     // エンティティがCameraコンポーネントを持つか
                     if (entity.hasComponent(Camera)) {
@@ -89,6 +98,16 @@ export default class UISystem extends System {
                     if (entity.hasComponent(Visualizer)) {
                         // ここに処理を記述
                     }
+
+                    // エンティティがCircleSpectrumコンポーネントを持つか
+                    if (entity.hasComponent(CircleSpectrum)) {
+                        //
+                    }
+
+                    // エンティティがLineSpectrumコンポーネントを持つか
+                    if (entity.hasComponent(LineSpectrum)) {
+                        console.log(entity.getComponent(Object3D));
+                    }
                 }
             })
         });
@@ -113,6 +132,8 @@ export default class UISystem extends System {
             option.text = `Group ${entity.id}`;
         } else if (entity.hasComponent(Light)) {
             option.text = `Light ${entity.id}`;
+        } else if (entity.hasComponent(LineSpectrum)) {
+            option.text = `LineSpectrum ${entity.id}`;
         } else {
             option.text = `updateEntityList()に定義されていないEntity ${entity.id}`
         }
@@ -123,24 +144,36 @@ export default class UISystem extends System {
     // シーンを編集するUIを生成する
     setSceneUI(entity) {
         // ここに処理を記述する
+        const sceneComponent = entity.getComponent(Scene);
+
+        const fogColor = sceneComponent.scene.fog.color;
+        const fogNear = sceneComponent.scene.fog.near;
+        const fogFar = sceneComponent.scene.fog.far;
+
+        this.gui.add({ fogNear: fogNear }, "fogNear").onChange((value) => {
+            entity.getMutableComponent(Scene).fog = new THREE.Fog(fogColor, value, fogFar);
+        })
+        this.gui.add({ fogFar: fogFar }, "fogFar").onChange((value) => {
+            entity.getMutableComponent(Scene).fog = new THREE.Fog(fogColor, fogNear, value);
+        })
     }
 
     // カメラを編集するUIを生成する
     setCameraUI(entity) {
-        const cameraComponent = entity.getComponent(Camera);
-        const camera = cameraComponent.camera;
-        const { fov, near, far } = camera;
+        // const cameraComponent = entity.getComponent(Camera);
+        // const camera = cameraComponent.camera;
+        // const { fov, near, far } = camera;
 
-        // カメラフォルダの作成
-        const cameraFolder = this.gui.addFolder("camera");
-        const obj = { fov: fov, near: near, far: far }
+        // // カメラフォルダの作成
+        // const cameraFolder = this.gui.addFolder("camera");
+        // const obj = { fov: fov, near: near, far: far }
 
-        cameraFolder.add(obj, "fov", 1, 100, 5) //min max step
-            .onChange(newValue => entity.getMutableComponent(Camera).fov = newValue)
-        cameraFolder.add(obj, "near", 1, 10, 1) //min max step
-            .onChange(newValue => entity.getMutableComponent(Camera).near = newValue)
-        cameraFolder.add(obj, "far", 1000, 2000, 100)// min max step
-            .onChange(newValue => entity.getMutableComponent(Camera).far = newValue)
+        // cameraFolder.add(obj, "fov", 1, 100, 5) //min max step
+        //     .onChange(newValue => entity.getMutableComponent(Camera).fov = newValue)
+        // cameraFolder.add(obj, "near", 1, 10, 1) //min max step
+        //     .onChange(newValue => entity.getMutableComponent(Camera).near = newValue)
+        // cameraFolder.add(obj, "far", 1000, 2000, 100)// min max step
+        //     .onChange(newValue => entity.getMutableComponent(Camera).far = newValue)
     }
 
     // レンダラーを編集するUIを生成する
@@ -156,11 +189,10 @@ export default class UISystem extends System {
 
     // ライトを編集するUIを生成する
     setLightUI(entity) {
-        const lightGroup = entity.getMutableComponent(Light).value;
+        const lightGroup = entity.getMutableComponent(Object3D).value;
         const lightFolder = this.gui.addFolder("light");
         let helperFolder = null;
         let currentHelper = null;
-        let intensityController = null;
 
         // ライト変更UIの表示
         const lightObj = {
@@ -210,17 +242,6 @@ export default class UISystem extends System {
                     break;
             }
 
-            // 既存のintensityを削除
-            if (intensityController) {
-                intensityController.destroy();
-            }
-            //! Lightを編集するとき初手出てこない
-            // 明るさを変更できるUI
-            intensityController = lightFolder.add({ intensity: newLight.intensity }, 'intensity', 0, 2).name('明るさ');
-            intensityController.onChange(value => {
-                updateIntensity(value);
-            });
-
             // ヘルパーが存在する場合の処理
             if (currentHelper) {
                 lightGroup.add(currentHelper);
@@ -236,7 +257,7 @@ export default class UISystem extends System {
 
     // メッシュを編集するUIを生成する
     setMeshUI(entity) {
-        const meshComponent = entity.getComponent(Mesh).value;
+        const meshComponent = entity.getComponent(Object3D).value;
         // Sceneに追加することができるか試す
         // const testGeometry = new THREE.BoxGeometry(1, 1, 1);
         // const testMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
@@ -260,7 +281,7 @@ export default class UISystem extends System {
             tours: () => new THREE.TorusGeometry(0.5, 0.2, 64, 64, 6.3),
         }
         meshFolder.add(geometryObj, "cube", geometryObj).name("geometry").onChange((func) => {
-            entity.getMutableComponent(Mesh).value.geometry = func();
+            entity.getMutableComponent(Object3D).value.geometry = func();
         })
 
         // マテリアル変更UIの表示
@@ -273,7 +294,7 @@ export default class UISystem extends System {
             toon: () => new THREE.MeshToonMaterial()
         }
         meshFolder.add(materialObj, "normal", materialObj).name("material").onChange((func) => {
-            const meshComponent = entity.getComponent(Mesh).value;
+            const meshComponent = entity.getComponent(Object3D).value;
             const wireframe = meshComponent.material.wireframe;
             const color = meshComponent.material.color;
 
@@ -288,9 +309,9 @@ export default class UISystem extends System {
 
         // ワイヤーフレーム変更UIの表示
         meshFolder
-            .add({ wireframe: entity.getComponent(Mesh).value.material.wireframe }, "wireframe")
+            .add({ wireframe: entity.getComponent(Object3D).value.material.wireframe }, "wireframe")
             .onChange((value) => {
-                entity.getComponent(Mesh).value.material.wireframe = value;
+                entity.getComponent(Object3D).value.material.wireframe = value;
             });
 
         // 色変更UIの表示
@@ -300,7 +321,7 @@ export default class UISystem extends System {
         }
         meshFolder.addColor(colorObj, "color").onChange((value) => {
             const { r, g, b } = value;
-            entity.getComponent(Mesh).value.material.color.set(new THREE.Color(r, g, b));
+            entity.getComponent(Object3D).value.material.color.set(new THREE.Color(r, g, b));
         });
     }
 
@@ -324,7 +345,7 @@ export default class UISystem extends System {
             Math.random() * 2,
             Math.random() * 2
         )
-        entity.getComponent(Group).value.add(mesh);
+        entity.getComponent(Object3D).value.add(mesh);
     }
 
     // ポジションを編集するUIを生成する
@@ -398,7 +419,6 @@ export default class UISystem extends System {
             .add({ Z: z }, "Z", -5, 5)
             .onChange((newValue) => entity.getMutableComponent(Scale).z = newValue);
     }
-
 }
 
 // UIControllableが付与されているエンティティのみ処理する

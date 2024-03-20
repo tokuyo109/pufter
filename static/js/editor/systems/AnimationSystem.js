@@ -1,15 +1,21 @@
 // アニメーションを管理する
 import { System } from "ecsy";
 import {
-    Mesh, Group,
-    Position, Rotation, Scale,
-    Visualizer, RotationAnimation, CircleSpectrum
+    Object3D,
+    Mesh,
+    Group,
+    Position,
+    Rotation,
+    Scale,
+    Visualizer,
+    RotationAnimation,
+    CircleSpectrum,
 } from "../components/components.js";
-import MusicManager from "../musicManager.js";
+// import MusicManager from "../musicManager.js";
 
 export default class AnimationSystem extends System {
-    init() {
-        this.musicManager = new MusicManager();
+    init(musicManager) {
+        this.musicManager = musicManager;
     }
 
     execute(delta, time) {
@@ -19,11 +25,15 @@ export default class AnimationSystem extends System {
             const scaleComponent = entity.getMutableComponent(Scale);
 
             // オブジェクトの取得
+            // let object = null;
+            // if (entity.hasComponent(Mesh)) {
+            //     object = entity.getComponent(Mesh).value;
+            // } else if (entity.hasComponent(Group)) {
+            //     object = entity.getComponent(Group).value;
+            // }
             let object = null;
-            if (entity.hasComponent(Mesh)) {
-                object = entity.getComponent(Mesh).value;
-            } else if (entity.hasComponent(Group)) {
-                object = entity.getComponent(Group).value;
+            if (entity.hasComponent(Object3D)) {
+                object = entity.getComponent(Object3D).value;
             }
 
             // 周波数の平均データを計算
@@ -39,7 +49,7 @@ export default class AnimationSystem extends System {
 
         // CircleSpectrumコンポーネントを持つエンティティ
         this.queries.circleSpectrum.results.forEach(entity => {
-            const groupComponent = entity.getComponent(Group);
+            const groupComponent = entity.getComponent(Object3D);
             groupComponent.value.children.forEach((mesh, i) => {
                 const index = Math.floor((i / groupComponent.value.children.length) * frequencyData.length);
                 const scaleY = (frequencyData[index] / 2048) * 20 + 0.1;
@@ -53,12 +63,16 @@ export default class AnimationSystem extends System {
             const rotationComponent = entity.getMutableComponent(Rotation);
             const { speedX, speedY, speedZ } = entity.getComponent(RotationAnimation);
 
-            // オブジェクトの取得
+            // // オブジェクトの取得
+            // let object = null;
+            // if (entity.hasComponent(Mesh)) {
+            //     object = entity.getComponent(Mesh).value;
+            // } else if (entity.hasComponent(Group)) {
+            //     object = entity.getComponent(Group).value;
+            // }
             let object = null;
-            if (entity.hasComponent(Mesh)) {
-                object = entity.getComponent(Mesh).value;
-            } else if (entity.hasComponent(Group)) {
-                object = entity.getComponent(Group).value;
+            if (entity.hasComponent(Object3D)) {
+                object = entity.getComponent(Object3D).value;
             }
 
             // ロテーションに反映
@@ -81,5 +95,5 @@ AnimationSystem.queries = {
     },
     circleSpectrum: {
         components: [CircleSpectrum],
-    }
+    },
 }

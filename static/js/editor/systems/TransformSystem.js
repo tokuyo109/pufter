@@ -3,6 +3,7 @@
 import { System } from "ecsy";
 
 import {
+    Object3D,
     Mesh, Group, Light,
     Position, Rotation, Scale
 } from "../components/components.js";
@@ -10,27 +11,33 @@ import {
 export default class TransformSystem extends System {
     execute(delta, now) {
         this.queries.mesh.added.forEach(entity => {
-            let componentRef = null;
+            // let componentRef = null;
 
-            if (entity.hasComponent(Mesh)) {
-                componentRef = entity.getMutableComponent(Mesh).value;
-            } else if (entity.hasComponent(Group)) {
-                componentRef = entity.getMutableComponent(Group).value;
+            // if (entity.hasComponent(Mesh)) {
+            //     componentRef = entity.getMutableComponent(Mesh).value;
+            // } else if (entity.hasComponent(Group)) {
+            //     componentRef = entity.getMutableComponent(Group).value;
+            // }
+            if (entity.hasComponent(Object3D)) {
+                const componentRef = entity.getMutableComponent(Object3D).value;
+                this._updateTransform(entity, componentRef);
             }
-
-            this._updateTransform(entity, componentRef);
         });
 
         this.queries.mesh.changed.forEach(entity => {
-            let componentRef = null;
+            // let componentRef = null;
 
-            if (entity.hasComponent(Mesh)) {
-                componentRef = entity.getMutableComponent(Mesh).value;
-            } else if (entity.hasComponent(Group)) {
-                componentRef = entity.getMutableComponent(Group).value;
+            // if (entity.hasComponent(Mesh)) {
+            //     componentRef = entity.getMutableComponent(Mesh).value;
+            // } else if (entity.hasComponent(Group)) {
+            //     componentRef = entity.getMutableComponent(Group).value;
+            // }
+
+            // this._updateTransform(entity, componentRef);
+            if (entity.hasComponent(Object3D)) {
+                const componentRef = entity.getMutableComponent(Object3D).value;
+                this._updateTransform(entity, componentRef);
             }
-
-            this._updateTransform(entity, componentRef);
         });
     }
 

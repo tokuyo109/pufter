@@ -1,10 +1,6 @@
 // シーン、カメラ、レンダラーを描画、更新するシステム
 import { System } from "ecsy";
 
-// import Scene from "./../components/Scene.js"
-// import Camera from "./../components/Camera.js"
-// import Renderer from "./../components/Renderer.js"
-
 import { Scene, Camera, Renderer } from "../components/components.js";
 
 export default class RenderingSystem extends System {
@@ -18,7 +14,7 @@ export default class RenderingSystem extends System {
         window.addEventListener("resize", this.onWindowResize.bind(this), false);
     }
 
-    // ウィンドウのサイズが変更されたときに実行
+    // 画面幅が変更されたときに実行
     onWindowResize() {
         this.queries.scenes.results.forEach(entity => {
             const cameraComponent = entity.getMutableComponent(Camera);
@@ -38,13 +34,12 @@ export default class RenderingSystem extends System {
 
     // システムの実行
     execute(delta, now) {
-        // 同じ処理をしているが、実行タイミングが違う
         // 初期化処理
         this.queries.scenes.added.forEach(entity => {
             this.render(entity);
         })
 
-        // 差分更新処理
+        // 変更時更新処理
         this.queries.scenes.changed.forEach(entity => {
             this.render(entity);
         })

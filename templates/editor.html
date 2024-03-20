@@ -2,41 +2,39 @@
 {% block title %}
     編集ページ
 {% endblock %}
-
 {% block extra_links %}
-	<link rel="stylesheet" href="{{url_for('static', filename='css/editor/style.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/editor/style.css')}}">
 {% endblock %}
 
 {% block content %}
-    <div id="webgl"></div>
+<div id="webGL"></div>
+<div id="musicPlayer">
+  <div>
+      <input type="range" id="positionBar" min="0" max="100" value="0">
+  </div>
+  <div id="musicPlayerCol2">
+      <input type="file" id="musicFile">
+      <button id="playButton">再生</button>
+      <button id="stopButton">停止</button>
+      <input type="range" id="volumeBar" min="0" max="100" value="50">
+  </div>
+</div>
 
-    <select name="" id="backgroundSelector">
-        <option value="template1">黒</option>
-        <option value="template2">白</option>
-        <option value="template3">灰</option>
-    </select>
-    <select name="" id="visualizerSelector">
-        <option value="box-visualizer">箱型</option>
-        <option value="line-visualizer">波型</option>
-        <option value="circle-visualizer">円型</option>
-    </select>
+<!-- <div>
+    <label for="objectSelector">objectSelector</label>
+    <select name="objectSelector" id="objectSelector"></select>
+    <button id="addObjectButton">エンティティ追加</button>
+</div> -->
 
-    <button id="addVisualizer">ビジュアライザーの追加</button>
+<div>
+    <select name="newObjectSelector" id="newObjectSelector"></select>
+    <button id="newAddObjectButton">エンティティ追加</button>
+</div>
 
-    <select name="" id="allVisualierSelector"></select>
-    <div id="controller"></div>
 
-    <div id="musicPlayer">
-        <div>
-            <input type="range" id="positionBar" min="0" max="100" value="0">
-        </div>
-        <div id="musicPlayerCol2">
-            <input type="file" id="musicFile">
-            <button id="playButton">再生</button>
-            <button id="stopButton">停止</button>
-            <input type="range" id="volumeBar" min="0" max="100" value="50">
-        </div>
-    </div>
+<select name="" id="entitySelector"></select>
+
+<div id="UIOutoput"></div>
 {% endblock %}
 {% block extra_scripts %}
     <script src="{{ url_for('static', filename='js/editor/main.js') }}" type="module"></script>

@@ -108,6 +108,15 @@ export const createCircleSpectrum = () => {
     return group;
 }
 
+// 線のスペクトラムを表示する
+export const createLineSpectrum = () => {
+    const geometry = new THREE.BufferGeometry();
+    const material = new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 2 });
+    const line = new THREE.Line(geometry, material);
+
+    return line;
+}
+
 // ライト
 // THREE.Lightを返す関数
 export const createLight = () => {
