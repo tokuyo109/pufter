@@ -97,6 +97,10 @@ export class UIControllable extends Component { }
 
 // Visualizer
 export class Visualizer extends Component { }
+Visualizer.schema = {
+    color: { type: Types.Ref, default: new THREE.Color(0xffffff) },
+    count: { type: Types.Number, default: 1 },
+}
 
 // 円状のオーディオスペクトラム
 export class CircleSpectrum extends Component { }

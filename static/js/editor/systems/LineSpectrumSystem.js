@@ -23,11 +23,9 @@ export default class LineSpectrumSystem extends System {
         // 毎フレーム実行
         this.queries.lineSpectrum.results.forEach(entity => {
             const line = entity.getComponent(Object3D).value;
-            const data = this.musicManager.getFrequencyData();
+            const data = this.musicManager.getTimeDomainData();
             for (let i = 0; i < data.length; i++) {
                 const x = (i / data.length) * 2 - 1;// -1 ~ 1の範囲まで
-                // const x = (i / data.length) * 2 - 1;// -1 ~ 1の範囲まで
-                // const y = data[i] / 255 * 2;
                 const y = ((data[i] / 255) * 2 - 1) * - 1;
                 const z = 0;
                 this.positions[i * 3] = x;
@@ -39,6 +37,12 @@ export default class LineSpectrumSystem extends System {
             line.geometry.attributes.position.needsUpdate = true;
             line.geometry.computeBoundingSphere();
         })
+
+        // コンポーネントに変更があった際に実行
+        this.queries.lineSpectrum.changed.forEach(entity => {
+            const object = entity.getComponent(Object3D).value;
+            object.material.color = entity.getComponent(LineSpectrum).color;
+        })
     }
 }
 
@@ -46,7 +50,8 @@ LineSpectrumSystem.queries = {
     lineSpectrum: {
         components: [LineSpectrum],
         listen: {
-            added: true
+            added: true,
+            changed: true
         }
     },
 }

@@ -30,11 +30,17 @@ export default class MusicManager {
         this._init();
     }
 
-    // 音源の解析データを提供する
+    // 周波数領域のデータをバイト配列で返す
     getFrequencyData() {
-        // 現在位置の音源データ(要素数1024)を返す
         const data = new Uint8Array(this.analyser.frequencyBinCount);
         this.analyser.getByteFrequencyData(data);
+        return data;
+    }
+
+    // 時間領域のデータをバイト配列で返す
+    getTimeDomainData() {
+        const data = new Uint8Array(this.analyser.frequencyBinCount);
+        this.analyser.getByteTimeDomainData(data);
         return data;
     }
 

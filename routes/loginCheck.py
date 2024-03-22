@@ -1,10 +1,10 @@
-from flask import render_template, Blueprint, request, jsonify
+from flask import render_template, Blueprint, request, jsonify, make_response, redirect
 import sqlite3
-import secrets
+import datetime
+import json
 
 # Blueprintを作成
 bp = Blueprint("loginCheck", __name__)
-tokens = {}  # ユーザーIDとトークンのマッピングを保持する変数
 
 @bp.route("/loginCheck", methods=["POST"])
 def loginCheck():
@@ -30,13 +30,37 @@ def loginCheck():
 
     # ユーザーが存在しないか、パスワードが一致しない場合はログイン失敗
     if user is None:
-        return jsonify({'error': 'メールアドレスまたはパスワードが正しくありません。'}), 401
+        return jsonify({'error': 'メールアドレスまたはパスワードが正しくありません。'})
 
-    # ログイン成功
-    # トークンを生成して返す
-    token = secrets.token_urlsafe(16)
-    tokens[token] = user[0]  # ユーザーIDをトークンに関連付ける
+    # cookie保存する値を作成
+    cookie_data = {'mail':mail}
 
-    # ログイン成功時にテンプレートをレンダリングしてHTMLを返す
-    return render_template('loginCheck.html', mail=mail)
+    # Cookie有効時間(一ヶ月)
+    limit = 60
+    expires = int(datetime.datetime.now().timestamp()) + limit
+
+    # SQLiteデータベースへの接続
+    con = sqlite3.connect('test.db')
+    c = con.cursor()
+
+    # クエリを実行して結果を取得
+    c.execute("SELECT username, introduction FROM users")
+    rows = c.fetchall()
+
+    # もし結果が空であればユーザ登録を行う
+    if not rows or all(row[0] is None for row in rows):
+        con.commit()
+        con.close()
+        # アラートを表示するJavaScriptを生成して返す
+        return """
+        <script>
+            alert('ユーザ名を設定してください。');
+            window.location.href = '/profEdit'; // リダイレクト
+        </script>
+        """
+    # Cookie生成
+    res = make_response(render_template("loginCheck.html",result=result))
+    res.set_cookie("key",value=json.dumps(cookie_data),expires=expires)
+
+    return res
 

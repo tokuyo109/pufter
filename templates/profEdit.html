@@ -9,21 +9,20 @@
 {% endblock %}
 
 {% block content %}
-<div>
-    <form action="/profEditCheck" method="post"></form>
+<form action="/profEditCheck" method="post">
     <div class="textArea">
         <label>ユーザ名</label><br>
-        <input type="text" name="user" class="textbox">
+        <input type="text" name="username" value="{{result.username}}">
     </div>
     <div class="textArea">
         <label>自己紹介</label><br>
-        <input type="text" name="comment" class="textbox">
+        <input type="text" name="introduction" value="{{result.introduction}}">
     </div>
     <div class="textArea">
         <label>リンク</label><br>
     </div>
-    <button type="submit">登録</button>
-</div>
+    <input type="submit" value="登録" class="button">
+</form>
 {% endblock %}
 
 {% block extra_scripts %}

@@ -1,32 +1,61 @@
-from flask import render_template, Blueprint, request, jsonify, session, redirect, url_for
+from flask import render_template, Blueprint, request, jsonify, make_response, redirect
 import sqlite3
-import secrets
+import datetime
+import json
+
 
 bp = Blueprint("mypage", __name__)
-tokens = {}  # ユーザーIDとトークンのマッピングを保持する変数
 
 @bp.route("/mypage")
 def mypage():
-    # トークンからユーザーIDを取得
-    token = session.get('token')
-    user_id = tokens.get(token)
+    # クッキーからデータを取得
+    cookie_data = request.cookies.get("key")
 
-    # トークンが存在しないか、無効であればログインページにリダイレクト
-    if token is None or user_id is None:
-        return redirect('/login')  # ログインページにリダイレクト
+    # デフォルトのデータを設定
+    if cookie_data is not None:
+        cookie_data = json.loads(cookie_data)
+    else:
+        cookie_data = {'mail': 'No Data'}
 
-    # ユーザーIDからメールアドレスを取得
-    conn = sqlite3.connect('example.db')
-    c = conn.cursor()
-    c.execute("SELECT email FROM users WHERE id = ?", (user_id,))
+    # SQLiteデータベースへの接続
+    con = sqlite3.connect('test.db')
+    c = con.cursor()
+
+    # クエリを実行して結果を取得
+    c.execute("SELECT username, introduction FROM users")
+    rows = c.fetchall()
+
+    # もし結果が空であればユーザ登録を行う
+    if not rows or all(row[0] is None for row in rows):
+        con.commit()
+        con.close()
+        # アラートを表示するJavaScriptを生成して返す
+        return """
+        <script>
+            alert('ユーザ名を設定してください。');
+            window.location.href = '/profEdit'; // リダイレクト
+        </script>
+        """
+
+    # クッキーから取得したメールアドレスを使用して、ユーザー名を取得
+    email = cookie_data.get('mail', None)
+    # メールアドレスに基づいてデータベースからユーザー名を取得するクエリを実行
+    c.execute("SELECT username FROM users WHERE email=?", (email,))
     row = c.fetchone()
+    print(row)
+    fetched_username = row[0]
+    print("取得したユーザー名:", fetched_username)
+    # usersテーブルの全てのレコードを取得するクエリを実行
+    c.execute("SELECT * FROM users")
+    
+    # 取得した結果を取得
+    rows = c.fetchall()
+    
+    # 結果の表示
+    for row in rows:
+        print(row)
+    # データベースへの変更をコミットし、接続を閉じる
+    con.commit()
+    con.close()
 
-    # ユーザーが見つからない場合のエラーハンドリング
-    if row is None:
-        conn.close()
-        return jsonify({'error': 'ユーザーが見つかりませんでした。'}), 404
-
-    mail = row[0]
-    conn.close()
-
-    return render_template('mypage.html', mail=mail)
+    return render_template('mypage.html',fetched_username=fetched_username)

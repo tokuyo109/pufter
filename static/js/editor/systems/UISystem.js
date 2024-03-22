@@ -106,7 +106,8 @@ export default class UISystem extends System {
 
                     // エンティティがLineSpectrumコンポーネントを持つか
                     if (entity.hasComponent(LineSpectrum)) {
-                        console.log(entity.getComponent(Object3D));
+                        this.setLineSpectrumUI(entity);
+                        // console.log(entity.getComponent(Object3D));
                     }
                 }
             })
@@ -418,6 +419,20 @@ export default class UISystem extends System {
         scaleFolder
             .add({ Z: z }, "Z", -5, 5)
             .onChange((newValue) => entity.getMutableComponent(Scale).z = newValue);
+    }
+
+    // setLineSpectrumUI
+    setLineSpectrumUI(entity) {
+        const currentColor = entity.getComponent(LineSpectrum).color;
+        const [r, g, b] = currentColor;
+        const colorObj = {
+            color: { r, g, b }
+        }
+        const lineSpectrumFolder = this.gui.addFolder("LineSpectrum");
+        lineSpectrumFolder.addColor(colorObj, "color").onChange((nextColor) => {
+            const { r, g, b } = nextColor;
+            entity.getMutableComponent(LineSpectrum).color = new THREE.Color(r, g, b);
+        })
     }
 }
 

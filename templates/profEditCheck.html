@@ -5,14 +5,11 @@
 {% endblock %}
 
 {% block extra_links %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/share/share.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/index/style.css')}}">
 {% endblock %}
 
 {% block content %}
-
-<a href="/mypage">マイページへ</a>
-<a href="/editor">編集ページへ</a>
-
+<h2>ようこそ{{result.username}}さん！</h2>
 {% endblock %}
 
 {% block extra_scripts %}

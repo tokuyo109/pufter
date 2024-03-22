@@ -31,6 +31,10 @@ def entryCheck():
     # テーブルの作成（もしくはすでに存在する場合はスキップ）
     c.execute('''CREATE TABLE IF NOT EXISTS users
                  (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT)''')
+    # テーブルの作成（もしくはすでに存在する場合はスキップ）
+    # c.execute('''ALTER TABLE users ADD COLUMN username TEXT''')
+    # c.execute('''ALTER TABLE users ADD COLUMN introduction TEXT''')
+
 
     # データベースへの変更をコミットし、接続を閉じる
     conn.commit()

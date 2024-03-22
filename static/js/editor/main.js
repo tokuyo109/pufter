@@ -198,6 +198,8 @@ sceneEntity.getComponent(Scene).scene.add(spotLightEntity.getComponent(Object3D)
 // 利用可能なオブジェクトのリスト
 // createFunctionにはgenerateObject.jsからエクスポートした関数を設定する
 const newAvaiableObjects = [
+    // ビジュアライザーについてはLineSpectrumを参考にするといいです。
+    // CircleSpectrumはあまり出来が良くないので。
     { name: "Mesh", type: "Mesh", createFunction: createCube },
     { name: "Floor", type: "Floor", createFunction: createFloor },
     { name: "Group", type: "Group", createFunction: createGroup },
@@ -205,6 +207,8 @@ const newAvaiableObjects = [
     { name: "LineSpectrum", type: "LineSpectrum", createFunction: createLineSpectrum },
     { name: "Path", type: "Path", createFunction: null },
     { name: "Light", type: "Light", createFunction: createLight },
+
+
 ]
 
 // 利用可能なオブジェクトを選択可能にする
@@ -232,6 +236,7 @@ newAddObjectButton.addEventListener("click", () => {
                 case "Path": addPathEntity(object); break;
                 case "Light": addLightEntity(object); break;
                 case "LineSpectrum": addLineSpectrumEntity(object); break;
+                // case "Visualizer": addVisualizerEntity(object); break;
             }
         }
     })
@@ -242,7 +247,7 @@ const addMeshEntity = (object) => {
     const entity = world.createEntity()
         .addComponent(Object3D, { value: object.createFunction() })
         .addComponent(Mesh)
-        .addComponent(Position, { x: (Math.random() * 10) - 5, y: Math.random() * 5, z: (Math.random() * 10) - 5 })
+        .addComponent(Position, { x: (Math.random() * 10) - 5, y: Math.random() * 3 + 1, z: (Math.random() * 10) - 5 })
         .addComponent(Rotation, { x: Math.random() * 2, y: Math.random() * 2, z: Math.random() * 2 })
         .addComponent(Scale, { x: 1, y: 1, z: 1 })
         .addComponent(UIControllable)
@@ -265,8 +270,8 @@ const addGroupEntity = (object) => {
             .addComponent(CircleSpectrum)
             .removeComponent(Position)
             .removeComponent(Scale)
-            .addComponent(Position, { x: 0, y: 0, z: 0 })
-            .addComponent(Scale, { x: 3, y: 3, z: 3 })
+            .addComponent(Position, { x: 0, y: 2, z: 0 })
+            .addComponent(Scale, { x: 1, y: 1, z: 1 })
             .addComponent(RotationAnimation, { speedX: 0.001, speedY: 0.001, speedZ: 0.001 });
     }
     sceneEntity.getComponent(Scene).scene.add(entity.getComponent(Object3D).value);
