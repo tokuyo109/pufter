@@ -10,54 +10,36 @@ bp = Blueprint("loginCheck", __name__)
 def loginCheck():
     # それぞれの変数
     tbl ={
-        "mail":"メールアドレス",
+        "email":"メールアドレス",
         "pas":"パスワード"
     }
-    # エラーメッセージ格納テーブル
-    err = {}
+    # バリデーションを行う（ここではシンプルな例）
+    err_msg = {}
 
     # フォームから送信されたデータを取得
     result = request.form
-    mail = result['mail']
+    email = result['email']
     password = result['pas']
 
     # データベースからメールアドレスとパスワードのチェック
     conn = sqlite3.connect('test.db')
     c = conn.cursor()
-    c.execute("SELECT * FROM users WHERE email = ? AND password = ?", (mail, password))
+    c.execute("SELECT * FROM users WHERE email = ? AND password = ?", (email, password))
     user = c.fetchone()
     conn.close()
 
     # ユーザーが存在しないか、パスワードが一致しない場合はログイン失敗
     if user is None:
-        return jsonify({'error': 'メールアドレスまたはパスワードが正しくありません。'})
+        err_msg['check'] = 'メールアドレスまたはパスワードが正しくありません。'
+        return render_template("login.html",result=result, err=err_msg)
 
     # cookie保存する値を作成
-    cookie_data = {'mail':mail}
+    cookie_data = {'email':email}
 
-    # Cookie有効時間(一ヶ月)
+    # Cookie有効時間(一分)
     limit = 60
     expires = int(datetime.datetime.now().timestamp()) + limit
 
-    # SQLiteデータベースへの接続
-    con = sqlite3.connect('test.db')
-    c = con.cursor()
-
-    # クエリを実行して結果を取得
-    c.execute("SELECT username, introduction FROM users")
-    rows = c.fetchall()
-
-    # もし結果が空であればユーザ登録を行う
-    if not rows or all(row[0] is None for row in rows):
-        con.commit()
-        con.close()
-        # アラートを表示するJavaScriptを生成して返す
-        return """
-        <script>
-            alert('ユーザ名を設定してください。');
-            window.location.href = '/profEdit'; // リダイレクト
-        </script>
-        """
     # Cookie生成
     res = make_response(render_template("loginCheck.html",result=result))
     res.set_cookie("key",value=json.dumps(cookie_data),expires=expires)

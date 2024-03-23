@@ -1,209 +1,155 @@
-/*
-MusicManagerクラスはWeb Audio APIを使用して
-音楽ファイルの読み込み、再生、停止、再生位置変更などの音楽プレイヤーの
-基本機能を提供します。
-
-また、getAnalyzedData()メソッドで音源の解析データを提供します。
-解析されたデータは音源を可視化する際に必要になります。
-*/
-
+// 音楽プレイヤーと波形情報を提供するクラス
 export default class MusicManager {
     constructor() {
+        // Web Audio API系のインスタンス群
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.analyser = this.audioContext.createAnalyser();
-        this.gainNode = this.audioContext.createGain();
+        this.gain = this.audioContext.createGain();
 
-        this.source = null; // 音源データの再生用
-        this.audioBuffer = null; // デコードされた音源を保持する
-        this.startTime = 0; // 再生開始時間
-        this.currentPosition = 0; // 現在の再生位置
-        this.intervalID = null;
-        this.isDragging = false; // 再生バーが操作されているか否か
-        this.initialized = false;
-
-        this.fileElement = document.querySelector("#musicFile");
-        this.volumeElement = document.querySelector("#volumeBar")
-        this.playButtonElement = document.querySelector("#playButton");
-        this.stopButtonElement = document.querySelector("#stopButton");
-        this.positionElement = document.querySelector("#positionBar");
-
-        this._init();
+        this._initElements();
+        this._addEventListeners();
     }
 
-    // 周波数領域のデータをバイト配列で返す
+    _initElements() {
+        this.audioBuffer = null;
+        this.source = null;
+        this.isPlaying = false;
+        this.currentTime = 0;
+        this.intervalID = null;
+
+        this.fileElement = document.getElementById("musicFile");
+        this.togglePlayButtonElement = document.getElementById("togglePlayButton");
+        this.currentTimeElement = document.getElementById("time-current");
+        this.durationTimeElement = document.getElementById("time-duration");
+        this.volumeBarElement = document.getElementById("volumeBar");
+        this.positionBarElement = document.getElementById("positionBar");
+    }
+
+    _addEventListeners() {
+        this.fileElement.addEventListener("change", event => this._load(event.target.files[0]));
+        this.togglePlayButtonElement.addEventListener("click", () => this.isPlaying ? this._pause() : this._play());
+        this.positionBarElement.addEventListener("change", () => this.audioBuffer && this._changePosition());
+        this.volumeBarElement.addEventListener("change", () => this._changeVolume());
+    }
+
+    // 周波数領域のデータをバイト配列で取得する
     getFrequencyData() {
         const data = new Uint8Array(this.analyser.frequencyBinCount);
         this.analyser.getByteFrequencyData(data);
         return data;
     }
 
-    // 時間領域のデータをバイト配列で返す
+    // 時間領域のデータをバイト配列で取得する
     getTimeDomainData() {
         const data = new Uint8Array(this.analyser.frequencyBinCount);
         this.analyser.getByteTimeDomainData(data);
         return data;
     }
 
-    // 初期化処理
-    _init() {
-        if (!this.initialized) {
-            // ファイルが変更されたとき読み込む
-            this.fileElement.addEventListener("change", (event) => {
-                const file = event.target.files[0];
-                this._load(file);
-            })
-
-            // 再生ボタンがクリックされたとき再生する
-            this.playButtonElement.addEventListener("click", () => {
-                this._play();
-            })
-
-            // 停止ボタンがクリックされたとき停止する
-            this.stopButtonElement.addEventListener("click", () => {
-                this._stop();
-            })
-
-            // 再生位置が変更されたとき音楽の再生位置を変更する
-            this.positionElement.addEventListener("change", () => {
-                this._changePosition();
-            })
-
-            // マウスダウン時再生バー更新処理を無効にする
-            this.positionElement.addEventListener("mousedown", () => {
-                this.isDragging = true;
-            })
-
-            // マウスアップ時再生バー更新処理を有効にする
-            this.positionElement.addEventListener("mouseup", () => {
-                this.isDragging = false;
-            })
-
-            // 音量バーの位置が変更されたとき音量を変更する
-            this.volumeElement.addEventListener("change", () => {
-                this._changeVolume();
-            })
+    // 音源の再生位置や音量などの設定をおなう
+    _setup(startTime = 0) {
+        if (this.source) {
+            this.source.stop();
+            this.source.disconnect();
         }
 
-        this.initialized = true;
+        // 音源を作成し、ノードに接続する
+        this.source = this.audioContext.createBufferSource();
+        this.source.buffer = this.audioBuffer;
+        this.source.connect(this.gain);
+        this.gain.connect(this.analyser);
+        this.analyser.connect(this.audioContext.destination);
+
+        // 音量を設定
+        this.gain.gain.value = this.volumeBarElement.value / 100;
+
+        // 指定された位置から音源の再生を開始
+        this.source.start(0, startTime);
+
+        // 再生位置を更新
+        this.currentTime = startTime;
     }
 
-    // 音源を読み込む
+    // 音源変更時処理
     _load(file) {
+        // 再生前状態に初期化
+        if (this.source) {
+            if (this.intervalID) {
+                clearInterval(this.intervalID);
+                this.intervalID = null;
+            }
+            this.currentTime = 0;
+            this.positionBarElement.value = 0;
+            this.togglePlayButtonElement.innerText = "再生";
+            this.togglePlayButtonElement.style.backgroundColor = "#f0f0f0";
+        }
+
+        // 音源を読み込み再生可能状態に
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(file);
+        fileReader.addEventListener("loadend", async (event) => {
+            const arrayBuffer = event.currentTarget.result;
+            const decodeData = await this.audioContext.decodeAudioData(arrayBuffer)
+            this.audioBuffer = decodeData;
+            this._setup();
+            this.audioContext.suspend();
 
-        // readAsArrayBufferが完了したときに実行
-        fileReader.onload = (event) => {
-            // 既に読み込まれているファイルが存在すれば削除する
-            if (this.source) {
-                this.source.stop();
-                this.source.disconnect();
-            }
-
-            // 音量を設定
-            const volumeSize = this.volumeElement.value / 100;
-            this.gainNode.gain.value = volumeSize;
-
-            // 読み込まれたAudioBuffer
-            const arrayBuffer = event.target.result;
-
-            // 非同期でデコードし、sourceにデータを格納する
-            this.audioContext.decodeAudioData(arrayBuffer).then(decodeData => {
-                // 再生位置変更などで再利用する
-                this.audioBuffer = decodeData;
-
-                // デコードされた音源をBaseAudioContextに接続し、再生可能状態にする
-                this.source = this.audioContext.createBufferSource();
-                this.source.buffer = this.audioBuffer;
-                this.source.connect(this.gainNode);
-                this.gainNode.connect(this.analyser);
-                this.analyser.connect(this.audioContext.destination);
-                this.source.start(0);
-                this.audioContext.suspend();
-            })
-        }
+            // UIの初期化
+            this.currentTimeElement.innerHTML = "0:00";
+            const playTime = this.audioBuffer.duration;
+            this.durationTimeElement.innerHTML = this._convertTime(playTime);
+            this.togglePlayButtonElement.style.backgroundColor = "#ff5555";
+        })
     }
 
-    // 音源を再生する
+    // 音源の再生
     _play() {
         if (this.audioContext.state === "suspended") {
             this.audioContext.resume().then(() => {
                 console.log("再生");
-                this.startTime = this.audioContext.currentTime - this.currentPosition;
-                this.intervalID = setInterval(() => this._updateBar(), 1000);
+                this.intervalID = setInterval(() => this._countUp(), 1000);
             })
         }
+        this.isPlaying = true;
+        this.togglePlayButtonElement.innerText = "停止";
     }
 
-    // 音源を停止する
-    _stop() {
+    // 音源の停止
+    _pause() {
         if (this.audioContext.state === "running") {
             this.audioContext.suspend().then(() => {
                 console.log("停止");
-
-                //再生バーの更新を停止する
                 if (this.intervalID) clearInterval(this.intervalID);
             })
         }
+        this.isPlaying = false;
+        this.togglePlayButtonElement.innerText = "再生";
     }
 
-    // 音源の再生位置を変更する
+    // 音源の再生位置を変更
     _changePosition() {
-        // 音源が存在しないとき早期リターン
-        if (!this.audioBuffer) return;
+        const startTime = this.audioBuffer.duration * this.positionBarElement.value / 100;
+        this._setup(startTime);
+    }
 
-        // 再生位置を算出
-        const newPosition = this.positionElement.value;
-        this.currentPosition = this.audioBuffer.duration * (newPosition / 100);
-
-        // 再生初期化処理
-        if (this.source) this.source.stop();
-        this.source = this.audioContext.createBufferSource();
-        this.source.buffer = this.audioBuffer;
-        this.source.connect(this.gainNode);
-        this.gainNode.connect(this.analyser);
-        this.analyser.connect(this.audioContext.destination);
-        this.source.start(0, this.currentPosition);
-
-        // 再生開始位置を計算
-        if (this.audioContext.state === "running") {
-            this.startTime = this.audioContext.currentTime - this.currentPosition;
-        }
+    // 音源の音量を変更
+    _changeVolume() {
+        this._setup(this.currentTime);
     }
 
     // 再生バーを更新する
-    _updateBar() {
-        // 音源が存在しない or 音声バーが操作されているとき早期リターン
-        if (!this.audioBuffer || this.isDragging) return;
-
-        // 再生位置を計算し更新
-        const elapsedTime = this.audioContext.currentTime - this.startTime;
-        this.currentPosition = elapsedTime;
-        const newPosition = (elapsedTime / this.audioBuffer.duration) * 100;
-        this.positionElement.value = newPosition;
+    _countUp() {
+        this.currentTime++;
+        const endTime = this.audioBuffer.duration;
+        const ratio = this.currentTime / endTime; // 再生位置の割合
+        this.positionBarElement.value = 100 * ratio; // 割合を%に変換
+        this.currentTimeElement.innerText = this._convertTime(this.currentTime);
     }
 
-    // 音源の音量を調整する
-    _changeVolume() {
-        // 音源が存在しないとき早期リターン
-        if (!this.audioBuffer) return;
-
-        // 音量を設定
-        const volumeSize = this.volumeElement.value / 100;
-        this.gainNode.gain.value = volumeSize;
-
-        // 再生初期化処理
-        if (this.source) this.source.stop();
-        this.source = this.audioContext.createBufferSource();
-        this.source.buffer = this.audioBuffer;
-        this.source.connect(this.gainNode);
-        this.gainNode.connect(this.analyser);
-        this.analyser.connect(this.audioContext.destination);
-        this.source.start(0, this.currentPosition);
-
-        // 再生開始位置を計算
-        if (this.audioContext.state === "running") {
-            this.startTime = this.audioContext.currentTime - this.currentPosition;
-        }
+    // 再生時間を表示用に変換して返す
+    _convertTime(value) {
+        const minutes = Math.trunc(value / 60);
+        const seconds = `${Math.trunc(value % 60)}`.padStart(2, "0");
+        return `${minutes}:${seconds}`;
     }
 }

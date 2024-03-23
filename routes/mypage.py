@@ -8,6 +8,8 @@ bp = Blueprint("mypage", __name__)
 
 @bp.route("/mypage")
 def mypage():
+    # 結果の格納場所
+    result = {}
     # クッキーからデータを取得
     cookie_data = request.cookies.get("key")
 
@@ -15,42 +17,31 @@ def mypage():
     if cookie_data is not None:
         cookie_data = json.loads(cookie_data)
     else:
-        cookie_data = {'mail': 'No Data'}
+        return """
+		<script>
+		    alert('セッションが切れています。ログインし直してください');
+		    window.location.href = '/login'; // リダイレクト
+		</script>
+		"""
 
     # SQLiteデータベースへの接続
     con = sqlite3.connect('test.db')
     c = con.cursor()
 
-    # クエリを実行して結果を取得
-    c.execute("SELECT username, introduction FROM users")
-    rows = c.fetchall()
-
-    # もし結果が空であればユーザ登録を行う
-    if not rows or all(row[0] is None for row in rows):
-        con.commit()
-        con.close()
-        # アラートを表示するJavaScriptを生成して返す
-        return """
-        <script>
-            alert('ユーザ名を設定してください。');
-            window.location.href = '/profEdit'; // リダイレクト
-        </script>
-        """
-
     # クッキーから取得したメールアドレスを使用して、ユーザー名を取得
-    email = cookie_data.get('mail', None)
-    # メールアドレスに基づいてデータベースからユーザー名を取得するクエリを実行
-    c.execute("SELECT username FROM users WHERE email=?", (email,))
-    row = c.fetchone()
-    print(row)
-    fetched_username = row[0]
-    print("取得したユーザー名:", fetched_username)
-    # usersテーブルの全てのレコードを取得するクエリを実行
-    c.execute("SELECT * FROM users")
-    
+    email = cookie_data.get('email', None)
+    # ユーザー名と自己紹介を取得するクエリを実行
+    c.execute("SELECT username, introduction FROM users WHERE email=?", (email,))
+	
     # 取得した結果を取得
-    rows = c.fetchall()
-    
+    rows = c.fetchall()  # データベースからの取得結果
+    print(rows)
+
+    # 取得した結果が空でなければ辞書に変換
+    if rows:
+        result["username"] = rows[0][0]
+        result["introduction"] = rows[0][1]
+	
     # 結果の表示
     for row in rows:
         print(row)
@@ -58,4 +49,4 @@ def mypage():
     con.commit()
     con.close()
 
-    return render_template('mypage.html',fetched_username=fetched_username)
+    return render_template('mypage.html',result=result)

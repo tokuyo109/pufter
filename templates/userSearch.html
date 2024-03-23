@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+ユーザ検索結果
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/changePass/changePassCheck.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<h1>検索したいユーザを入れて</h1>
+<form action="/userSearch" method="get">
+    <input type="text" name="text">
+</form>
+<br>
+
+<table border="1">
+    {% for username in result %}
+    <tr>
+        <td>{{ username }}</td>
+        <td>
+            <form action="#">
+                <input type="submit" value="フォロー">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/share">シェアページへ戻る</a>
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

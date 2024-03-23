@@ -10,8 +10,13 @@
 
 {% block content %}
 <div>
-    <h1>{{fetched_username}}さん</h1>
+    <h1>{{result.username}}さん</h1>
+    <h2>自己紹介</h2>
+    <p>{{result.introduction}}</p>
     <a href="/profEdit">プロフィール編集</a>
+
+    <a href="/share">シェアページへ</a>
+
 
 </div>
 {% endblock %}

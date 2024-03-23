@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 
 {% block title %}
-会員登録
+パスワード変更
 {% endblock %}
 
 {% block extra_links %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/entry/entry.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/changePass/changePass.css')}}">
 {% endblock %}
 
 {% block content %}
 
-<form action="/entryCheck" method="post">
-    <div class="entry">
-        <h1>新規会員登録</h1>
+<form action="/changePassCheck" method="post">
+    <div class="changePass">
+        <h1>パスワード変更</h1>
         <p class="error-msg">{{err.msg}}</p>
-        <p class="error-msg">{{err.mail}}</p>
+        <p class="error-msg">{{err.email}}</p>
         <p class="error-msg">{{err.pas}}</p>
         <p class="error-msg">{{err.check}}</p>
         <div class="textArea">
@@ -32,9 +32,6 @@
 
         <div class="box">
             <input type="submit" value="登　録">
-        </div>
-        <div class="link-container">
-            <p>アカウントをお持ちの方は<a href="/login">こちら</a></p>
         </div>
     </div>
 </form>

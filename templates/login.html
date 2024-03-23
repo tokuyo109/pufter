@@ -16,17 +16,17 @@
 <form action="/loginCheck" class="wrapper" method="post">
     <div class="login">
         <h1>ログイン</h1>
-        <p class="error-msg">{{err.msg}}</p>
+        <p class="error-msg">{{err.check}}</p>
         <p class="textArea">
             <label>メールアドレス</label>
-            <input type="email" name="mail" class="textbox" value="{{result.mail}}">
+            <input type="email" name="email" class="textbox" value="{{result.mail}}">
         </p>
         <p class="textArea">
             <label>パスワード</label>
             <input type="password" name="pas" class="textbox">
         </p>
         <div class="pass">
-            <p><a href="#">パスワードを忘れた場合はこちら</a></p>
+            <p><a href="/changePass">パスワードを忘れた場合はこちら</a></p>
         </div>
         <div class="box">
             <input type="submit" value="ログイン" class="button">

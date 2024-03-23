@@ -14,15 +14,18 @@ def profEditCheck():
     # デフォルトのデータを設定
     if cookie_data is not None:
         cookie_data = json.loads(cookie_data)
-        email = cookie_data.get('mail')
+        email = cookie_data.get('email')
     else:
-        cookie_data = {'mail': 'No Data'}
+        return """
+		<script>
+		    alert('セッションが切れています。ログインし直してください');
+		    window.location.href = '/login'; // リダイレクト
+		</script>
+		"""
 
     # SQLiteデータベースへの接続
     con = sqlite3.connect('test.db')
     c = con.cursor()
-
-
     
     # それぞれの変数
     tbl ={

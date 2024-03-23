@@ -9,16 +9,29 @@
 {% block content %}
 <div id="webGL"></div>
 <div id="musicPlayer">
-  <div>
-      <input type="range" id="positionBar" min="0" max="100" value="0">
+    <!-- シークバーと時間表示 -->
+    <div>
+      <input id="positionBar" type="range" min="0" max="100" step="1" value="0">
+      <div>
+        <span id="time-current">0:00</span>
+        <span id="time-duration">0:00</span>
+      </div>
+    </div>
+    <div>
+      <!-- 音楽ファイルの選択 -->
+      <div>
+        <input id="musicFile" type="file" accept="audio/*">
+      </div>
+      <!-- 再生ボタンなど -->
+      <div>
+        <button id="togglePlayButton">再生</button>
+      </div>
+      <!-- ボリューム調整 -->
+      <div>
+        <input id="volumeBar" type="range" min="0" max="100" step="1" value="50">
+      </div>
+    </div>
   </div>
-  <div id="musicPlayerCol2">
-      <input type="file" id="musicFile">
-      <button id="playButton">再生</button>
-      <button id="stopButton">停止</button>
-      <input type="range" id="volumeBar" min="0" max="100" value="50">
-  </div>
-</div>
 
 <!-- <div>
     <label for="objectSelector">objectSelector</label>

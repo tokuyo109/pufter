@@ -17,10 +17,15 @@ def profEdit():
 	if cookie_data is not None:
 		cookie_data = json.loads(cookie_data)
 	else:
-		cookie_data = {'mail': 'No Data'}
+		return """
+		<script>
+		    alert('セッションが切れています。ログインし直してください');
+		    window.location.href = '/login'; // リダイレクト
+		</script>
+		"""
 
     # クッキーから取得したメールアドレスを使用して、ユーザー名を取得
-	email = cookie_data.get('mail', None)
+	email = cookie_data.get('email', None)
 	# SQLiteデータベースへの接続
 	con = sqlite3.connect('test.db')
 	c = con.cursor()
@@ -30,7 +35,6 @@ def profEdit():
 	
     # 取得した結果を取得
 	rows = c.fetchall()  # データベースからの取得結果
-	print(rows)
 
     # 取得した結果が空でなければ辞書に変換
 	if rows:
@@ -42,4 +46,6 @@ def profEdit():
     # データベースへの変更をコミットし、接続を閉じる
 	con.commit()
 	con.close()
+	if result["username"] == None:
+		result = ""
 	return render_template("profEdit.html", result=result)
