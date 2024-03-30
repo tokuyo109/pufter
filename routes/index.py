@@ -1,5 +1,6 @@
 # トップページ
 from flask import render_template, Blueprint
+import sqlite3
 
 bp = Blueprint("index", __name__)
 

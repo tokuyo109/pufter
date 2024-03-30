@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+共有ページ
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index/style.css')}}">
+{% endblock %}
+
+{% block content %}
+<h1>{{ profile_info.username }}さんのプロフィール</h1>
+<p>自己紹介: {{ profile_info.introduction }}</p>
+{% if profile_info.twitterid %}
+<h2>X</h2>
+<p><a href="http://x.com/{{profile_info.twitterid}}" target="_blank">Xを見る</a></p>
+{% endif %}
+<p>フォロー数: {{ result.following_count }}</p>
+<p>フォロワー数: {{ result.follower_count }}</p>
+
+
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

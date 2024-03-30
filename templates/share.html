@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+共有ページ
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/share/share.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<a href="/mypage">マイページへ</a>
+<a href="/editor">編集ページへ</a>
+
+<a href="/userSearch">ユーザー検索ページ</a>
+
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

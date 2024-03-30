@@ -1,0 +1,67 @@
+:root {
+    --main-color: #1a1a1a;
+}
+
+body {
+    margin : 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    color: white;
+    overflow: hidden;
+}
+
+/* main {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+} */
+
+#sideBar1 {
+    background-color: var(--main-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 245px;
+    height: 100%;
+}
+
+#addEntityList {
+    height: 60%;
+}
+
+#player {
+    height: 40%;
+}
+
+.textalive-media-wrapper > div{
+    width: 245px !important; 
+}
+
+#WebGL {
+    position: fixed;
+    z-index: -999;
+}
+
+#sideBar2 {
+    background-color: var(--main-color);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 245px;
+    height: 100%;
+}
+
+#entitySelector {
+    height: 40%;
+    overflow-y: auto;
+}
+
+#entityParameters {
+    height: 60%;
+}
+
+.lil-gui {
+
+}
+

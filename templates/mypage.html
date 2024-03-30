@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+共有ページ
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index/style.css')}}">
+{% endblock %}
+
+{% block content %}
+<div>
+    <h1>{{result.username}}さん</h1>
+    <h2>自己紹介</h2>
+    <p>{{result.introduction}}</p>
+
+    {% if result.twitterid %}
+    <h2>X</h2>
+    <p><a href="http://x.com/{{result.twitterid}}" target="_blank">Xを見る</a></p>
+    {% endif %}
+
+    <a href="/userSearch"><p>フォロー数: {{ result.following_count }}</a><span>&nbsp;&nbsp;&nbsp;</span>フォロワー数: {{ result.follower_count }}</p>
+
+    <a href="/profEdit">プロフィール編集</a><br>
+
+    <a href="/share">シェアページへ</a>
+
+    <a href="/logout">ログアウト</a>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

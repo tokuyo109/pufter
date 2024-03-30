@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+共有ページ
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index/style.css')}}">
+{% endblock %}
+
+{% block content %}
+<form action="/profEditCheck" method="post">
+    <div class="textArea">
+        <label>ユーザ名</label><br>
+        <input type="text" name="username" value="{{result.username}}">
+    </div>
+    <div class="textArea">
+        <label>自己紹介</label><br>
+        <input type="text" name="introduction" value="{{result.introduction}}">
+    </div>
+    <div class="textArea">
+        <label>リンク</label><br>
+        <h2>XのID</h2>
+        <input type="text" name="twitterid" value="{{result.twitterid}}">
+    </div>
+    <br>
+    <input type="submit" value="登録" class="button">
+</form>
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}
