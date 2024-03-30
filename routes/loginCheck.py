@@ -36,8 +36,8 @@ def loginCheck():
     # cookie保存する値を作成
     cookie_data = {'email':email}
 
-    # Cookie有効時間(一分)
-    limit = 60
+    # Cookie有効時間(1ヶ月)
+    limit = 2592000
     expires = int(datetime.datetime.now().timestamp()) + limit
 
     # Cookie生成

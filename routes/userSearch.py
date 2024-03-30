@@ -8,31 +8,41 @@ bp = Blueprint("userSearch", __name__)
 
 @bp.route('/userSearch', methods=['GET'])
 def userSearch():
-    # 入力されたものを格納
-    if request.args.get('text') != None:
-        query = request.args.get('text')
-    else:
-        query = ""
+    # 入力された検索クエリを取得
+    query = request.args.get('text', '')
 
-
-    # クッキーからログインしているユーザーのメールアドレスを取得
+    # ログインしているユーザーのメールアドレスを取得
     cookie_data = request.cookies.get("key")
     if cookie_data is not None:
         cookie_data = json.loads(cookie_data)
         email = cookie_data.get('email')
     else:
-        email = ""
+        # セッションが切れている場合はログインページにリダイレクト
+        return """
+		<script>
+		    alert('セッションが切れています。ログインし直してください');
+		    window.location.href = '/login'; // リダイレクト
+		</script>
+		"""
 
-    con = sqlite3.connect('test.db')
-    c = con.cursor()
+    # データベースからユーザーを検索（自分自身は除く）
+    conn = sqlite3.connect('test.db')
+    c = conn.cursor()
+    c.execute("SELECT id FROM users WHERE email = ? ORDER BY username", (email,))
+    login_user_id = c.fetchone()[0]  # ログインユーザーのIDを取得
 
-  # ユーザ名を使って曖昧検索を行う（自分自身を除く）
-    c.execute("SELECT * FROM users WHERE username LIKE ? AND email != ?", ('%' + query + '%', email))
-    users = c.fetchall()
+    # データベースから各ユーザーのフォロー状態を取得
+    follow_status_query = "SELECT username, CASE WHEN id IN (SELECT followed_id FROM follows WHERE follower_id = ?) THEN 1 ELSE 0 END FROM users WHERE username LIKE ? AND id != ? ORDER BY username"
+    c.execute(follow_status_query, (login_user_id, '%' + query + '%', login_user_id))
+    follow_status = c.fetchall()
+    print(follow_status)
 
-    con.close()
 
-    result = [user[3] for user in users]  # ユーザ名のみ取得
-    print(result)
+    conn.close()
+
+    # フォロー状態を辞書に格納
+    result = {user[0]: bool(user[1]) for user in follow_status}
+
+    # print(result)
+
     return render_template("userSearch.html", result=result)
-

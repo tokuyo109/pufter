@@ -31,7 +31,7 @@ def profEdit():
 	c = con.cursor()
 
     # ユーザー名と自己紹介を取得するクエリを実行
-	c.execute("SELECT username, introduction FROM users WHERE email=?", (email,))
+	c.execute("SELECT username, introduction, twitterid FROM users WHERE email=?", (email,))
 	
     # 取得した結果を取得
 	rows = c.fetchall()  # データベースからの取得結果
@@ -40,6 +40,7 @@ def profEdit():
 	if rows:
 		result["username"] = rows[0][0]
 		result["introduction"] = rows[0][1]
+		result["twitterid"] = rows[0][2]
 	
 	print(result)
 		

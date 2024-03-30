@@ -38,6 +38,7 @@ def profEditCheck():
     # フォームから送信されたデータを取得
     username = request.form['username']
     introduction = request.form['introduction']
+    twitterid = request.form['twitterid']
 
     # SQLiteデータベースへの接続
     con = sqlite3.connect('test.db')
@@ -45,8 +46,8 @@ def profEditCheck():
 
     # フォームからのデータを挿入
     c.execute('''UPDATE users
-                 SET username=?, introduction=?
-                 WHERE email=?''', (username, introduction, email))
+                 SET username=?, introduction=?,twitterid=?
+                 WHERE email=?''', (username, introduction, twitterid, email))
     # データベースへの変更をコミットし、接続を閉じる
     con.commit()
     con.close()

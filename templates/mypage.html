@@ -13,10 +13,19 @@
     <h1>{{result.username}}さん</h1>
     <h2>自己紹介</h2>
     <p>{{result.introduction}}</p>
-    <a href="/profEdit">プロフィール編集</a>
+
+    {% if result.twitterid %}
+    <h2>X</h2>
+    <p><a href="http://x.com/{{result.twitterid}}" target="_blank">Xを見る</a></p>
+    {% endif %}
+
+    <a href="/userSearch"><p>フォロー数: {{ result.following_count }}</a><span>&nbsp;&nbsp;&nbsp;</span>フォロワー数: {{ result.follower_count }}</p>
+
+    <a href="/profEdit">プロフィール編集</a><br>
 
     <a href="/share">シェアページへ</a>
 
+    <a href="/logout">ログアウト</a>
 
 </div>
 {% endblock %}

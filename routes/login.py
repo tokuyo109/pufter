@@ -1,7 +1,6 @@
 # ログインページ
-from flask import render_template, Blueprint, request, jsonify, redirect
-import datetime
-import json
+from flask import render_template, Blueprint, request, redirect
+
 bp = Blueprint("login", __name__)
 
 @bp.route("/login", methods=["GET"])

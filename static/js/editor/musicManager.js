@@ -139,8 +139,12 @@ export default class MusicManager {
 
     // 再生バーを更新する
     _countUp() {
-        this.currentTime++;
         const endTime = this.audioBuffer.duration;
+
+        if (this.currentTime < endTime) {
+            this.currentTime++;
+        }
+
         const ratio = this.currentTime / endTime; // 再生位置の割合
         this.positionBarElement.value = 100 * ratio; // 割合を%に変換
         this.currentTimeElement.innerText = this._convertTime(this.currentTime);
