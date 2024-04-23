@@ -19,11 +19,11 @@ def userSearch():
     else:
         # セッションが切れている場合はログインページにリダイレクト
         return """
-		<script>
-		    alert('セッションが切れています。ログインし直してください');
-		    window.location.href = '/login'; // リダイレクト
-		</script>
-		"""
+        <script>
+            alert('セッションが切れています。ログインし直してください');
+            window.location.href = '/login'; // リダイレクト
+        </script>
+        """
 
     # データベースからユーザーを検索（自分自身は除く）
     conn = sqlite3.connect('test.db')
@@ -31,18 +31,24 @@ def userSearch():
     c.execute("SELECT id FROM users WHERE email = ? ORDER BY username", (email,))
     login_user_id = c.fetchone()[0]  # ログインユーザーのIDを取得
 
-    # データベースから各ユーザーのフォロー状態を取得
-    follow_status_query = "SELECT username, CASE WHEN id IN (SELECT followed_id FROM follows WHERE follower_id = ?) THEN 1 ELSE 0 END FROM users WHERE username LIKE ? AND id != ? ORDER BY username"
+    # データベースから各ユーザーのフォロー状態と公開設定を取得
+    follow_status_query = "SELECT username, CASE WHEN id IN (SELECT followed_id FROM follows WHERE follower_id = ?) THEN 1 ELSE 0 END, visibility FROM users WHERE username LIKE ? AND id != ? ORDER BY username"
     c.execute(follow_status_query, (login_user_id, '%' + query + '%', login_user_id))
-    follow_status = c.fetchall()
-    print(follow_status)
-
+    search_results = c.fetchall()
 
     conn.close()
 
-    # フォロー状態を辞書に格納
-    result = {user[0]: bool(user[1]) for user in follow_status}
+    # 非公開設定されているユーザーを除外する
+    result = {}
+    for user in search_results:
+        username = user[0]
+        is_following = bool(user[1])
+        visibility = user[2]
 
-    # print(result)
+        # 非公開設定のユーザーは表示しない
+        if visibility == 'private':
+            continue
+
+        result[username] = is_following
 
     return render_template("userSearch.html", result=result)
