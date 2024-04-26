@@ -30,13 +30,17 @@ def profEditCheck():
     # フォームから送信されたデータを取得
     username = request.form['username']
     introduction = request.form['introduction']
-    twitterid = request.form['twitterid']
+    # twitterid = request.form['twitterid']
     visibility = request.form.get('visibility')  # ラジオボタンの選択値を取得
 
     # データベースにデータを挿入
+    # c.execute('''UPDATE users
+    #              SET username=?, introduction=?, twitterid=?, visibility=?
+    #              WHERE email=?''', (username, introduction, twitterid, visibility, email))
+
     c.execute('''UPDATE users
-                 SET username=?, introduction=?, twitterid=?, visibility=?
-                 WHERE email=?''', (username, introduction, twitterid, visibility, email))
+                 SET username=?, introduction=?, visibility=?
+                 WHERE email=?''', (username, introduction, visibility, email))
 
     # データベースへの変更をコミットし、接続を閉じる
     con.commit()

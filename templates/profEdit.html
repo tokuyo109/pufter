@@ -18,11 +18,11 @@
         <label>自己紹介</label><br>
         <input type="text" name="introduction" value="{{result.introduction}}">
     </div>
-    <div class="textArea">
+    <!-- <div class="textArea">
         <label>リンク</label><br>
         <h2>XのID</h2>
         <input type="text" name="twitterid" value="{{result.twitterid}}">
-    </div>
+    </div> -->
     <div class="textArea">
         <label>アカウントの公開設定</label><br>
         <input type="radio" name="visibility" value="public" {% if result.visibility == 'public' or result.visibility is none %}checked{% endif %}>公開
