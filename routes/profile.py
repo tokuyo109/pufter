@@ -37,17 +37,19 @@ def profile(username):
     c = conn.cursor()
 
     # ユーザー名に基づいてプロフィール情報を取得するクエリを実行
-    c.execute("SELECT username, introduction, twitterid FROM users WHERE username=?", (username,))
+    c.execute("SELECT username, introduction, email FROM users WHERE username=?", (username,))
     user_data = c.fetchone()  # ユーザーの情報を取得
 
     # ユーザーが存在する場合はプロフィール情報を設定
     if user_data:
         profile_info['username'] = user_data[0]
         profile_info['introduction'] = user_data[1]
-        profile_info['twitterid'] = user_data[2]
+
 
     # フォロワー数を取得
     result = fetch_followers_count(username)
+
+    print(user_data)
 
     # データベース接続を閉じる
     conn.close()
