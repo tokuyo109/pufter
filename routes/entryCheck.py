@@ -1,6 +1,17 @@
-from flask import render_template, Blueprint, request
+from flask import Flask, render_template, Blueprint, request
+from flask_mail import Mail, Message
 import sqlite3
 
+app = Flask(__name__)
+
+# Flask-Mailの設定
+app.config['MAIL_SERVER'] = 'smtp.protonmail.ch'  # ProtonMailのSMTPサーバー
+app.config['MAIL_PORT'] = 587  # ProtonMailのTLSポート
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'jasmnoc@proton.me'  # ProtonMailのメールアドレス
+app.config['MAIL_PASSWORD'] = 'gentle714'  # ProtonMailのパスワード
+
+mail = Mail(app)
 
 bp = Blueprint("entryCheck", __name__)
 
@@ -57,10 +68,9 @@ def entryCheck():
     # データベースへの登録
     execute_query("INSERT INTO users (email, password) VALUES (?, ?)", (email, password))
 
-    # ユーザー情報の取得と表示
-    rows = execute_query("SELECT email, password FROM users", fetchall=True)
-    for row in rows:
-        print("Email:", row[0])
-        print("Password:", row[1])
+    # メールの送信
+    msg = Message('メール確認', sender='hal.pufter@gmail.com', recipients=[email])  # 送信者と受信者を指定
+    msg.body = 'アカウントが登録されました。'  # メールの本文を指定
+    mail.send(msg)  # メールを送信
 
     return render_template('entryCheck.html', err=err_msg, result=result)

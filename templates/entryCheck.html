@@ -5,13 +5,15 @@
 {% endblock %}
 
 {% block extra_links %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/entry/entryCheck.css')}}">
-{% endblock %}e
+<link rel="stylesheet" href="{{ url_for('static', filename='css/entry/entryCheck.css') }}">
+{% endblock %}
 
 {% block content %}
 <div class="entryCheck">
-    <H1>登録完了！</H1>
-    <a href="/login">ログインページ</a>
+    <p>確認メールを送信しました。ご登録のメールアドレスをご確認ください。</p>
+    <p>メールが届かない場合は、スパムフォルダをご確認いただくか、再度登録をお試しください。</p>
+    <p>もし何らかの問題がある場合は、お問い合わせページからご連絡ください。</p>
+    <a href="/login">ログインページへ</a>
 </div>
 {% endblock %}
 
