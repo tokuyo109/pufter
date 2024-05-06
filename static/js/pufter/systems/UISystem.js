@@ -90,6 +90,9 @@ export default class UISystem extends System {
         if (entity.hasComponent(Scale)) {
             this.setScaleUI(entity);
         }
+        if (entity.hasComponent(LyricDisplayCube)) {
+            this.setFontUI(entity); // Lyric～コンポーネントを持つならフォント選択UIを追加
+        }
     }
 
     setPositionUI(entity) {
@@ -136,6 +139,16 @@ export default class UISystem extends System {
         scaleFolder
             .add({ Z: z }, "Z", -5, 5)
             .onChange((newValue) => entity.getMutableComponent(Scale).z = newValue);
+    }
+
+    // フォントを編集するUIを生成する
+    setFontUI(entity) {
+        const fontOptions = { font: 'Arial' }; // 初期値をArialに設定
+        const fontFolder = this.gui.addFolder("Font");
+        fontFolder.add(fontOptions, 'font', ['Arial', 'Serif'])
+            .onChange(newValue => {
+                entity.getMutableComponent(LyricDisplayCube).font = newValue;
+            });
     }
 
 }

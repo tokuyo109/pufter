@@ -21,6 +21,7 @@ export default class LyricDisplayCubeSystem extends System {
         this.queries.lyricDisplayCube.results.forEach(entity => {
             const mesh = entity.getComponent(Object3D).value;
             const size = 256;
+            const font = entity.getComponent(LyricDisplayCube).font || 'Arial'; // フォント設定を取得、未設定の場合はArialを使用
             const canvas = document.createElement("canvas");
             canvas.width = size;
             canvas.height = size;
@@ -29,7 +30,7 @@ export default class LyricDisplayCubeSystem extends System {
             const currentLyric = this.playerManager.getCurrentLyric();
 
             context.clearRect(0, 0, canvas.width, canvas.height);
-            context.font = 'Bold 128px Arial';
+            context.font = `Bold 128px ${font}`;
             context.fillStyle = 'black';
             context.textAlign = 'center';
             context.textBaseline = 'middle';
