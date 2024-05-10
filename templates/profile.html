@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block extra_links %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/index/style.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='./static/profile/profile.css)}}">
 {% endblock %}
 
 {% block content %}
+<p>ユーザー名</p>
 <h1>{{ profile_info.username }}さんのプロフィール</h1>
 <p>自己紹介: {{ profile_info.introduction }}</p>
 {% if profile_info.twitterid %}
