@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-共有ページ
+プロフィール編集
 {% endblock %}
 
 {% block extra_links %}
@@ -18,10 +18,15 @@
         <label>自己紹介</label><br>
         <input type="text" name="introduction" value="{{result.introduction}}">
     </div>
-    <div class="textArea">
+    <!-- <div class="textArea">
         <label>リンク</label><br>
         <h2>XのID</h2>
         <input type="text" name="twitterid" value="{{result.twitterid}}">
+    </div> -->
+    <div class="textArea">
+        <label>アカウントの公開設定</label><br>
+        <input type="radio" name="visibility" value="public" {% if result.visibility == 'public' or result.visibility is none %}checked{% endif %}>公開
+        <input type="radio" name="visibility" value="private" {% if result.visibility == 'private' %}checked{% endif %}>非公開
     </div>
     <br>
     <input type="submit" value="登録" class="button">

@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/base/base.css')}}">
 	<title>
 		{% block title %}
 			<!-- タイトルを記述 -->
@@ -16,13 +17,13 @@
 		<script async src="https://unpkg.com/es-module-shims@1.5.8/dist/es-module-shims.js"></script>
 		<script type="importmap">
 			{
-			  "imports": {
+				"imports": {
 				"three": "https://unpkg.com/three@v0.149.0/build/three.module.js",
 				"three/addons/": "https://unpkg.com/three@v0.149.0/examples/jsm/",
 				"uuid": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/index.js",
 				"ecsy": "https://ecsyjs.github.io/ecsy/build/ecsy.module.js",
 				"lil-gui": "https://cdn.jsdelivr.net/npm/lil-gui@0.19.1/+esm"
-			  }
+				}
 			}
 		</script>
 	{% endif %}
@@ -48,6 +49,9 @@
 <body>
 	<header>
 		<!-- ヘッダー内容を記述 -->
+		<div class="header">
+			<img src="./static/img/login/icon.png">
+		</div>
 	</header>
 
 	<main>

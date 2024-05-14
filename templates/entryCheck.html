@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block title %}
-会員登録完了
+仮登録メール送信
 {% endblock %}
 
 {% block extra_links %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/index/style.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/entry/entryCheck.css') }}">
 {% endblock %}
 
 {% block content %}
 
-<H1>登録完了！</H1>
-<a href="/login">ログインページ</a>
+<h1>仮登録状態です</h1>
+<p>登録が完了しました。メールを確認してアカウントを有効化してください。</p>
+
 {% endblock %}
 
 {% block extra_scripts %}

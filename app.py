@@ -2,9 +2,14 @@
 
 from flask import Flask
 from importlib import import_module
+from flask_mail import Mail, Message
 from pathlib import Path
 
 app = Flask(__name__)
+app.secret_key = 'pufter'
+
+mail = Mail(app)  # Flask-Mailの拡張機能をアプリケーションに追加
+
 
 # FlaskアプリケーションにBlueprintを登録する関数
 # 現在はサブディレクトリに対応していない
