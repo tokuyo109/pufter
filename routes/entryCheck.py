@@ -7,11 +7,11 @@ import datetime
 app = Flask(__name__)
 
 # Flask-Mailの設定
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # GmailのSMTPサーバー
-app.config['MAIL_PORT'] = 587  # GmailのTLSポート
+app.config['MAIL_SERVER'] = ''  # GmailのSMTPサーバー
+app.config['MAIL_PORT'] = ''  # GmailのTLSポート
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'hal.pufter@gmail.com'  # Gmailのメールアドレス
-app.config['MAIL_PASSWORD'] = 'nkcz tlyh nojb dgay'  # Gmailのパスワード
+app.config['MAIL_USERNAME'] = ''  # Gmailのメールアドレス
+app.config['MAIL_PASSWORD'] = ''  # Gmailのパスワード
 
 mail = Mail(app)  # Flask-Mailの拡張機能をアプリケーションに追加
 
@@ -69,7 +69,7 @@ def entryCheck():
         execute_query("INSERT INTO assume (email, password, security_code, expiration_time) VALUES (?, ?, ?, ?)", (email, password, security_code, expiration_time,))
 
     # メールの送信
-    msg = Message('アカウントの有効化', sender='hal.pufter@gmail.com', recipients=[email])
+    msg = Message('アカウントの有効化', sender='', recipients=[email])
     msg.body = f'▼新規会員登録セキュリティコード\n{security_code}\n\n※上記セキュリティコードは発行から5分以内に有効です。'
     mail.send(msg)
 

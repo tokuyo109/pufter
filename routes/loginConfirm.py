@@ -7,11 +7,11 @@ import json
 app = Flask(__name__)
 
 # Flask-Mailの設定
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # GmailのSMTPサーバー
-app.config['MAIL_PORT'] = 587  # GmailのTLSポート
+app.config['MAIL_SERVER'] = ''  # GmailのSMTPサーバー
+app.config['MAIL_PORT'] = ''  # GmailのTLSポート
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'hal.pufter@gmail.com'  # Gmailのメールアドレス
-app.config['MAIL_PASSWORD'] = 'nkcz tlyh nojb dgay'  # Gmailのパスワード
+app.config['MAIL_USERNAME'] = ''  # Gmailのメールアドレス
+app.config['MAIL_PASSWORD'] = ''  # Gmailのパスワード
 
 mail = Mail(app)  # Flask-Mailの拡張機能をアプリケーションに追加
 

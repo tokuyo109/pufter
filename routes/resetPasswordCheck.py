@@ -52,7 +52,7 @@ def resetPasswordCheck():
 
 
     reset_link = url_for('resetPassword.resetPassword', token=reset_token, _external=True)
-    msg = Message('パスワードリセット', sender='hal.pufter@gmail.com', recipients=[email])
+    msg = Message('パスワードリセット', sender='', recipients=[email])
     msg.body = f'パスワードをリセットするには、以下のリンクをクリックしてください：\n{reset_link}\n\nこのリンクの有効期限は10分です。'
     mail.send(msg)
 

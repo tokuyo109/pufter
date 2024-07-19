@@ -7,11 +7,11 @@ import secrets
 app = Flask(__name__)
 
 # Flask-Mailの設定
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # GmailのSMTPサーバー
-app.config['MAIL_PORT'] = 587  # GmailのTLSポート
+app.config['MAIL_SERVER'] = ''  # GmailのSMTPサーバー
+app.config['MAIL_PORT'] = ''  # GmailのTLSポート
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'hal.pufter@gmail.com'  # Gmailのメールアドレス
-app.config['MAIL_PASSWORD'] = 'nkcz tlyh nojb dgay'  # Gmailのパスワード
+app.config['MAIL_USERNAME'] = ''  # Gmailのメールアドレス
+app.config['MAIL_PASSWORD'] = ''  # Gmailのパスワード
 
 mail = Mail(app)  # Flask-Mailの拡張機能をアプリケーションに追加
 
@@ -44,7 +44,7 @@ def loginCheck():
     security_code = ''.join(secrets.choice('0123456789') for i in range(6))
 
     # セキュリティコードを含むメールを送信
-    msg = Message('セキュリティコードの確認', sender='hal.pufter@gmail.com', recipients=[email])
+    msg = Message('セキュリティコードの確認', sender='', recipients=[email])
     msg.body = f'以下のセキュリティコードを使用してログインを完了してください。\n\nセキュリティコード: {security_code}\n\nこのコードは5分間有効です。'
     mail.send(msg)
 
