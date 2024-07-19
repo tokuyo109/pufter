@@ -1,0 +1,871 @@
+{
+    "entities": [
+        {
+            "id": 0,
+            "name": "Scene",
+            "components": {
+                "Object3D": {
+                    "object3D": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "geometries": [
+                            {
+                                "uuid": "478a7a86-9daf-4b83-824a-864482c56d06",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            }
+                        ],
+                        "materials": [
+                            {
+                                "uuid": "58e53bee-b512-48b2-8bf6-473996957740",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "transparent": true,
+                                "blendColor": 0
+                            }
+                        ],
+                        "object": {
+                            "uuid": "eeeab7d1-ee31-4119-bec5-9617819e964f",
+                            "type": "Scene",
+                            "layers": 1,
+                            "matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "children": [
+                                {
+                                    "uuid": "66f8396b-2f83-49bc-90b6-54ff24f90dd1",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.9976303414508318,
+                                        0,
+                                        0.06880190271130988,
+                                        0,
+                                        0.01401417950055197,
+                                        0.9790356775698003,
+                                        -0.20320616333755362,
+                                        0,
+                                        -0.06735951743905876,
+                                        0.20368883632993293,
+                                        0.9767156973065063,
+                                        0,
+                                        -0.7531022996265895,
+                                        2.277310421457793,
+                                        10.920013469342278,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.1041095890410957,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1dc36af6-a513-4064-87a0-98d645d07c91",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        54.6,
+                                        -1.3809342927050408,
+                                        0.30940383240426117,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "478a7a86-9daf-4b83-824a-864482c56d06",
+                                    "material": "58e53bee-b512-48b2-8bf6-473996957740"
+                                },
+                                {
+                                    "uuid": "5ab7c73d-aeca-41f0-aabc-5cf8a05c0858",
+                                    "type": "Group",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ]
+                                }
+                            ],
+                            "backgroundRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ],
+                            "environmentRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ]
+                        }
+                    },
+                    "parent": null
+                },
+                "Scene": {},
+                "UI": {},
+                "Export": {}
+            }
+        },
+        {
+            "id": 1,
+            "name": "Renderer",
+            "components": {
+                "Renderer": {
+                    "renderer": {
+                        "isWebGLRenderer": true,
+                        "domElement": {},
+                        "debug": {
+                            "checkShaderErrors": true,
+                            "onShaderError": null
+                        },
+                        "autoClear": true,
+                        "autoClearColor": true,
+                        "autoClearDepth": true,
+                        "autoClearStencil": true,
+                        "sortObjects": true,
+                        "clippingPlanes": [],
+                        "localClippingEnabled": false,
+                        "_outputColorSpace": "srgb",
+                        "_useLegacyLights": false,
+                        "toneMapping": 0,
+                        "toneMappingExposure": 1,
+                        "capabilities": {
+                            "isWebGL2": true,
+                            "drawBuffers": true,
+                            "precision": "highp",
+                            "logarithmicDepthBuffer": false,
+                            "maxTextures": 16,
+                            "maxVertexTextures": 16,
+                            "maxTextureSize": 16384,
+                            "maxCubemapSize": 16384,
+                            "maxAttributes": 16,
+                            "maxVertexUniforms": 4096,
+                            "maxVaryings": 30,
+                            "maxFragmentUniforms": 1024,
+                            "vertexTextures": true,
+                            "floatFragmentTextures": true,
+                            "floatVertexTextures": true,
+                            "maxSamples": 16
+                        },
+                        "extensions": {},
+                        "properties": {},
+                        "renderLists": {},
+                        "shadowMap": {
+                            "enabled": false,
+                            "autoUpdate": true,
+                            "needsUpdate": false,
+                            "type": 1
+                        },
+                        "state": {
+                            "buffers": {
+                                "color": {},
+                                "depth": {},
+                                "stencil": {}
+                            }
+                        },
+                        "info": {
+                            "memory": {
+                                "geometries": 2,
+                                "textures": 0
+                            },
+                            "render": {
+                                "frame": 10222,
+                                "calls": 0,
+                                "triangles": 0,
+                                "points": 0,
+                                "lines": 0
+                            },
+                            "programs": [
+                                {
+                                    "type": "MeshBasicMaterial",
+                                    "name": "",
+                                    "id": 0,
+                                    "cacheKey": "basic,highp,srgb,false,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,0,false,false,0,,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,3,131074,srgb,onBeforeCompile( /* shaderobject, renderer */ ) {}",
+                                    "usedTimes": 1,
+                                    "program": {},
+                                    "vertexShader": {},
+                                    "fragmentShader": {}
+                                },
+                                {
+                                    "type": "MeshBasicMaterial",
+                                    "name": "",
+                                    "id": 1,
+                                    "cacheKey": "basic,highp,srgb,false,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,0,false,false,0,,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,3,2,srgb,onBeforeCompile( /* shaderobject, renderer */ ) {}",
+                                    "usedTimes": 1,
+                                    "program": {},
+                                    "vertexShader": {},
+                                    "fragmentShader": {}
+                                }
+                            ],
+                            "autoReset": true
+                        },
+                        "xr": {
+                            "cameraAutoUpdate": true,
+                            "enabled": false,
+                            "isPresenting": false,
+                            "_listeners": {
+                                "sessionstart": [
+                                    null
+                                ],
+                                "sessionend": [
+                                    null
+                                ]
+                            }
+                        }
+                    },
+                    "clearColor": 16777215,
+                    "antialias": true
+                },
+                "UI": {},
+                "Export": {}
+            }
+        },
+        {
+            "id": 2,
+            "name": "Camera",
+            "components": {
+                "Object3D": {
+                    "object3D": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "object": {
+                            "uuid": "66f8396b-2f83-49bc-90b6-54ff24f90dd1",
+                            "type": "PerspectiveCamera",
+                            "layers": 1,
+                            "matrix": [
+                                0.9976303414508318,
+                                0,
+                                0.06880190271130988,
+                                0,
+                                0.01401417950055197,
+                                0.9790356775698003,
+                                -0.20320616333755362,
+                                0,
+                                -0.06735951743905876,
+                                0.20368883632993293,
+                                0.9767156973065063,
+                                0,
+                                -0.7531022996265895,
+                                2.277310421457793,
+                                10.920013469342278,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "fov": 45,
+                            "zoom": 1,
+                            "near": 1,
+                            "far": 1000,
+                            "focus": 10,
+                            "aspect": 2.1041095890410957,
+                            "filmGauge": 35,
+                            "filmOffset": 0
+                        }
+                    },
+                    "parent": null
+                },
+                "Position": {
+                    "x": 0,
+                    "y": 10,
+                    "z": 5
+                },
+                "Rotation": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "Scale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "UI": {},
+                "Camera": {},
+                "Export": {}
+            }
+        },
+        {
+            "id": 3,
+            "name": "LyricDisplayCube3",
+            "components": {
+                "Object3D": {
+                    "object3D": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "geometries": [
+                            {
+                                "uuid": "478a7a86-9daf-4b83-824a-864482c56d06",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            }
+                        ],
+                        "materials": [
+                            {
+                                "uuid": "58e53bee-b512-48b2-8bf6-473996957740",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "transparent": true,
+                                "blendColor": 0
+                            }
+                        ],
+                        "object": {
+                            "uuid": "1dc36af6-a513-4064-87a0-98d645d07c91",
+                            "type": "Mesh",
+                            "layers": 1,
+                            "matrix": [
+                                2,
+                                0,
+                                0,
+                                0,
+                                0,
+                                2,
+                                0,
+                                0,
+                                0,
+                                0,
+                                2,
+                                0,
+                                54.6,
+                                -1.3809342927050408,
+                                0.30940383240426117,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "geometry": "478a7a86-9daf-4b83-824a-864482c56d06",
+                            "material": "58e53bee-b512-48b2-8bf6-473996957740"
+                        }
+                    },
+                    "parent": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "geometries": [
+                            {
+                                "uuid": "478a7a86-9daf-4b83-824a-864482c56d06",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            }
+                        ],
+                        "materials": [
+                            {
+                                "uuid": "58e53bee-b512-48b2-8bf6-473996957740",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "transparent": true,
+                                "blendColor": 0
+                            }
+                        ],
+                        "object": {
+                            "uuid": "eeeab7d1-ee31-4119-bec5-9617819e964f",
+                            "type": "Scene",
+                            "layers": 1,
+                            "matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "children": [
+                                {
+                                    "uuid": "66f8396b-2f83-49bc-90b6-54ff24f90dd1",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.9976303414508318,
+                                        0,
+                                        0.06880190271130988,
+                                        0,
+                                        0.01401417950055197,
+                                        0.9790356775698003,
+                                        -0.20320616333755362,
+                                        0,
+                                        -0.06735951743905876,
+                                        0.20368883632993293,
+                                        0.9767156973065063,
+                                        0,
+                                        -0.7531022996265895,
+                                        2.277310421457793,
+                                        10.920013469342278,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.1041095890410957,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1dc36af6-a513-4064-87a0-98d645d07c91",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        54.6,
+                                        -1.3809342927050408,
+                                        0.30940383240426117,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "478a7a86-9daf-4b83-824a-864482c56d06",
+                                    "material": "58e53bee-b512-48b2-8bf6-473996957740"
+                                },
+                                {
+                                    "uuid": "5ab7c73d-aeca-41f0-aabc-5cf8a05c0858",
+                                    "type": "Group",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ]
+                                }
+                            ],
+                            "backgroundRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ],
+                            "environmentRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ]
+                        }
+                    }
+                },
+                "Mesh": {},
+                "Position": {
+                    "x": 54.6,
+                    "y": -1.3809342927050408,
+                    "z": 0.30940383240426117
+                },
+                "Rotation": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "Scale": {
+                    "x": 2,
+                    "y": 2,
+                    "z": 2
+                },
+                "LyricDisplayCube": {},
+                "UI": {},
+                "Export": {}
+            }
+        },
+        {
+            "id": 6,
+            "name": "Spiral6",
+            "components": {
+                "Object3D": {
+                    "object3D": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "object": {
+                            "uuid": "5ab7c73d-aeca-41f0-aabc-5cf8a05c0858",
+                            "type": "Group",
+                            "layers": 1,
+                            "matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ]
+                        }
+                    },
+                    "parent": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "geometries": [
+                            {
+                                "uuid": "478a7a86-9daf-4b83-824a-864482c56d06",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            }
+                        ],
+                        "materials": [
+                            {
+                                "uuid": "58e53bee-b512-48b2-8bf6-473996957740",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "transparent": true,
+                                "blendColor": 0
+                            }
+                        ],
+                        "object": {
+                            "uuid": "eeeab7d1-ee31-4119-bec5-9617819e964f",
+                            "type": "Scene",
+                            "layers": 1,
+                            "matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "children": [
+                                {
+                                    "uuid": "66f8396b-2f83-49bc-90b6-54ff24f90dd1",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.9976303414508318,
+                                        0,
+                                        0.06880190271130988,
+                                        0,
+                                        0.01401417950055197,
+                                        0.9790356775698003,
+                                        -0.20320616333755362,
+                                        0,
+                                        -0.06735951743905876,
+                                        0.20368883632993293,
+                                        0.9767156973065063,
+                                        0,
+                                        -0.7531022996265895,
+                                        2.277310421457793,
+                                        10.920013469342278,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.1041095890410957,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1dc36af6-a513-4064-87a0-98d645d07c91",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        54.6,
+                                        -1.3809342927050408,
+                                        0.30940383240426117,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "478a7a86-9daf-4b83-824a-864482c56d06",
+                                    "material": "58e53bee-b512-48b2-8bf6-473996957740"
+                                },
+                                {
+                                    "uuid": "5ab7c73d-aeca-41f0-aabc-5cf8a05c0858",
+                                    "type": "Group",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ]
+                                }
+                            ],
+                            "backgroundRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ],
+                            "environmentRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ]
+                        }
+                    }
+                },
+                "Group": {},
+                "Spiral": {},
+                "Position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "Rotation": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "Scale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "UI": {},
+                "Export": {}
+            }
+        }
+    ]
+}

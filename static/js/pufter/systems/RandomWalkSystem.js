@@ -3,8 +3,8 @@ import { System } from 'ecsy';
 import { Object3D, Mesh, Position, Rotation, Scale, RandomWalk } from '../components/components.js';
 
 // ビートに合わせてランダムウォークを行うシステム
-export default class RandomWalkSystem extends System {
-    init(playerManager) {
+export class RandomWalkSystem extends System {
+    init({playerManager}) {
         this.playerManager = playerManager;
         this.prevBeat = null;
     }
@@ -12,7 +12,7 @@ export default class RandomWalkSystem extends System {
     // 毎フレーム実行する
     execute(delta, time) {
         const currentBeat = this.playerManager.getCurrentBeat();
-        if (currentBeat != this.prevBeat) console.log("beat");
+        // if (currentBeat != this.prevBeat) console.log("beat");
         this.queries.entities.results.forEach(entity => currentBeat != this.prevBeat ? this.randomSetPosition(entity) : null);
         this.prevBeat = currentBeat;
     }

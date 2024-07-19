@@ -1,3 +1,4 @@
+// 今は使用していない
 // ./system/UISystem.js
 import * as THREE from "three";
 
@@ -124,31 +125,6 @@ export default class UISystem extends System {
         rotationFolder
             .add({ Z: z }, "Z", -5, 5)
             .onChange(newValue => entity.getMutableComponent(Rotation).z = newValue);
-    }
-
-    // スケールを編集するUIを生成する
-    setScaleUI(entity) {
-        const { x, y, z } = entity.getComponent(Scale);
-        const scaleFolder = this.gui.addFolder("scale");
-        scaleFolder
-            .add({ X: x }, "X", -5, 5)
-            .onChange(newValue => entity.getMutableComponent(Scale).x = newValue);
-        scaleFolder
-            .add({ Y: y }, "Y", -5, 5)
-            .onChange((newValue) => entity.getMutableComponent(Scale).y = newValue);
-        scaleFolder
-            .add({ Z: z }, "Z", -5, 5)
-            .onChange((newValue) => entity.getMutableComponent(Scale).z = newValue);
-    }
-
-    // フォントを編集するUIを生成する
-    setFontUI(entity) {
-        const fontOptions = { font: 'Arial' }; // 初期値をArialに設定
-        const fontFolder = this.gui.addFolder("Font");
-        fontFolder.add(fontOptions, 'font', ['Arial', 'Serif'])
-            .onChange(newValue => {
-                entity.getMutableComponent(LyricDisplayCube).font = newValue;
-            });
     }
 
 }

@@ -8,6 +8,13 @@ from pathlib import Path
 app = Flask(__name__)
 app.secret_key = 'pufter'
 
+# Flask-Mailの設定
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # GmailのSMTPサーバー
+app.config['MAIL_PORT'] = 587  # GmailのTLSポート
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'hal.pufter@gmail.com'  # Gmailのメールアドレス
+app.config['MAIL_PASSWORD'] = 'nkcz tlyh nojb dgay'  # Gmailのパスワード
+
 mail = Mail(app)  # Flask-Mailの拡張機能をアプリケーションに追加
 
 
@@ -36,15 +43,27 @@ register_blueprints(
     package_name   = 'routes'
 )
 
+# @app.errorhandler(ValueError)
+# def handle_value_error(error):
+#     response = jsonify({'error': str(error)})
+#     response.status_code = 400  # 適切なステータスコードを設定
+#     return response
+
 # 404 Not Found.
 @app.errorhandler(404)
 def error404(error):
     return f"HTTPステータスcode: {str(error.code)}。指定されたページが見つかりませんでした。", 404
 
+# 405 Not Found.
+@app.errorhandler(405)
+def error405(error):
+    return f"HTTPステータスcode: {str(error.code)}。アクセス拒否されています。", 405
+
 # データベースが動かないとき
 @app.errorhandler(500)
 def error500(error):
     return f"HTTPステータスcode: {str(error.code)}。内部サーバーエラー", 500
+
 
 if __name__ == '__main__':
     app.run(host="localhost", port=5000, debug=True)

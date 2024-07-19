@@ -7,7 +7,7 @@ bp = Blueprint("login", __name__)
 def login():
     cookie_data = request.cookies.get("key")
     if cookie_data:
-        return redirect('/mypage')
+        return redirect('/share')
     else:
         # 空のボックス作成
         result={}

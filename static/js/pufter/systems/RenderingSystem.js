@@ -1,187 +1,179 @@
-// ./systems/RenderingSystem.js
-// シーン、レンダラー、カメラの初期化。
-// オブジェクトの追加、削除、カメラの切り替え。
-// シーンのレンダリングを行うシステム。
-import * as THREE from "three";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
-
-import { System } from "ecsy";
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { System } from 'ecsy';
 import {
     Scene,
     Renderer,
     Camera,
+    Group,
+    Mesh,
     Object3D,
     Position,
     Rotation,
     Scale,
-    CameraActive,
-    UIControllable
-} from "../components/components.js";
+    UI,
+    Export
+} from '../components/components.js';
 
-export default class RenderingSystem extends System {
-    init(world) {
-        // 初期化処理
-        this.sceneEntity = null;
-        this.rendererEntity = null;
-        this.cameraEntity = null;
-        this.composer = null;
-        this.renderPass = null;
+/*
+主に描画を担当するシステム
+- エンティティが作成されたときの描画処理
+- 画面幅に応じたレスポンシブ対応
+- JSON_PATHが用意されなかった場合の初期化処理
+を行う
+*/
+export class RenderingSystem extends System {
+    setupScene() {
+        const sceneEntity = this.world.createEntity("Scene");
+        const scene = new THREE.Scene();
+        this.scene = scene;
+        sceneEntity
+            .addComponent(Object3D, { object3D: scene, parent: null })
+            .addComponent(Scene)
+            .addComponent(UI)
+            .addComponent(Export);
+    }
 
-        // シーン、レンダラー、カメラのエンティティを作成
-        this.sceneEntity = world.createEntity()
-            .addComponent(Scene, { scene: new THREE.Scene(), fog: new THREE.Fog(0x000000, 1, 100) })
-            .addComponent(UIControllable);
-        this.sceneEntity.name = `Scene${this.sceneEntity.id}`;
+    setupRenderer() {
+        const rendererEntity = this.world.createEntity("Renderer");
+        rendererEntity
+            .addComponent(Renderer, {
+                renderer: null,
+                clearColor: 0xffffff,
+                antialias: true
+            })
+            .addComponent(UI)
+            .addComponent(Export);
+    }
 
-        this.rendererEntity = world.createEntity()
-            .addComponent(Renderer, { renderer: new THREE.WebGLRenderer(), clearColor: 0xffffff, pixelRatio: window.devicePixelRatio, size: { width: window.innerWidth, height: window.innerHeight } })
-            .addComponent(UIControllable);
-        this.rendererEntity.name = `Renderer${this.rendererEntity.id}`;
-
-        this.cameraEntity = world.createEntity()
-            .addComponent(Camera, { fov: 75, aspect: window.innerWidth / window.innerHeight, near: 0.1, far: 100, lookAt: { x: 0, y: 0, z: 0 } })
-            .addComponent(Object3D, { value: new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000) })
-            .addComponent(Position, { x: 1, y: 2, z: 3 })
+    setupCamera() {
+        const cameraEntity = this.world.createEntity("Camera");
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+        cameraEntity
+            .addComponent(Object3D, { object3D: camera, parent: null })
+            .addComponent(Position, { x: 0, y: 10, z: 5 })
             .addComponent(Rotation, { x: 0, y: 0, z: 0 })
             .addComponent(Scale, { x: 1, y: 1, z: 1 })
-            .addComponent(CameraActive)
-            .addComponent(UIControllable);
-        this.cameraEntity.name = `Camera${this.cameraEntity.id}`;
+            .addComponent(UI)
+            .addComponent(Camera)
+            .addComponent(Export);
+    }
 
-        // レスポンシブ処理
+    init() {
+        this.scene = null;
+        this.renderer = null;
+        this.camera = null;
+        this._setAddEventListeners();
+    }
+
+    _setAddEventListeners() {
+        // 画面幅の変更に応じてサイズやアスペクト比を調整する
         window.addEventListener("resize", () => {
-            this.rendererEntity.getComponent(Renderer).renderer.setSize(window.innerWidth, window.innerHeight);
-            this.cameraEntity.getComponent(Object3D).value.aspect = window.innerWidth / window.innerHeight;
-            this.cameraEntity.getComponent(Object3D).value.updateProjectionMatrix();
-        })
+            if (this.renderer && this.camera) {
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+            }
+        });
     }
 
     execute(delta, time) {
         // シーン初期化処理
-        this.queries.scene.added.forEach((entity) => {
-            const sceneComponent = entity.getComponent(Scene);
-            const scene = sceneComponent.scene;
-            scene.background = sceneComponent.background;
-            scene.fog = sceneComponent.fog;
+        this.queries.scenes.added.forEach((entity) => {
+            this.scene = entity.getComponent(Object3D).object3D;
+        });
+
+        // レンダラ初期化処理
+        this.queries.renderers.added.forEach((entity) => {
+            const rendererComponent = entity.getMutableComponent(Renderer);
+            const antialias = rendererComponent.antialias;
+            const clearColor = rendererComponent.clearColor;
+
+            const canvas = document.querySelector("#c");
+            this.renderer = new THREE.WebGLRenderer({ antialias: antialias, canvas: canvas });
+            this.renderer.setClearColor(clearColor);
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+            rendererComponent.renderer = this.renderer;
         });
 
         // カメラ初期化処理
-        this.queries.camera.added.forEach((entity) => {
-            const cameraComponent = entity.getComponent(Camera);
-            const camera = entity.getComponent(Object3D).value;
-            const { x: posX, y: posY, z: posZ } = entity.getComponent(Position);
-            camera.position.set(posX, posY, posZ);
-            camera.fov = cameraComponent.fov;
-            camera.aspect = cameraComponent.aspect;
-            camera.near = cameraComponent.near;
-            camera.far = cameraComponent.far;
-            camera.lookAt(cameraComponent.lookAt.x, cameraComponent.lookAt.y, cameraComponent.lookAt.z);
-
-            // const cameraButton = document.createElement("button");
-            // cameraButton.innerText = "Camera";
-            // document.body.appendChild(cameraButton);
-            // cameraButton.addEventListener("click", (event) => {
-            //     this.queries.camera.results.forEach((oldEntity) => {
-            //         oldEntity.removeComponent(CameraActive);
-            //     });
-            //     entity.addComponent(CameraActive);
-            // });
-        });
-
-        // レンダラー初期化処理
-        this.queries.renderer.added.forEach((entity) => {
-            const rendererComponent = entity.getComponent(Renderer);
-            const renderer = rendererComponent.renderer;
-            const WebGLElement = document.querySelector("#WebGL");
-            renderer.setSize(rendererComponent.size.width, rendererComponent.size.height);
-            renderer.setPixelRatio(rendererComponent.pixelRatio);
-            renderer.setClearColor(rendererComponent.clearColor);
-            if (WebGLElement) {
-                WebGLElement.appendChild(renderer.domElement);
-            } else {
-                document.body.appendChild(renderer.domElement);
+        this.queries.cameras.added.forEach((entity) => {
+            this.camera = entity.getComponent(Object3D).object3D;
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
+            this.camera.lookAt(0, 0, 0);
+            if (this.renderer) {
+                const controls = new OrbitControls(this.camera, this.renderer.domElement);
             }
-
-            // カメラコントロール
-            const controls = new OrbitControls(this.cameraEntity.getComponent(Object3D).value, renderer.domElement);
-
-            // ポストエフェクト処理
-            this.composer = new EffectComposer(renderer);
-            this.renderPass = new RenderPass(this.sceneEntity.getComponent(Scene).scene, this.cameraEntity.getComponent(Object3D).value);
-            this.composer.addPass(this.renderPass);
-            // this.composer.addPass(new GlitchPass());
         });
 
-        // カメラ変更検知処理
-        this.queries.cameraActive.added.forEach((entity) => {
-            this.cameraEntity = entity;
-            const camera = entity.getComponent(Object3D).value;
-            const { x: posX, y: posY, z: posZ } = entity.getComponent(Position);
-            camera.position.set(posX, posY, posZ);
-            const { x: lookX, y: lookY, z: lookZ } = entity.getComponent(Camera).lookAt;
-            camera.lookAt(lookX, lookY, lookZ);
-
-            // ポストエフェクト処理
-            this.renderPass.camera = camera;
+        // オブジェクトの追加処理
+        this.queries.objects.added.forEach(entity => {
+            const object3DComponent = entity.getComponent(Object3D);
+            if (object3DComponent.parent) {
+                object3DComponent.parent.add(object3DComponent.object3D);
+            } else {
+                if (!object3DComponent.object3D.isScene) {
+                    this.scene.add(object3DComponent.object3D);
+                }
+            }
         });
 
-        // オブジェクト追加処理
-        this.queries.object3D.added.forEach((entity) => {
-            const object3D = entity.getComponent(Object3D).value;
-            this.sceneEntity.getComponent(Scene).scene.add(object3D);
+        // オブジェクトの変更処理
+        this.queries.objects.changed.forEach((entity) => {
+            const object3DComponent = entity.getComponent(Object3D);
+            if (object3DComponent.parent) {
+                object3DComponent.parent.add(object3DComponent.object3D);
+            } else {
+                if (!object3DComponent.object3D.isScene) {
+                    this.scene.add(object3DComponent.object3D);
+                }
+            }
         });
 
-        // オブジェクト削除処理
-        this.queries.object3D.removed.forEach((entity) => {
-            const object3D = entity.getComponent(Object3D).value;
-            this.sceneEntity.getComponent(Scene).scene.remove(object3D);
+        // オブジェクトの削除処理
+        this.queries.objects.removed.forEach(entity => {
+            const { object3D, parent } = entity.getRemovedComponent(Object3D); 
+            if ( object3D && parent ) {
+                parent.remove(object3D);
+            }
         });
 
-        // レンダリング処理
-        if (this.sceneEntity && this.rendererEntity && this.cameraEntity) {
-            const scene = this.sceneEntity.getComponent(Scene).scene;
-            const renderer = this.rendererEntity.getComponent(Renderer).renderer;
-            const camera = this.cameraEntity.getComponent(Object3D).value;
-            // renderer.render(scene, camera);
-            this.composer.render();
-        }
+        // 毎フレーム描画
+        this.queries.renderers.results.forEach(entity => {
+            if (this.scene && this.renderer && this.camera) {
+                this.renderer.render(this.scene, this.camera);
+            }
+        });
     }
 }
 
 RenderingSystem.queries = {
-    scene: {
-        components: [Scene],
+    scenes: {
+        components: [Scene, Object3D],
         listen: {
             added: true
         }
     },
-    renderer: {
+    renderers: {
         components: [Renderer],
         listen: {
             added: true
         }
     },
-    camera: {
-        components: [Camera],
+    cameras: {
+        components: [Camera, Object3D],
         listen: {
             added: true
         }
     },
-    cameraActive: {
-        components: [CameraActive],
-        listen: {
-            added: true
-        }
-    },
-    object3D: {
+    objects: {
         components: [Object3D],
         listen: {
             added: true,
+            changed: true,
             removed: true
         }
     }
-}
+};

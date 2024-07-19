@@ -26,7 +26,7 @@
             <input type="password" name="pas" class="textbox">
         </p>
         <div class="pass">
-            <p><a href="/changePass">パスワードを忘れた場合はこちら</a></p>
+            <p><a href="/resetPasswordMailInput">パスワードを忘れた場合はこちら</a></p>
         </div>
         <div class="box">
             <input type="submit" value="ログイン" class="button">
@@ -37,7 +37,9 @@
     </div>
     </div>
 </form>
+<canvas class="background"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
+<script src="{{ url_for('static', filename='js/front/login.js') }}"></script>
 {% endblock %}
-
 {% block extra_scripts %}
 {% endblock %}

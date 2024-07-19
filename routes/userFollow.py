@@ -1,6 +1,5 @@
-from flask import render_template, Blueprint, request, jsonify, make_response, redirect
+from flask import render_template, Blueprint, request, redirect, url_for
 import sqlite3
-import datetime
 import json
 
 # Blueprintを作成
@@ -12,22 +11,22 @@ def userFollow():
     username = request.form.get('username')
     action = request.form.get('action')
 
-    print("Username:", username)
-    print("Action:", action)
-
-
     # ログインしているユーザーのメールアドレスを取得
     cookie_data = request.cookies.get("key")
-    if cookie_data is not None:
+    print("cookie_data:", cookie_data)
+
+    # デフォルトのデータを設定
+    if cookie_data:
         cookie_data = json.loads(cookie_data)
-        email = cookie_data.get('email')
     else:
-        return """
-		<script>
-		    alert('セッションが切れています。ログインし直してください');
-		    window.location.href = '/login'; // リダイレクト
-		</script>
-		"""
+        return """<script>
+            alert('フォローするには、ログインが必要です。');
+            window.location.href = '/login'; // リダイレクト</script>
+        """
+
+    # クッキーから取得したメールアドレスを使用して、ユーザー名を取得
+    email = cookie_data.get('email', None)
+
 
     if username is None or action not in ['follow', 'unfollow']:
         return render_template('userFollow.html', message='無効なリクエストです。')
@@ -36,18 +35,18 @@ def userFollow():
     conn = sqlite3.connect('test.db')
     c = conn.cursor()
 
-    c.execute("SELECT id FROM users WHERE email = ?", (email,))
-    login_user_id = c.fetchone()[0]  # ログインユーザーのIDを取得
+    login_user_id = c.execute("SELECT id FROM users WHERE email = ?", (email,)).fetchone()[0]  # ログインユーザーのIDを取得
     followed_user_id = c.execute("SELECT id FROM users WHERE username = ?", (username,)).fetchone()[0]
 
     if action == 'follow':
-        c.execute("INSERT INTO follows (follower_id, followed_id) VALUES (?, ?)", (login_user_id, followed_user_id))
+        c.execute("INSERT INTO follows (follower_id, followed_id) VALUES (?, ?)", (login_user_id, followed_user_id,))
         message = f'{username}をフォローしました。'
     else:
-        c.execute("DELETE FROM follows WHERE follower_id = ? AND followed_id = ?", (login_user_id, followed_user_id))
+        c.execute("DELETE FROM follows WHERE follower_id = ? AND followed_id = ?", (login_user_id, followed_user_id,))
         message = f'{username}のフォローを解除しました。'
 
     conn.commit()
     conn.close()
 
-    return render_template('userFollow.html', message=message)
+    # フォローしたユーザーのプロフィールページにリダイレクト
+    return render_template('userFollow.html', message=message, redirect_url=url_for('profile.profile', username=username))

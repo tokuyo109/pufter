@@ -1,0 +1,2041 @@
+{
+    "entities": [
+        {
+            "id": 0,
+            "name": "Scene",
+            "components": {
+                "Object3D": {
+                    "object3D": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "geometries": [
+                            {
+                                "uuid": "d1c2880a-1a74-460d-a8df-f7f37f457c3e",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            },
+                            {
+                                "uuid": "4901218d-52cc-48d1-ad4f-38cbd243f1f3",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            },
+                            {
+                                "uuid": "a0b6a26a-669c-4339-8bca-2036fb1a0f71",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            },
+                            {
+                                "uuid": "08080616-613b-4d74-bcd9-32dcc1ce7fc9",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            },
+                            {
+                                "uuid": "b0d4cfff-605e-407c-a184-b6d2193d1a22",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            },
+                            {
+                                "uuid": "730a64fa-d774-434d-8ab5-b1728f9fc5f7",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            }
+                        ],
+                        "materials": [
+                            {
+                                "uuid": "20a7cc5d-9c96-442d-95ad-369b63553807",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "map": "facf76a2-0554-46a7-9fcd-5a8aa9566b79",
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "transparent": true,
+                                "blendColor": 0
+                            },
+                            {
+                                "uuid": "39703424-687b-4a63-ab03-60929d4e0bbf",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            },
+                            {
+                                "uuid": "c47d99a5-82b1-4415-a2af-0e41e867bba0",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            },
+                            {
+                                "uuid": "808d33d5-fa40-4561-bc7a-cbaa1e9434c4",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            },
+                            {
+                                "uuid": "29c0abe5-0f63-474f-ac2d-6e7c65652081",
+                                "type": "MeshBasicMaterial",
+                                "color": 16711680,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            },
+                            {
+                                "uuid": "ceed0362-2028-4185-89c1-0743519f426e",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            }
+                        ],
+                        "textures": [
+                            {
+                                "uuid": "facf76a2-0554-46a7-9fcd-5a8aa9566b79",
+                                "name": "",
+                                "image": "a6ac4ee8-26fa-4845-9844-6e810d713642",
+                                "mapping": 300,
+                                "channel": 0,
+                                "repeat": [
+                                    1,
+                                    1
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "center": [
+                                    0,
+                                    0
+                                ],
+                                "rotation": 0,
+                                "wrap": [
+                                    1001,
+                                    1001
+                                ],
+                                "format": 1023,
+                                "internalFormat": null,
+                                "type": 1009,
+                                "colorSpace": "",
+                                "minFilter": 1008,
+                                "magFilter": 1006,
+                                "anisotropy": 1,
+                                "flipY": true,
+                                "generateMipmaps": true,
+                                "premultiplyAlpha": false,
+                                "unpackAlignment": 4
+                            }
+                        ],
+                        "images": [
+                            {
+                                "uuid": "a6ac4ee8-26fa-4845-9844-6e810d713642",
+                                "url": "data:image/png;base64,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"
+                            }
+                        ],
+                        "object": {
+                            "uuid": "f160aad8-19fa-422a-ad45-0524fe66e071",
+                            "type": "Scene",
+                            "layers": 1,
+                            "matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "children": [
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0.4472135954999577,
+                                        -0.8944271909999159,
+                                        0,
+                                        0,
+                                        0.8944271909999159,
+                                        0.4472135954999577,
+                                        0,
+                                        0,
+                                        10,
+                                        5.000000000000001,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.6,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0.4565553584876333,
+                                        -0.8896950065253985,
+                                        0,
+                                        0,
+                                        0.8896950065253985,
+                                        0.4565553584876333,
+                                        0,
+                                        0,
+                                        9.947092569164548,
+                                        5.104444085350671,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.5979166666666667,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0.4472135954999577,
+                                        -0.8944271909999159,
+                                        0,
+                                        0,
+                                        0.8944271909999159,
+                                        0.4472135954999577,
+                                        0,
+                                        0,
+                                        10,
+                                        5.000000000000001,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.5979166666666667,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        10,
+                                        5,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.604602510460251,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0.4472135954999577,
+                                        -0.8944271909999159,
+                                        0,
+                                        0,
+                                        0.8944271909999159,
+                                        0.4472135954999577,
+                                        0,
+                                        0,
+                                        10,
+                                        5.000000000000001,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.604602510460251,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.47633187481288825,
+                                        2.7755575615628904e-17,
+                                        -0.879265571393102,
+                                        0,
+                                        -0.3338580487372413,
+                                        0.9251092491968035,
+                                        -0.18086370654138217,
+                                        0,
+                                        0.8134167125960714,
+                                        0.3797010364096013,
+                                        0.44065902307665705,
+                                        0,
+                                        10.238891129822372,
+                                        4.82252762869561,
+                                        6.111536103263586,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.5781990521327014,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.6401843996644794,
+                                        0,
+                                        -0.768221279597376,
+                                        0,
+                                        -0.6054431847450099,
+                                        0.6155339044907596,
+                                        -0.5045359872875078,
+                                        0,
+                                        0.47286624374346053,
+                                        0.7881104062391008,
+                                        0.39405520311955,
+                                        0,
+                                        6,
+                                        10,
+                                        4.999999999999999,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.9793814432989691,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.6401843996644794,
+                                        0,
+                                        -0.768221279597376,
+                                        0,
+                                        -0.6054431847450099,
+                                        0.6155339044907596,
+                                        -0.5045359872875078,
+                                        0,
+                                        0.47286624374346053,
+                                        0.7881104062391008,
+                                        0.39405520311955,
+                                        0,
+                                        6,
+                                        10,
+                                        4.999999999999999,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.2551546391752577,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.9534621465520534,
+                                        8.6736173798840345e-19,
+                                        0.30151274449407667,
+                                        0,
+                                        0.0068120631743543575,
+                                        0.9997447466670494,
+                                        -0.021541525176875898,
+                                        0,
+                                        -0.3014357823611174,
+                                        0.022592952698515807,
+                                        0.9532187721613037,
+                                        0,
+                                        -3.4518741464044753,
+                                        0.2587218700450001,
+                                        10.915728748981643,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 0.9858611825192802,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "d341ed75-0376-4370-8e22-0d02ca1c8317",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        -0.32789882057057707,
+                                        -0.6367488286750351,
+                                        1,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "d1c2880a-1a74-460d-a8df-f7f37f457c3e",
+                                    "material": "20a7cc5d-9c96-442d-95ad-369b63553807"
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        -0.040939697823938914,
+                                        2.0816681711721685e-17,
+                                        -0.9991616191298006,
+                                        0,
+                                        -0.10547956119309608,
+                                        0.9944120791385728,
+                                        0.0043219247809057875,
+                                        0,
+                                        0.9935783830743282,
+                                        0.10556806744134287,
+                                        -0.040710930032408,
+                                        0,
+                                        12.60709635615306,
+                                        1.339508609524882,
+                                        -0.5165637924600235,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.0253164556962027,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "c93cbd49-2e80-4ee1-8879-b12c8a9a9888",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        -4.4,
+                                        2.1,
+                                        -0.9747367872108714,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "4901218d-52cc-48d1-ad4f-38cbd243f1f3",
+                                    "material": "39703424-687b-4a63-ab03-60929d4e0bbf"
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.6401843996644794,
+                                        0,
+                                        -0.768221279597376,
+                                        0,
+                                        -0.6054431847450099,
+                                        0.6155339044907596,
+                                        -0.5045359872875078,
+                                        0,
+                                        0.47286624374346053,
+                                        0.7881104062391008,
+                                        0.39405520311955,
+                                        0,
+                                        6,
+                                        10,
+                                        4.999999999999999,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.0253164556962027,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.6401843996644794,
+                                        -5.551115123125782e-17,
+                                        -0.7682212795973761,
+                                        0,
+                                        -0.6054431847450099,
+                                        0.6155339044907596,
+                                        -0.5045359872875078,
+                                        0,
+                                        0.47286624374346053,
+                                        0.7881104062391008,
+                                        0.39405520311955,
+                                        0,
+                                        6.000000000000001,
+                                        10,
+                                        4.999999999999999,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.0253164556962027,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "5a8238cc-939a-4525-80f1-e569ec53ccba",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        -19.3,
+                                        -1.3632217717487503,
+                                        0.8393986871244326,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "a0b6a26a-669c-4339-8bca-2036fb1a0f71",
+                                    "material": "c47d99a5-82b1-4415-a2af-0e41e867bba0"
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.6401843996644796,
+                                        0,
+                                        -0.768221279597376,
+                                        0,
+                                        -0.6054431847450098,
+                                        0.6155339044907597,
+                                        -0.5045359872875079,
+                                        0,
+                                        0.4728662437434605,
+                                        0.7881104062391007,
+                                        0.3940552031195501,
+                                        0,
+                                        6,
+                                        10,
+                                        4.999999999999999,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.0253164556962027,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "8436732c-17b8-4be4-a338-44ba55eb1cf5",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0.7,
+                                        0.016100959978566864,
+                                        0.49018793675148453,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "08080616-613b-4d74-bcd9-32dcc1ce7fc9",
+                                    "material": "808d33d5-fa40-4561-bc7a-cbaa1e9434c4"
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.9486790728606205,
+                                        -1.3877787807814457e-17,
+                                        0.31624044130426066,
+                                        0,
+                                        0.13717979237091427,
+                                        0.9010172753810088,
+                                        -0.41152104931589595,
+                                        0,
+                                        -0.28493810078925286,
+                                        0.4337832056050386,
+                                        0.8547762334398579,
+                                        0,
+                                        -4.694121250149447,
+                                        7.146222136486424,
+                                        14.081736596119264,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.5890410958904109,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "d1805394-4c11-40b3-b012-ee3f5df442a3",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        -2.3,
+                                        -2.1543215339748608e-16,
+                                        -1.8145599958484228e-16,
+                                        0,
+                                        1.2246467991473532e-16,
+                                        -0.7648421872844884,
+                                        -0.644217687237691,
+                                        0,
+                                        0,
+                                        -0.644217687237691,
+                                        0.7648421872844884,
+                                        0,
+                                        2.2,
+                                        3.3,
+                                        0,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "b0d4cfff-605e-407c-a184-b6d2193d1a22",
+                                    "material": "29c0abe5-0f63-474f-ac2d-6e7c65652081"
+                                },
+                                {
+                                    "uuid": "09d10ca8-332e-46dc-9c15-eafacd6d91c1",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0.4,
+                                        2.7,
+                                        0.6157703995239432,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "730a64fa-d774-434d-8ab5-b1728f9fc5f7",
+                                    "material": "ceed0362-2028-4185-89c1-0743519f426e"
+                                }
+                            ],
+                            "backgroundRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ],
+                            "environmentRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ]
+                        }
+                    },
+                    "parent": null
+                },
+                "Scene": {},
+                "UI": {},
+                "Export": {}
+            }
+        },
+        {
+            "id": 1,
+            "name": "Renderer",
+            "components": {
+                "Renderer": {
+                    "renderer": null,
+                    "clearColor": 16777215,
+                    "antialias": true
+                },
+                "UI": {},
+                "Export": {}
+            }
+        },
+        {
+            "id": 2,
+            "name": "Camera",
+            "components": {
+                "Object3D": {
+                    "object3D": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "object": {
+                            "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                            "type": "PerspectiveCamera",
+                            "layers": 1,
+                            "matrix": [
+                                0.9486790728606205,
+                                -1.3877787807814457e-17,
+                                0.31624044130426066,
+                                0,
+                                0.13717979237091427,
+                                0.9010172753810088,
+                                -0.41152104931589595,
+                                0,
+                                -0.28493810078925286,
+                                0.4337832056050386,
+                                0.8547762334398579,
+                                0,
+                                -4.694121250149447,
+                                7.146222136486424,
+                                14.081736596119264,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "fov": 45,
+                            "zoom": 1,
+                            "near": 1,
+                            "far": 1000,
+                            "focus": 10,
+                            "aspect": 1.5890410958904109,
+                            "filmGauge": 35,
+                            "filmOffset": 0
+                        }
+                    },
+                    "parent": null
+                },
+                "Position": {
+                    "x": 6,
+                    "y": 10,
+                    "z": 5
+                },
+                "Rotation": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "Scale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "UI": {},
+                "Camera": {},
+                "Export": {}
+            }
+        },
+        {
+            "id": 4,
+            "name": "Mesh1",
+            "components": {
+                "Object3D": {
+                    "object3D": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "geometries": [
+                            {
+                                "uuid": "b0d4cfff-605e-407c-a184-b6d2193d1a22",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            }
+                        ],
+                        "materials": [
+                            {
+                                "uuid": "29c0abe5-0f63-474f-ac2d-6e7c65652081",
+                                "type": "MeshBasicMaterial",
+                                "color": 16711680,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            }
+                        ],
+                        "object": {
+                            "uuid": "d1805394-4c11-40b3-b012-ee3f5df442a3",
+                            "type": "Mesh",
+                            "layers": 1,
+                            "matrix": [
+                                -2.3,
+                                -2.1543215339748608e-16,
+                                -1.8145599958484228e-16,
+                                0,
+                                1.2246467991473532e-16,
+                                -0.7648421872844884,
+                                -0.644217687237691,
+                                0,
+                                0,
+                                -0.644217687237691,
+                                0.7648421872844884,
+                                0,
+                                2.2,
+                                3.3,
+                                0,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "geometry": "b0d4cfff-605e-407c-a184-b6d2193d1a22",
+                            "material": "29c0abe5-0f63-474f-ac2d-6e7c65652081"
+                        }
+                    },
+                    "parent": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "geometries": [
+                            {
+                                "uuid": "d1c2880a-1a74-460d-a8df-f7f37f457c3e",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            },
+                            {
+                                "uuid": "4901218d-52cc-48d1-ad4f-38cbd243f1f3",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            },
+                            {
+                                "uuid": "a0b6a26a-669c-4339-8bca-2036fb1a0f71",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            },
+                            {
+                                "uuid": "08080616-613b-4d74-bcd9-32dcc1ce7fc9",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            },
+                            {
+                                "uuid": "b0d4cfff-605e-407c-a184-b6d2193d1a22",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            },
+                            {
+                                "uuid": "730a64fa-d774-434d-8ab5-b1728f9fc5f7",
+                                "type": "BoxGeometry",
+                                "width": 1,
+                                "height": 1,
+                                "depth": 1,
+                                "widthSegments": 1,
+                                "heightSegments": 1,
+                                "depthSegments": 1
+                            }
+                        ],
+                        "materials": [
+                            {
+                                "uuid": "20a7cc5d-9c96-442d-95ad-369b63553807",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "map": "facf76a2-0554-46a7-9fcd-5a8aa9566b79",
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "transparent": true,
+                                "blendColor": 0
+                            },
+                            {
+                                "uuid": "39703424-687b-4a63-ab03-60929d4e0bbf",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            },
+                            {
+                                "uuid": "c47d99a5-82b1-4415-a2af-0e41e867bba0",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            },
+                            {
+                                "uuid": "808d33d5-fa40-4561-bc7a-cbaa1e9434c4",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            },
+                            {
+                                "uuid": "29c0abe5-0f63-474f-ac2d-6e7c65652081",
+                                "type": "MeshBasicMaterial",
+                                "color": 16711680,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            },
+                            {
+                                "uuid": "ceed0362-2028-4185-89c1-0743519f426e",
+                                "type": "MeshBasicMaterial",
+                                "color": 16777215,
+                                "envMapRotation": [
+                                    0,
+                                    0,
+                                    0,
+                                    "XYZ"
+                                ],
+                                "reflectivity": 1,
+                                "refractionRatio": 0.98,
+                                "blendColor": 0
+                            }
+                        ],
+                        "textures": [
+                            {
+                                "uuid": "facf76a2-0554-46a7-9fcd-5a8aa9566b79",
+                                "name": "",
+                                "image": "a6ac4ee8-26fa-4845-9844-6e810d713642",
+                                "mapping": 300,
+                                "channel": 0,
+                                "repeat": [
+                                    1,
+                                    1
+                                ],
+                                "offset": [
+                                    0,
+                                    0
+                                ],
+                                "center": [
+                                    0,
+                                    0
+                                ],
+                                "rotation": 0,
+                                "wrap": [
+                                    1001,
+                                    1001
+                                ],
+                                "format": 1023,
+                                "internalFormat": null,
+                                "type": 1009,
+                                "colorSpace": "",
+                                "minFilter": 1008,
+                                "magFilter": 1006,
+                                "anisotropy": 1,
+                                "flipY": true,
+                                "generateMipmaps": true,
+                                "premultiplyAlpha": false,
+                                "unpackAlignment": 4
+                            }
+                        ],
+                        "images": [
+                            {
+                                "uuid": "a6ac4ee8-26fa-4845-9844-6e810d713642",
+                                "url": "data:image/png;base64,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"
+                            }
+                        ],
+                        "object": {
+                            "uuid": "f160aad8-19fa-422a-ad45-0524fe66e071",
+                            "type": "Scene",
+                            "layers": 1,
+                            "matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "children": [
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0.4472135954999577,
+                                        -0.8944271909999159,
+                                        0,
+                                        0,
+                                        0.8944271909999159,
+                                        0.4472135954999577,
+                                        0,
+                                        0,
+                                        10,
+                                        5.000000000000001,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.6,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0.4565553584876333,
+                                        -0.8896950065253985,
+                                        0,
+                                        0,
+                                        0.8896950065253985,
+                                        0.4565553584876333,
+                                        0,
+                                        0,
+                                        9.947092569164548,
+                                        5.104444085350671,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.5979166666666667,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0.4472135954999577,
+                                        -0.8944271909999159,
+                                        0,
+                                        0,
+                                        0.8944271909999159,
+                                        0.4472135954999577,
+                                        0,
+                                        0,
+                                        10,
+                                        5.000000000000001,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.5979166666666667,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        10,
+                                        5,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.604602510460251,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        0.4472135954999577,
+                                        -0.8944271909999159,
+                                        0,
+                                        0,
+                                        0.8944271909999159,
+                                        0.4472135954999577,
+                                        0,
+                                        0,
+                                        10,
+                                        5.000000000000001,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.604602510460251,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.47633187481288825,
+                                        2.7755575615628904e-17,
+                                        -0.879265571393102,
+                                        0,
+                                        -0.3338580487372413,
+                                        0.9251092491968035,
+                                        -0.18086370654138217,
+                                        0,
+                                        0.8134167125960714,
+                                        0.3797010364096013,
+                                        0.44065902307665705,
+                                        0,
+                                        10.238891129822372,
+                                        4.82252762869561,
+                                        6.111536103263586,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.5781990521327014,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.6401843996644794,
+                                        0,
+                                        -0.768221279597376,
+                                        0,
+                                        -0.6054431847450099,
+                                        0.6155339044907596,
+                                        -0.5045359872875078,
+                                        0,
+                                        0.47286624374346053,
+                                        0.7881104062391008,
+                                        0.39405520311955,
+                                        0,
+                                        6,
+                                        10,
+                                        4.999999999999999,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.9793814432989691,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.6401843996644794,
+                                        0,
+                                        -0.768221279597376,
+                                        0,
+                                        -0.6054431847450099,
+                                        0.6155339044907596,
+                                        -0.5045359872875078,
+                                        0,
+                                        0.47286624374346053,
+                                        0.7881104062391008,
+                                        0.39405520311955,
+                                        0,
+                                        6,
+                                        10,
+                                        4.999999999999999,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.2551546391752577,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.9534621465520534,
+                                        8.6736173798840345e-19,
+                                        0.30151274449407667,
+                                        0,
+                                        0.0068120631743543575,
+                                        0.9997447466670494,
+                                        -0.021541525176875898,
+                                        0,
+                                        -0.3014357823611174,
+                                        0.022592952698515807,
+                                        0.9532187721613037,
+                                        0,
+                                        -3.4518741464044753,
+                                        0.2587218700450001,
+                                        10.915728748981643,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 0.9858611825192802,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "d341ed75-0376-4370-8e22-0d02ca1c8317",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        -0.32789882057057707,
+                                        -0.6367488286750351,
+                                        1,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "d1c2880a-1a74-460d-a8df-f7f37f457c3e",
+                                    "material": "20a7cc5d-9c96-442d-95ad-369b63553807"
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        -0.040939697823938914,
+                                        2.0816681711721685e-17,
+                                        -0.9991616191298006,
+                                        0,
+                                        -0.10547956119309608,
+                                        0.9944120791385728,
+                                        0.0043219247809057875,
+                                        0,
+                                        0.9935783830743282,
+                                        0.10556806744134287,
+                                        -0.040710930032408,
+                                        0,
+                                        12.60709635615306,
+                                        1.339508609524882,
+                                        -0.5165637924600235,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.0253164556962027,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "c93cbd49-2e80-4ee1-8879-b12c8a9a9888",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        -4.4,
+                                        2.1,
+                                        -0.9747367872108714,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "4901218d-52cc-48d1-ad4f-38cbd243f1f3",
+                                    "material": "39703424-687b-4a63-ab03-60929d4e0bbf"
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.6401843996644794,
+                                        0,
+                                        -0.768221279597376,
+                                        0,
+                                        -0.6054431847450099,
+                                        0.6155339044907596,
+                                        -0.5045359872875078,
+                                        0,
+                                        0.47286624374346053,
+                                        0.7881104062391008,
+                                        0.39405520311955,
+                                        0,
+                                        6,
+                                        10,
+                                        4.999999999999999,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.0253164556962027,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.6401843996644794,
+                                        -5.551115123125782e-17,
+                                        -0.7682212795973761,
+                                        0,
+                                        -0.6054431847450099,
+                                        0.6155339044907596,
+                                        -0.5045359872875078,
+                                        0,
+                                        0.47286624374346053,
+                                        0.7881104062391008,
+                                        0.39405520311955,
+                                        0,
+                                        6.000000000000001,
+                                        10,
+                                        4.999999999999999,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.0253164556962027,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "5a8238cc-939a-4525-80f1-e569ec53ccba",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        -19.3,
+                                        -1.3632217717487503,
+                                        0.8393986871244326,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "a0b6a26a-669c-4339-8bca-2036fb1a0f71",
+                                    "material": "c47d99a5-82b1-4415-a2af-0e41e867bba0"
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.6401843996644796,
+                                        0,
+                                        -0.768221279597376,
+                                        0,
+                                        -0.6054431847450098,
+                                        0.6155339044907597,
+                                        -0.5045359872875079,
+                                        0,
+                                        0.4728662437434605,
+                                        0.7881104062391007,
+                                        0.3940552031195501,
+                                        0,
+                                        6,
+                                        10,
+                                        4.999999999999999,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.0253164556962027,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "8436732c-17b8-4be4-a338-44ba55eb1cf5",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0.7,
+                                        0.016100959978566864,
+                                        0.49018793675148453,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "08080616-613b-4d74-bcd9-32dcc1ce7fc9",
+                                    "material": "808d33d5-fa40-4561-bc7a-cbaa1e9434c4"
+                                },
+                                {
+                                    "uuid": "1f92ee45-258b-44a6-af6f-ee140222deb3",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.9486790728606205,
+                                        -1.3877787807814457e-17,
+                                        0.31624044130426066,
+                                        0,
+                                        0.13717979237091427,
+                                        0.9010172753810088,
+                                        -0.41152104931589595,
+                                        0,
+                                        -0.28493810078925286,
+                                        0.4337832056050386,
+                                        0.8547762334398579,
+                                        0,
+                                        -4.694121250149447,
+                                        7.146222136486424,
+                                        14.081736596119264,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 1.5890410958904109,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "d1805394-4c11-40b3-b012-ee3f5df442a3",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        -2.3,
+                                        -2.1543215339748608e-16,
+                                        -1.8145599958484228e-16,
+                                        0,
+                                        1.2246467991473532e-16,
+                                        -0.7648421872844884,
+                                        -0.644217687237691,
+                                        0,
+                                        0,
+                                        -0.644217687237691,
+                                        0.7648421872844884,
+                                        0,
+                                        2.2,
+                                        3.3,
+                                        0,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "b0d4cfff-605e-407c-a184-b6d2193d1a22",
+                                    "material": "29c0abe5-0f63-474f-ac2d-6e7c65652081"
+                                },
+                                {
+                                    "uuid": "09d10ca8-332e-46dc-9c15-eafacd6d91c1",
+                                    "type": "Mesh",
+                                    "layers": 1,
+                                    "matrix": [
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        2,
+                                        0,
+                                        0.4,
+                                        2.7,
+                                        0.6157703995239432,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "geometry": "730a64fa-d774-434d-8ab5-b1728f9fc5f7",
+                                    "material": "ceed0362-2028-4185-89c1-0743519f426e"
+                                }
+                            ],
+                            "backgroundRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ],
+                            "environmentRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ]
+                        }
+                    }
+                },
+                "Position": {
+                    "x": 2.2,
+                    "y": 3.3,
+                    "z": 0
+                },
+                "Rotation": {
+                    "x": 0.7,
+                    "y": 0,
+                    "z": -3.141592653589793
+                },
+                "Scale": {
+                    "x": 2.3,
+                    "y": 1,
+                    "z": 1
+                },
+                "UI": {},
+                "Export": {}
+            }
+        }
+    ]
+}

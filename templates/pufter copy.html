@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+    PUFTER 編集ページ
+{% endblock %}
+
+{% block extra_links %}
+	<link rel="stylesheet" href="{{url_for('static', filename='css/pufter/pufter.css')}}">
+{% endblock %}
+
+{% block content %}
+	<div id="leftsidebar">
+		<button id="save">保存</button>
+		<div id="entitySelector"></div>
+		<div id="player">
+			<div id="media"></div>
+			<input id="seekBar" type="range" max="100" min="0" step="1" value="0">
+			<button id="currentPosition">再生位置</button>
+		</div>
+		<p>YouTube以外のURLは使用できません</p>
+		<input id="songUrl" type="text" placeholder="曲のURLを入力">
+		<button id="changeSong">曲を変更</button>
+	</div>
+
+	<div id="webgl"></div>
+
+	<div id="rightsidebar">
+		<ul id="entitytree"></ul>
+		<div id="entityparam"></div>
+	</div>
+{% endblock %}
+
+{% block extra_scripts %}
+	<!-- <script>
+		const project_data = {{ project_data | tojson }}
+	</script> -->
+	
+    <script src="{{ url_for('static', filename='js/pufter/main.js') }}" type="module"></script>
+{% endblock %}

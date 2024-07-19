@@ -1,9 +1,7 @@
 # 新規会員登録ページ
 # プロフィール編集チェックページ
-from flask import render_template, Blueprint, request, jsonify, make_response
-import sqlite3
-import datetime
-import json
+from flask import render_template, Blueprint
+
 
 bp = Blueprint("entry", __name__)
 

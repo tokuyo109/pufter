@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}
+フォローしているユーザー
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/followView/followView.css') }}">
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>フォローユーザー</h1>
+    <div class="following-list">
+        {% if following_users %}
+            {% for user in following_users %}
+                <div class="user-card">
+                    <a href="{{ url_for('profile.profile', username=user[1]) }}">
+                        <div class="user-info">
+                            <img src="{% if user[2] %}{{ url_for('static', filename=user[2].split('static/', 1)[1]) }}{% else %}{{ url_for('static', filename='img/login/default_icon.png') }}{% endif %}" alt="UserIcon" class="user-icon">
+                            <p>{{ user[1] }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>誰もフォローしていません。</p>
+        {% endif %}
+    </div>
+</div>
+
+<hr>
+
+<h3>フォローしている作品</h3>
+<div class="card-list">
+    <!-- 画像の配置や大きさは自由に変えてください -->
+    {% for rec in projects %}
+    <div class="card">
+        <a href="{{ url_for('pufter.pufter', project_id=rec[0]) }}">
+            <p class="title">New Project</p>
+            <img src="{% if rec[4] == 'noImage' %}{{ url_for('static', filename='img/projects/thumb/noimage.png') }}{% else %}{{ url_for('static', filename='img/projects/thumb/' ~ rec[4]) }}{% endif %}"
+                alt="">
+        </a>
+        <div>
+            <div class="user">
+                <a href="{{ url_for('profile.profile', username=rec[1]) }}"><img
+                        src="{% if rec[2] %}{{ url_for('static', filename=rec[2].split('static/', 1)[1]) }}{% else %}{{ url_for('static', filename='img/login/default_icon.png') }}{% endif %}"
+                        alt=""></a>
+                <a href="{{ url_for('profile.profile', username=rec[1]) }}">
+                    <p>{{ rec[1] }}</p>
+                </a>
+            </div>
+            <a href="{{ url_for('pufter.pufter', project_id=rec[0]) }}"><button class="view">閲覧</button></a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% if projects %}
+<div id="public-projects">
+    <div class="next">
+        <p>
+            {% if page > 1 %}
+            <a href="{{ url_for('followView.followView', page=page-1)}}">前へ</a>
+            {% endif %}
+            {{ page }} / {{ total_page }}ページ
+            {% if total_page > page %}
+            <a href="{{ url_for('followView.followView', page=page+1) }}">次へ</a>
+            {% endif %}
+        </p>
+    </div>
+{% else %}
+    <p>作品がありません。</p>
+{% endif %}
+</div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/front/followView.js') }}"></script>
+{% endblock %}

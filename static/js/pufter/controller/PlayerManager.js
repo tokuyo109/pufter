@@ -1,17 +1,27 @@
 import { Player } from "textalive-app-api";
 
+// 互換性を保つために、いくつかの古いコードを残しています。
 export class PlayerManager {
     constructor() {
-        this.player = null; // APIのエントリーポイント
-        this.lyrics = []; // 歌詞情報
-        this.beats = []; // ビート情報
-        this.segments = []; // セグメント情報
-        this.isSeeking = false; // シークバーを操作しているか
+        this.player = null;
 
-        this.canvas = document.querySelector("#WebGL");
+        this.lyrics = [];
+        this.lyricsC = []; // 歌詞情報（文字）
+        this.lyricsW = []; // 歌詞情報（単語）
+        this.lyricsP = []; // 歌詞情報（フレーズ）
+        this.beats = [];
+        this.segments = [];
+        this.isSeeking = false;
+
+        this.canvas = document.querySelector("#c");
         this.seekBar = document.querySelector("#seekBar");
-        this.currentPosition = document.querySelector("#currentPosition");
-        this.currentBeat = document.querySelector("#currentBeat");
+        // this.currentPosition = document.querySelector("#currentPosition");
+        // this.currentBeat = document.querySelector("#currentBeat");
+
+        this.currentChar = "";
+        this.currentWord = "";
+        this.currentPhrase = "";
+        this.previousPhrase = "";
     }
 
     getCurrentLyric() {
@@ -34,6 +44,68 @@ export class PlayerManager {
         return null;
     }
 
+    findCurrentChar() {
+        if (this.player && this.player.video) {
+            return this.player.video.findChar(this.player.mediaPosition);
+        }
+        return null;
+    }
+
+    findCurrentWord() {
+        if (this.player && this.player.video) {
+            return this.player.video.findWord(this.player.mediaPosition);
+        }
+        return null;
+    }
+
+    findCurrentPhrase() {
+        if (this.player && this.player.video) {
+            return this.player.video.findPhrase(this.player.mediaPosition);
+        }
+        return null;
+    }
+
+    // 歌詞情報の取得（文字）
+    getCurrentChar() {
+        const currentTime = this.player.timer.position;
+        for (let lyric of this.lyricsC) {
+            if (currentTime >= lyric.startTime && currentTime <= lyric.endTime) {
+                return { text: lyric.text, startTime: lyric.startTime, endTime: lyric.endTime };
+            }
+        }
+        return { text: "", startTime: null, endTime: null };
+    }
+
+    // 歌詞情報の取得（単語）
+    getCurrentWord() {
+        const currentTime = this.player.timer.position;
+        for (let lyric of this.lyricsW) {
+            if (currentTime >= lyric.startTime && currentTime <= lyric.endTime) {
+                return { text: lyric.text, startTime: lyric.startTime, endTime: lyric.endTime };
+            }
+        }
+        return { text: "", startTime: null, endTime: null };
+    }
+
+    // 歌詞情報の取得（フレーズ）
+    getCurrentPhrase() {
+        const currentTime = this.player.timer.position;
+        for (let lyric of this.lyricsP) {
+            if (currentTime >= lyric.startTime && currentTime <= lyric.endTime) {
+                return { text: lyric.text, startTime: lyric.startTime, endTime: lyric.endTime };
+            }
+        }
+        return { text: "", startTime: null, endTime: null };
+    }
+
+    // 現在の再生位置を取得するメソッド
+    getCurrentPosition() {
+        if (this.player && this.player.timer) {
+            return this.player.timer.position; // 現在の再生位置をミリ秒で返す
+        }
+        return 0;
+    }
+
     init() {
         this.player = new Player({
             app: {
@@ -43,7 +115,7 @@ export class PlayerManager {
         })
         this.player.addListener({
             onAppReady: (app) => this._onAppReady(app),
-            onVideoReady: (v) => this._onVideoReady(v),
+            onVideoReady: (v) => this.onVideoReady(v),
             onPlay: () => this._onPlay(),
             onPause: () => this._onPause(),
             onStop: () => this._onStop(),
@@ -78,29 +150,50 @@ export class PlayerManager {
             }
         })
 
-        // 再生位置表示
-        this.currentPosition.addEventListener("click", () => {
-            console.log(this.player.data.songMap.segments);
-            this.player.data.songMap.segments.forEach((segment) => {
-                if (this.player.timer.position <= segment.duration) {
-                    console.log(segment);
-                }
-            })
-        })
+        // // 再生位置表示
+        // this.currentPosition.addEventListener("click", () => {
+        //     console.log(this.player.data.songMap.segments);
+        //     this.player.data.songMap.segments.forEach((segment) => {
+        //         if (this.player.timer.position <= segment.duration) {
+        //             console.log(segment);
+        //         }
+        //     })
+        // })
 
-        this.currentBeat.addEventListener("click", () => {
-            console.log(this.getCurrentBeat());
-        })
+        // this.currentBeat.addEventListener("click", () => {
+        //     console.log(this.getCurrentBeat());
+        // })
     }
 
-    _onVideoReady(v) {
+    onVideoReady(v) {
+        this.lyricsC = [];
+        this.lyricsW = [];
+        this.lyricsP = [];
+
+        // 歌詞が存在するかどうか
         if (v.firstChar) {
             // 歌詞付き楽曲
             console.log("歌詞付き楽曲");
+
+            // 文字単位
             let c = v.firstChar;
             while (c) {
-                this.lyrics.push(new Lyric(c))
+                this.lyricsC.push(new Lyric(c))
                 c = c.next;
+            }
+
+            // 単語単位
+            let w = v.firstWord;
+            while (w) {
+                this.lyricsW.push(new Lyric(w))
+                w = w.next;
+            }
+
+            // フレーズ単位
+            let p = v.firstPhrase;
+            while (p) {
+                this.lyricsP.push(new Lyric(p))
+                p = p.next;
             }
 
         } else {
@@ -144,6 +237,35 @@ export class PlayerManager {
 
     _onAppMediaChange(url) {
         console.log("新しい再生楽曲が指定されました:", mediaUrl);
+    }
+
+    updateLyrics() {
+        const currentChar = this.findCurrentChar();
+        const currentWord = this.findCurrentWord();
+        const currentPhrase = this.findCurrentPhrase();
+
+        let updated = false;
+        if (currentChar && currentChar.text !== this.currentChar) {
+            this.currentChar = currentChar.text;
+            updated = true;
+        }
+        if (currentWord && currentWord.text !== this.currentWord) {
+            this.currentWord = currentWord.text;
+            updated = true;
+        }
+        if (currentPhrase && currentPhrase.text !== this.currentPhrase) {
+            this.currentPhrase = currentPhrase.text;
+            updated = true;
+        }
+
+        if (updated) {
+            return {
+                char: this.currentChar,
+                word: this.currentWord,
+                phrase: this.currentPhrase
+            };
+        }
+        return null;
     }
 }
 
