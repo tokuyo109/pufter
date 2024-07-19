@@ -109,7 +109,7 @@ export class PlayerManager {
     init() {
         this.player = new Player({
             app: {
-                token: "3Iq9elt9xbFuRrND"
+                token: ""
             },
             mediaElement: document.querySelector("#media")
         })
