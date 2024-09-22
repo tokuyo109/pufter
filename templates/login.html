@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+ログインページ
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/login/login.css')}}">
+{% endblock %}
+
+{% block content %}
+<!-- <div id="icon">
+    <img src="../static/img/login/icon.png">
+</div> -->
+
+<form action="/loginCheck" class="wrapper" method="post">
+    <div class="login">
+        <h1>ログイン</h1>
+        <p class="error-msg">{{err.check}}</p>
+        <p class="textArea">
+            <label>メールアドレス</label>
+            <input type="email" name="email" class="textbox" value="{{result.mail}}">
+        </p>
+        <p class="textArea">
+            <label>パスワード</label>
+            <input type="password" name="pas" class="textbox">
+        </p>
+        <div class="pass">
+            <p><a href="/resetPasswordMailInput">パスワードを忘れた場合はこちら</a></p>
+        </div>
+        <div class="box">
+            <input type="submit" value="ログイン" class="button">
+        </div>
+        <div class="entry">
+            <a href="/entry">新規会員登録</a>
+        </div>
+    </div>
+    </div>
+</form>
+<canvas class="background"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
+<script src="{{ url_for('static', filename='js/front/login.js') }}"></script>
+{% endblock %}
+{% block extra_scripts %}
+{% endblock %}

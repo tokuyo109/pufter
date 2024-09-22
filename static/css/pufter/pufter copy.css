@@ -1,0 +1,132 @@
+/* style prametor */
+:root {
+    /* color */
+    --main-color: #200E55;
+    --accent-color: #DBB3E2;
+    /* --black-color: #232323; */
+    --black-color: #111111;
+    --white-color: #fafafa;
+    --gray-color: #E6E5EC;
+
+    /* size */
+    --sidebar-width: 245px;
+    --header-height: 50px;
+
+    font-size: 14px;
+    color: var(--white-color)
+}
+
+/* style initialize */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ·の削除 */
+li {
+    list-style: none;
+}
+
+.hidden {
+    /* opacity: 0; */
+    display: none;
+}
+
+.dragging {
+    opacity: 0.5;
+}
+
+/* ドロップ対象に重なるとき */
+.over {
+    border: 1px solid var(--main-color);
+    background-color: var(--accent-color);
+}
+
+/* header */
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--black-color);
+    width: 100%;
+    height: var(--header-height);
+}
+
+header img {
+    height: 100%;
+}
+
+header #save {
+    height: fit-content;
+}
+
+#leftsidebar {
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    background-color: var(--black-color);
+}
+
+#leftsidebar #player {
+    position: absolute;
+    bottom: 0;
+}
+
+.textalive-media-wrapper > div{
+    width: var(--sidebar-width) !important; 
+}
+
+#webgl {
+    position: fixed;
+    z-index: -999;
+    height: 100vh;
+    width: 100vw;
+}
+
+#rightsidebar {
+    position: absolute;
+    top: var(--header-height);
+    right: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    
+    --rightsidebar-background1: var(--black-color);
+    --rightsidebar-background2: #181818;
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--rightsidebar-background1) 0%, var(--rightsidebar-background1) 20.67px, /* 薄いグレー */
+        var(--rightsidebar-background2) 20.67px, var(--rightsidebar-background2) 41.34px /* 白 */
+    );
+}
+
+#rightsidebar #entitytree {
+    /* background-color: var(--main-color); */
+    height: inherit;
+    margin-left: 10px;
+    user-select: none;
+}
+
+#rightsidebar #entitytree i {
+    width: 1.0rem;
+    height: 1.0rem;
+}
+
+#rightsidebar #entityparam {
+    position: absolute;
+    bottom: 0;
+}
+
+/* lil-gui 上書き */
+.lil-gui {
+    /* 変数上書き */
+    --title-background-color: var(--black-color);
+    --title-text-color: var(--white-color);
+
+    --background-color: var(--black-color);
+    --text-color: var(--white-color);
+
+    --number-color: var(--accent-color);
+    --widget-color: var(--main-color);
+}

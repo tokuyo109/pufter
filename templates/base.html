@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-., initial-scale=1.0">
+    <link rel="icon" href="../static/img/login/favicon.ico" sizes="48x48">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/base/base.css')}}">
+    <title>
+        {% block title %}
+        <!-- タイトルを記述 -->
+        {% endblock %}
+    </title>
+    {% block extra_links %}
+    <!-- リンクタグを記述 -->
+    {% endblock %}
+    <!-- Trueの場合にライブラリを読み込む -->
+    {% if load_three_js %}
+    <script async src="https://unpkg.com/es-module-shims@1.5.8/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@v0.149.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@v0.149.0/examples/jsm/",
+                "uuid": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/index.js",
+                "ecsy": "https://ecsyjs.github.io/ecsy/build/ecsy.module.js",
+                "lil-gui": "https://cdn.jsdelivr.net/npm/lil-gui@0.19.1/+esm"
+            }
+        }
+    </script>
+    {% endif %}
+
+    <!-- 編集ページの場合にライブラリを読み込む -->
+    {% if is_editor %}
+    <script async src="https://unpkg.com/es-module-shims@1.5.8/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@v0.162.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@v0.162.0/examples/jsm/",
+                "ecsy": "https://ecsyjs.github.io/ecsy/build/ecsy.module.js",
+                "lil-gui": "https://cdn.jsdelivr.net/npm/lil-gui@0.19.1/+esm",
+                "axios": "https://unpkg.com/axios@1.6.8/dist/esm/axios.min.js",
+                "textalive-app-api": "https://unpkg.com/textalive-app-api/dist/index.es.js"
+            }
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/219290c0ef.js" crossorigin="anonymous"></script>
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/front/base.js') }}"></script>
+</head>
+
+<body>
+    <header>
+        <p>
+            <a href="/"><img src="{{ url_for('static', filename='img/login/icon.png') }}" alt="Logo" class="logo"></a>
+        </p>
+        {% if result %}
+        <div>
+            <img src="{% if result.icon_path %}{{ url_for('static', filename=result.icon_path.split('static/', 1)[1]) }}{% else %}{{ url_for('static', filename='img/login/default_icon.png') }}{% endif %}"
+                alt="UserIcon" id="user-icon" class="icon-display rounded-icon">
+            <ul class="header-dropdown-menu" id="dropdown-menu">
+                <li><a href="/mypage">マイページ</a></li>
+                <li><a href="/pufter">編集ページ</a></li>
+                <li><a href="/share">シェアページ</a></li>
+                <li><a href="/logout">ログアウト</a></li>
+            </ul>
+        </div>
+        {% else %}
+        <a href="{{url_for('login.login')}}" class="log">ログイン</a>
+        {% endif %}
+    </header>
+    <div class="spacer"></div>
+    <main>
+        {% block content %}
+        <!-- ページ内容を記述 -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>
+            <a href="/"><img src="{{ url_for('static', filename='img/login/icon.png') }}" alt="Logo" class="logo"></a>
+        </p>
+        <nav>
+            <ul>
+                <li><a href="/mypage">マイページ</a></li>
+                <li><a href="/pufter">編集ページ</a></li>
+                <li><a href="/editor">旧編集ページ</a></li>
+                <li><a href="/share">シェアページ</a></li>
+                <li><a href="/logout">ログアウト</a></li>
+            </ul>
+        </nav>
+        <p id="copy">© PUFTER 2024</p>
+    </footer>
+
+    {% block extra_scripts %}
+    <script src="{{ url_for('static', filename='js/front/base.js') }}"></script>
+    {% endblock %}
+
+</body>
+
+</html>

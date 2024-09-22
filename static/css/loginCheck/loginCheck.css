@@ -1,0 +1,79 @@
+/* ページ全体のスタイル */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e9e9e9; /* フォーム外の背景色 */
+    margin: 0;
+    padding: 0;
+}
+
+/* h2要素のスタイル */
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* フォームのスタイル */
+.loginCheck {
+    background-color: #fff; /* フォームの背景色 */
+    max-width: 550px; /* 幅を広くする */
+    margin: 50px auto; /* フォームの位置を上に調整 */
+    padding: 20px; /* 余白を増やす */
+    border-radius: 10px; /* 角丸を大きくする */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    position: relative; /* 相対配置を設定 */
+    z-index: 1;
+    opacity: 0.93;
+}
+
+.textArea {
+    margin-bottom: 15px;
+}
+
+.textArea label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-left: 1%;
+}
+
+.textbox {
+    width: 90%;
+    padding: 15px;
+    margin-left: 1%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.box {
+    text-align: center;
+}
+
+.box button {
+    background-color: #000;
+    color: #fff;
+    margin: 15px;
+    padding: 12px 25px; /* 大きさを調整 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.box button:hover {
+    background-color: #333; /* ホバー時の色 */
+}
+
+.error-msg {
+    color: red;
+}
+
+.background {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+.log{
+    display: none;
+}

@@ -1,0 +1,7 @@
+# config.py
+
+MAIL_SERVER = ''
+MAIL_PORT = 0
+MAIL_USE_SSL = True
+MAIL_USERNAME = ''
+MAIL_PASSWORD = ''

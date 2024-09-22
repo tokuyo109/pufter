@@ -1,0 +1,376 @@
+{
+    "entities": [
+        {
+            "id": 0,
+            "name": "Scene",
+            "components": {
+                "Object3D": {
+                    "object3D": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "object": {
+                            "uuid": "a6c1a76d-c6a1-4762-8276-860e81d3e3ad",
+                            "type": "Scene",
+                            "layers": 1,
+                            "matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "children": [
+                                {
+                                    "uuid": "84eb0961-5e14-40e3-8314-dc83e5d2f813",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.9991467201898133,
+                                        1.734723475976807e-18,
+                                        0.041301713450398785,
+                                        0,
+                                        0.020093819989674883,
+                                        0.8736733446936442,
+                                        -0.486097855549727,
+                                        0,
+                                        -0.036084206131788386,
+                                        0.4865129872591489,
+                                        0.8729278568679188,
+                                        0,
+                                        -0.40343368912396743,
+                                        5.439380557239724,
+                                        9.759630137049356,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.1041095890410957,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "5ea6ad6c-649f-43a8-9e7e-71cbcae6a506",
+                                    "type": "AmbientLight",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "color": 16777215,
+                                    "intensity": 1
+                                }
+                            ],
+                            "backgroundRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ],
+                            "environmentRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ]
+                        }
+                    },
+                    "parent": null
+                },
+                "Scene": {},
+                "UI": {},
+                "Export": {}
+            }
+        },
+        {
+            "id": 1,
+            "name": "Renderer",
+            "components": {
+                "Renderer": {
+                    "renderer": null,
+                    "clearColor": 16672615,
+                    "antialias": true
+                },
+                "UI": {},
+                "Export": {}
+            }
+        },
+        {
+            "id": 2,
+            "name": "Camera",
+            "components": {
+                "Object3D": {
+                    "object3D": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "object": {
+                            "uuid": "84eb0961-5e14-40e3-8314-dc83e5d2f813",
+                            "type": "PerspectiveCamera",
+                            "layers": 1,
+                            "matrix": [
+                                0.9991467201898133,
+                                1.734723475976807e-18,
+                                0.041301713450398785,
+                                0,
+                                0.020093819989674883,
+                                0.8736733446936442,
+                                -0.486097855549727,
+                                0,
+                                -0.036084206131788386,
+                                0.4865129872591489,
+                                0.8729278568679188,
+                                0,
+                                -0.40343368912396743,
+                                5.439380557239724,
+                                9.759630137049356,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "fov": 45,
+                            "zoom": 1,
+                            "near": 1,
+                            "far": 1000,
+                            "focus": 10,
+                            "aspect": 2.1041095890410957,
+                            "filmGauge": 35,
+                            "filmOffset": 0
+                        }
+                    },
+                    "parent": null
+                },
+                "Position": {
+                    "x": 0,
+                    "y": 10,
+                    "z": 5
+                },
+                "Rotation": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                },
+                "Scale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
+                },
+                "UI": {},
+                "Camera": {},
+                "Export": {}
+            }
+        },
+        {
+            "id": 3,
+            "name": "AmbientLight3",
+            "components": {
+                "Object3D": {
+                    "object3D": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "object": {
+                            "uuid": "5ea6ad6c-649f-43a8-9e7e-71cbcae6a506",
+                            "type": "AmbientLight",
+                            "layers": 1,
+                            "matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "color": 16777215,
+                            "intensity": 1
+                        }
+                    },
+                    "parent": {
+                        "metadata": {
+                            "version": 4.6,
+                            "type": "Object",
+                            "generator": "Object3D.toJSON"
+                        },
+                        "object": {
+                            "uuid": "a6c1a76d-c6a1-4762-8276-860e81d3e3ad",
+                            "type": "Scene",
+                            "layers": 1,
+                            "matrix": [
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1,
+                                0,
+                                0,
+                                0,
+                                0,
+                                1
+                            ],
+                            "up": [
+                                0,
+                                1,
+                                0
+                            ],
+                            "children": [
+                                {
+                                    "uuid": "84eb0961-5e14-40e3-8314-dc83e5d2f813",
+                                    "type": "PerspectiveCamera",
+                                    "layers": 1,
+                                    "matrix": [
+                                        0.9991467201898133,
+                                        1.734723475976807e-18,
+                                        0.041301713450398785,
+                                        0,
+                                        0.020093819989674883,
+                                        0.8736733446936442,
+                                        -0.486097855549727,
+                                        0,
+                                        -0.036084206131788386,
+                                        0.4865129872591489,
+                                        0.8729278568679188,
+                                        0,
+                                        -0.40343368912396743,
+                                        5.439380557239724,
+                                        9.759630137049356,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "fov": 45,
+                                    "zoom": 1,
+                                    "near": 1,
+                                    "far": 1000,
+                                    "focus": 10,
+                                    "aspect": 2.1041095890410957,
+                                    "filmGauge": 35,
+                                    "filmOffset": 0
+                                },
+                                {
+                                    "uuid": "5ea6ad6c-649f-43a8-9e7e-71cbcae6a506",
+                                    "type": "AmbientLight",
+                                    "layers": 1,
+                                    "matrix": [
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        0,
+                                        0,
+                                        0,
+                                        0,
+                                        1
+                                    ],
+                                    "up": [
+                                        0,
+                                        1,
+                                        0
+                                    ],
+                                    "color": 16777215,
+                                    "intensity": 1
+                                }
+                            ],
+                            "backgroundRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ],
+                            "environmentRotation": [
+                                0,
+                                0,
+                                0,
+                                "XYZ"
+                            ]
+                        }
+                    }
+                },
+                "UI": {},
+                "Export": {}
+            }
+        }
+    ]
+}

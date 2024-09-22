@@ -1,0 +1,290 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.mom {
+    display: flex;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.main-content {
+    width: 100%;
+}
+
+.profEdit {
+    display: inline-block;
+    border: 2px solid black;
+    padding: 5px 20px;
+    border-radius: 50px;
+    text-align: center;
+    margin-right: 5%;
+    text-decoration: none;
+    color: black;
+    float: right;
+    margin-top: 2%;
+}
+
+.profEdit:hover {
+    color: rgb(106, 106, 106);
+    border: 2px solid rgb(106, 106, 106);
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.icon-container {
+    padding-left: 15%;
+    margin-top: 1%;
+}
+
+.icon-display {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.username {
+    margin-top: 1%;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    margin-left: 3%;
+}
+
+.follew-me {
+    display: flex;
+    padding-top: 10%;
+    white-space: nowrap;
+    padding-left: 30%;
+}
+
+.followView a{
+    text-decoration: none;
+    color: #000;
+    
+}
+
+
+
+.follew-me p {
+    margin-left: 5%;
+}
+
+.info {
+    width: 100%;
+    margin-top: 5%;
+    overflow-wrap: break-word;
+}
+
+.info p {
+    margin-left: 25%;
+}
+
+.tab {
+    padding-top: 3%;
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.tab button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    margin: 0 20px;
+    position: relative;
+}
+
+.tab button:hover {
+    color: #666;
+}
+
+.tab button.active {
+    color: #000;
+    font-weight: bold;
+}
+
+.tab button.active::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #ccc;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+}
+
+.tabcontent {
+    display: none;
+
+    border-top: none;
+    margin-top: 10px;
+}
+
+.content-row {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    /* 追加 */
+}
+
+.content-item {
+    border: 1px solid #000;
+    margin: 10px;
+    padding: 20px;
+    height: 200px;
+    text-align: center;
+    flex: 0 0 calc(33.33% - 20px);
+    /* 3つ並んでいる場合の幅 */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.next {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.next p {
+    display: inline-block;
+    font-size: 1em;
+    margin: 0;
+}
+
+.next a {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+}
+
+.next a:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+/* 7/2追記 */
+.card-list {
+    padding: 0 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.card {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.card>a {
+    position: relative;
+    display: block;
+    aspect-ratio: 16/9;
+    color: white;
+    background-color: #ccc;
+    text-decoration: none;
+}
+
+.card>a>.title {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    color: black;
+}
+
+.card>a>img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: -1;
+}
+
+.card>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.user>*+* {
+    margin-left: 10px;
+}
+
+.user>a:first-child {
+    display: block;
+}
+
+.user>a:first-child>img {
+    border-radius: 50%;
+    width: 33px;
+    height: 33px;
+}
+
+.view {
+    color: #f2f2f2;
+    background-color: #6f23d0;
+    border-radius: 0.8rem;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #6f23d0;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+}
+
+.view:hover {
+    color: #6f23d0;
+    background: #f2f2f2;
+    border: 1px solid #6f23d0;
+}
+
+.view:active {
+    background-color: #ecddff;
+    border: 1px solid #6f23d0;
+}
+

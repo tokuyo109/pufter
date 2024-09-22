@@ -1,0 +1,101 @@
+/* ページ全体のスタイル */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* フォーム外の背景色 */
+    margin: 0;
+    padding: 0;
+    /* padding-top: 10px; ページ全体の上部の余白を小さく設定 */
+}
+
+/* h1要素のスタイル */
+h1 {
+    text-align: center;
+    margin-top: 10px; /* 上部の余白を削減 */
+    margin-bottom: 10px;
+}
+
+/* フォームのスタイル */
+.entry {
+    background-color: #fff; /* フォームの背景色 */
+    max-width: 550px; /* 幅を広くする */
+    margin: 8% auto;
+    padding: 10px 30px 30px 30px; /* 余白を増やす */
+    border-radius: 10px; /* 角丸を大きくする */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    position: relative; /* 相対配置を設定 */
+    z-index: 1;
+    opacity: 0.93;
+}
+
+.textArea {
+    margin-bottom: 15px;
+}
+
+.textArea label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.textbox {
+    width: calc(100% - 30px);
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.box {
+    text-align: center;
+}
+
+/* リンクのスタイル */
+.link-container {
+    position: absolute; /* 絶対配置を設定 */
+    bottom: -10px; /* 下端からの位置を調整 */
+    right: 0px; /* 右端からの位置を調整 */
+    padding: 10px; /* 余白を追加 */
+    border-radius: 5px; /* 角丸を設定 */
+}
+
+.link-container a {
+    color: #9f9f9f; /* リンクの色 */
+    text-decoration: none;
+}
+
+.link-container a:hover {
+    text-decoration: underline;
+}
+
+/* 登録ボタンのスタイル */
+.box input[type="submit"] {
+    background-color: #000;
+    color: #fff;
+    margin: 10px;
+    padding: 12px 20px; /* 大きさを調整 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.box input[type="submit"]:hover {
+    background-color: #333; /* ホバー時の色 */
+}
+
+.error-msg{
+    color: red;
+}
+
+/* @import url('https://fonts.googleapis.com/css?family=Merienda'); */
+
+.background {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.log{
+    display: none;
+}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}
+共有ページ
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/share/share.css')}}">
+{% endblock %}
+
+{% block content %}
+<form action="/share" method="get" class="search-form">
+    <input type="text" name="text" placeholder="プロジェクト名を検索" id="searchInput" value="{{ query }}">
+    <button type="submit"><img src="../static/img/login/searching.png" alt="虫眼鏡アイコン"></button>
+</form>
+
+{% if query != "" %}
+<div class="card-list">
+    {% if search_results|length == 0 %}
+    <p>作品はありません</p>
+    {% else %}
+    {% for rec in search_results %}
+    <div class="card">
+        <a href="{{ url_for('pufter.pufter', project_id=rec.project_id) }}">
+            <p class="title">{{ rec.title }}</p>
+            <img src="{% if rec.thumb_path == 'noImage' %}{{ url_for('static', filename='img/projects/thumb/noimage.png') }}{% else %}{{ url_for('static', filename='img/projects/thumb/' ~ rec.thumb_path) }}{% endif %}"
+                alt="">
+        </a>
+        <div>
+            <div class="user">
+                <a href="{{ url_for('profile.profile', username=rec.username) }}"><img
+                        src="{% if rec.icon_path %}{{ url_for('static', filename=rec.icon_path.split('static/', 1)[1]) }}{% else %}{{ url_for('static', filename='img/login/default_icon.png') }}{% endif %}"
+                        alt=""></a>
+                <a href="{{ url_for('profile.profile', username=rec.username) }}">
+                    <p>{{ rec.username }}</p>
+                </a>
+            </div>
+            <a href="{{ url_for('pufter.pufter', project_id=rec.project_id) }}"><button class="view">閲覧</button></a>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+{% if total_search_page > 1 %}
+<div id="search-pagination">
+    <div class="next">
+        <p>
+            {% if search_page > 1 %}
+            <a href="{{ url_for('share.share', page=page, text=query, search_page=search_page-1) }}">前へ</a>
+            {% endif %}
+            {{ search_page }} / {{ total_search_page }}ページ
+            {% if total_search_page > search_page %}
+            <a href="{{ url_for('share.share', page=page, text=query, search_page=search_page+1) }}">次へ</a>
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endif %}
+
+{% else %}
+<div class="card-list">
+    <!-- 画像の配置や大きさは自由に変えてください -->
+    {% for rec in projects %}
+    <div class="card">
+        <a href="{{ url_for('pufter.pufter', project_id=rec[0]) }}">
+            <p class="title">{{ rec[3]}}</p>
+            <img src="{% if rec[4] == 'noImage' %}{{ url_for('static', filename='img/projects/thumb/noimage.png') }}{% else %}{{ url_for('static', filename='img/projects/thumb/' ~ rec[4]) }}{% endif %}"
+                alt="">
+        </a>
+        <div>
+            <div class="user">
+                <a href="{{ url_for('profile.profile', username=rec[1]) }}"><img
+                        src="{% if rec[2] %}{{ url_for('static', filename=rec[2].split('static/', 1)[1]) }}{% else %}{{ url_for('static', filename='img/login/default_icon.png') }}{% endif %}"
+                        alt=""></a>
+                <a href="{{ url_for('profile.profile', username=rec[1]) }}">
+                    <p>{{ rec[1] }}</p>
+                </a>
+            </div>
+            <a href="{{ url_for('pufter.pufter', project_id=rec[0]) }}"><button class="view">閲覧</button></a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div id="public-projects">
+    <div class="next">
+        <p>
+            {% if page > 1 %}
+            <a href="{{ url_for('share.share', page=page-1)}}">前へ</a>
+            {% endif %}
+            {{ page }} / {{ total_page }}ページ
+            {% if total_page > page %}
+            <a href="{{ url_for('share.share', page=page+1) }}">次へ</a>
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}
+<script src="{{ url_for('static', filename='js/front/share.js') }}"></script>

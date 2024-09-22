@@ -1,0 +1,342 @@
+/* * {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.search-form {
+    margin-top: 20px;
+    text-align: right;
+    padding-right: 15px;
+    margin-bottom: 2%;
+}
+
+.search-container {
+    position: relative;
+}
+
+input[type="text"] {
+    width: 180px;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding-left: 30px;
+    outline: none;
+}
+
+button {
+    position: absolute;
+    right: 195px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+button img {
+    width: 20px;
+    height: 20px;
+}
+
+#user-search {
+    display: none;
+}
+
+#user-search:has(div) {
+    height: 200px;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+#user-search>.user-card {
+    height: 125px;
+    display: flex;
+    border: 1px solid black;
+    margin: 37.5px 10px;
+}
+
+.user-card>.card-left {}
+
+.card-left>p:has(img) {
+    height: 100px;
+}
+
+.card-left>p>img {
+    height: 100%;
+}
+
+.card-left>.username {
+    width: 100px;
+    text-align: center;
+}
+
+.user-card>.card-right {
+    height: 125px;
+    padding-right: 10px;
+}
+
+.card-right>form {
+    display: block;
+    height: 50px;
+    text-align: right;
+}
+
+.card-right>form>input {
+    line-height: 30px;
+    margin-top: 30px;
+}
+
+.card-right>a {
+    display: block;
+    margin-top: 20px;
+    line-height: 50px;
+}
+
+#public-projects {
+    width: 90%;
+    margin: 0 auto;
+    justify-content: left;
+
+}
+
+.projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.project-container {
+    width: calc(33.33% - 20px);
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.project {
+    padding: 10px;
+    text-align: center;
+    height: 200px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project a {
+    text-decoration: none;
+    color: #000;
+}
+
+.outfit {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.outfit img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.outfit p {
+    margin: 0;
+}
+
+.next {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.next p {
+    display: inline-block;
+    font-size: 1em;
+    margin: 0;
+}
+
+.next a {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+}
+
+.next a:hover {
+    background-color: #f0f0f0;
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.search-form {
+    display: flex;
+    justify-content: end;
+    padding: 20px 10%;
+}
+
+#searchInput {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px 20px 8px 10px;
+    cursor: text;
+    transition: border 0.3s, background-color 0.3s;
+}
+
+#searchInput:focus {
+    outline: none;
+    background-color: #ecddff;
+    border: 1px solid #6f23d0;
+}
+
+
+.search-form>button {
+    padding-left: 10px;
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.search-form>button>img {
+    width: 20px;
+    height: 20px;
+}
+
+.card-list {
+    padding: 0 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+.card-list>p{
+    text-align: center;
+}
+
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.card>a {
+    position: relative;
+    display: block;
+    aspect-ratio: 16/9;
+    color: white;
+    background-color: #ccc;
+    text-decoration: none;
+}
+
+.card>a>.title {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    /* color: black; */
+    mix-blend-mode: difference;
+}
+
+.card>a>img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: -1;
+}
+
+.card>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.user>*+* {
+    margin-left: 10px;
+}
+
+.user>a:first-child {
+    display: block;
+}
+
+.user>a:first-child>img {
+    border-radius: 50%;
+    width: 33px;
+    height: 33px;
+}
+
+.user a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+.user a img {
+    vertical-align: middle; /* 画像の垂直位置を調整 */
+}
+
+.view {
+    color: #f2f2f2;
+    background-color: #6f23d0;
+    border-radius: 0.8rem;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #6f23d0;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+}
+
+.view:hover {
+    color: #6f23d0;
+    background: #f2f2f2;
+    border: 1px solid #6f23d0;
+}
+
+.view:active {
+    background-color: #ecddff;
+    border: 1px solid #6f23d0;
+}
+
+#public-projects, #search-pagination{
+    padding-top: 20px;
+    text-align: center;
+}

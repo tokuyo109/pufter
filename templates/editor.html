@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}
+    編集ページ
+{% endblock %}
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/editor/style.css')}}">
+{% endblock %}
+
+{% block content %}
+<div id="webGL"></div>
+<div id="musicPlayer">
+    <!-- シークバーと時間表示 -->
+    <div>
+      <input id="positionBar" type="range" min="0" max="100" step="1" value="0">
+      <div>
+        <span id="time-current">0:00</span>
+        <span id="time-duration">0:00</span>
+      </div>
+    </div>
+    <div>
+      <!-- 音楽ファイルの選択 -->
+      <div>
+        <input id="musicFile" type="file" accept="audio/*">
+      </div>
+      <!-- 再生ボタンなど -->
+      <div>
+        <button id="togglePlayButton">再生</button>
+      </div>
+      <!-- ボリューム調整 -->
+      <div>
+        <input id="volumeBar" type="range" min="0" max="100" step="1" value="50">
+      </div>
+    </div>
+  </div>
+
+<!-- <div>
+    <label for="objectSelector">objectSelector</label>
+    <select name="objectSelector" id="objectSelector"></select>
+    <button id="addObjectButton">エンティティ追加</button>
+</div> -->
+
+<div>
+    <select name="newObjectSelector" id="newObjectSelector"></select>
+    <button id="newAddObjectButton">エンティティ追加</button>
+</div>
+
+
+<select name="" id="entitySelector"></select>
+
+<div id="UIOutoput"></div>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{{ url_for('static', filename='js/editor/main.js') }}" type="module"></script>
+{% endblock %}

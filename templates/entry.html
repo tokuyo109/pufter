@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+会員登録
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/entry/entry.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<div class="entry">
+    <h1>ユーザー登録</h1>
+    <p class="error-msg">{{err.msg}}</p>
+    <p class="error-msg">{{err.mail}}</p>
+    <p class="error-msg">{{err.pas}}</p>
+    <p class="error-msg">{{err.check}}</p>
+    <p class="error-msg">{{err.email_exist}}</p>
+    <form action="/entryCheck" method="POST">
+        <div class="textArea">
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email" class="textbox" name="email" required>
+        </div>
+        <div class="textArea">
+            <label for="password">パスワード</label>
+            <input type="password" id="password" class="textbox" name="password" required>
+        </div>
+        <div class="textArea">
+            <label for="password_check">パスワード（確認）</label>
+            <input type="password" id="password_check" class="textbox" name="password_check" required>
+        </div>
+
+        <div class="box">
+            <input type="submit" value="登　録">
+        </div>
+        <div class="link-container">
+            <p>アカウントをお持ちの方は<a href="/login">こちら</a></p>
+        </div>
+    </form>
+</div>
+<canvas class="background"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
+<script src="{{ url_for('static', filename='js/front/login.js') }}"></script>
+
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

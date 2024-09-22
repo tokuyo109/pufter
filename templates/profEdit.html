@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+プロフィール編集
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/profEdit/profEdit.css')}}">
+{% endblock %}
+
+{% block content %}
+<form action="/profEditCheck" method="post" enctype="multipart/form-data">
+    <div class="main">
+        <!-- アイコンの表示 -->
+        <div class="icon">
+            <!-- アイコン画像を丸く表示 -->
+        <label for="icon-file-input" class="icon-label">
+                <img src="{% if result.icon_path %}{{ url_for('static', filename=result.icon_path.split('static/', 1)[1]) }}{% else %}{{ url_for('static', filename='img/login/default_icon.png') }}{% endif %}"
+                    alt="User Icon" class="icon-display rounded-icon" id="icon-preview">
+            
+            <!-- ファイル選択用のinput -->
+            <input type="file" name="icon" class="icon" id="icon-file-input" style="display: none;">
+        </label>
+        <div class="username">
+            <label>ユーザー名</label><br>
+            <input type="text" name="username" value="{{ result.username }}">
+            </label>
+        </div>
+        
+        <div class="intro">
+            <label>自己紹介</label><br>
+            <textarea name="introduction" class="inputtextbox2" maxlength="60">{{ result.introduction | safe }}</textarea>
+        </div>
+        <div class="open">
+            <label>アカウントの公開設定</label><br>
+            <input type="radio" class="button1" name="visibility" value="public" id="public" {% if result.visibility=='public' or result.visibility is none %}checked{% endif %}>
+            <label for="public">公開</label>
+            <input type="radio" class="button1" name="visibility" value="private" id="private" {% if result.visibility=='private'%}checked{% endif %}>
+            <label for="private">非公開</label>
+        </div>
+        <div class="box">
+            <input type="submit" value="登録" class="button">
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/front/profEdit.js') }}"></script>
+{% endblock %}

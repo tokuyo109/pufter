@@ -1,0 +1,88 @@
+.rounded-icon {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.icon {
+    text-align: center;
+}
+
+.icon img{
+    cursor : pointer;
+}
+
+
+.username input {
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.username input:focus {
+    outline: none;
+    border-color: rgb(147, 147, 147);
+    box-shadow: 0 0 5px rgb(147, 147, 147);
+}
+
+.inputtextbox2 {
+    width: 300px;
+    height: auto; /* 自動で高さを調整 */
+    min-height: calc(1.5em * 3); /* 最小の高さを3行分に設定 */
+    max-height: calc(1.5em * 3); /* 最大の高さを3行分に設定 */
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: none; /* リサイズを禁止 */
+    overflow: hidden; /* コンテンツがオーバーフローしないようにする */
+}
+
+.username {
+    margin-top: -1%;
+    text-align: center;
+}
+
+.username label {
+    margin-left: -10%;
+}
+
+.intro {
+    text-align: center;
+    padding-top: 2%;
+}
+
+.intro label {
+    margin-left: -20%;
+}
+
+.open {
+    text-align: center;
+    padding-top: 1%;
+}
+
+.open input {
+    margin-top: 1%;
+    color: #565656;
+}
+
+.box {
+    margin-top: 1%;
+}
+
+.button {
+    padding: 8px 16px;
+    background-color: #8a8a8a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #565656;
+}

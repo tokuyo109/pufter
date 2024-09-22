@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+3D歌詞アニメーション作成サービス - PUFTER
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index/style.css')}}">
+{% endblock %}
+
+{% block content %}
+<section id="about">
+    <div>
+        <h1>
+            <span>
+                PUFTER - パフター
+            </span>
+            躍動感あふれる歌詞アニメーションを体験しよう
+        </h1>
+        <p>PUFTERは歌詞アニメーションを簡単に作成・観賞できる3D歌詞アニメーション作成サービスです。</p>
+    </div>
+    <video autoplay muted controls src="{{ url_for('static', filename='video/PUFTER紹介.mp4') }}"></video>
+</section>
+<section id="features">
+    <h2>はじめる</h2>
+    <section>
+        <h3>作品を観る</h3>
+        <p>他のクリエイターが作成した3D歌詞アニメーションを観賞することができます。</p>
+        <ul>
+            <li>
+                <a href="/pufter/31" target="_blank">
+                    <span>作品1</span>
+                    <img src="{{ url_for('static', filename='img/index/work1.png') }}" alt="１つ目の作品の画像">
+                </a>
+            </li>
+            <li>
+                <a href="/pufter/454" target="_blank">
+                    <span>作品2</span>
+                    <img src="{{ url_for('static', filename='img/index/work2.png') }}" alt="２つ目の作品の画像">
+                </a>
+            </li>
+            <li>
+                <a href="/pufter/431" target="_blank">
+                    <span>作品3</span>
+                    <img src="{{ url_for('static', filename='img/index/work3.png') }}" alt="３つ目の作品の画像">
+                </a>
+            </li>
+        </ul>
+        <a id="view-link" href="/share" target="_blank">他の作品を見る</a>
+    </section>
+    <section>
+        <h3>作品を作る</h3>
+        <p>直感的な操作でオリジナルの3D歌詞アニメーションを作成することができます。</p>
+        <a id="create-link" href="/pufter" target="_blank">作品を作る</a>
+    </section>
+</section>
+<section id="tech">
+    <h2>使用技術</h2>
+    <p>PUFTERは以下の技術を用いて制作されました。</p>
+    <ul>
+        <li>
+            <span>フロントエンド</span>
+            JavaScript
+        </li>
+        <li>
+            <span>バックエンド</span>
+            Python(Flask)
+        </li>
+        <li>
+            <span>データベース</span>
+            Sqlite3
+        </li>
+        <li>
+            <span>WebGL</span>
+            Three.js
+        </li>
+        <li>
+            <span>ユーザーインターフェース</span>
+            lil-gui
+        </li>
+        <li>
+            <span>音楽情報取得</span>
+            TextAliveAppAPI
+        </li>
+    </ul>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

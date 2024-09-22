@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}
+マイページ
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/mypage/mypage.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="mom">
+    <div class="main-content">
+        <a href="/profEdit" class="profEdit">プロフィールを編集</a>
+        <div class="profile">
+            <!-- アイコンの表示 -->
+            <div class="icon-container">
+                <img src="{% if result.icon_path %}{{ url_for('static', filename=result.icon_path.split('static/', 1)[1]) }}{% else %}{{ url_for('static', filename='img/login/default_icon.png') }}{% endif %}"
+                    alt="UserIcon" class="icon-display rounded-icon">
+            </div>
+            <h1 class="username">{{result.username}}さん</h1>
+            <div class="stats">
+                <div class="follew-me">
+                    <p class="followView"><a href="{{url_for('followView.followView') }}">フォロー数: {{ result.following_count }}</a></p>
+                    <p>フォロワー数: {{ result.follower_count }}</p>
+                    <p>投稿: {{ count }}件</p>
+                </div>
+                
+
+                <div class="info">
+                    <!-- 自己紹介文を改行で区切り、それぞれの行を <p> タグで表示 -->
+                    {% if result.username %}
+                    {% for line in result.introduction.split('\n') %}
+                    <p>{{ line }}<br></p>
+                    {% endfor %}
+                    {% else %}
+                    <script>
+                        alert("ユーザー登録してください。");
+                        window.location.href = '/profEdit';
+                    </script>
+                    {% endif %}
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <!--タブ外観-->
+        <div class="container">
+            <div class="tab">
+                <button class="tablinks" onclick="openTab(event, 'posts')">投稿</button>
+                <button class="tablinks" onclick="openTab(event, 'likes')">いいね</button>
+            </div>
+
+            <div id="posts" class="tabcontent">
+                {% if not projects %}
+                <p>まだ作品を投稿していないようです</p>
+                {% endif %}
+                {% if projects %}
+                <div class="card-list">
+                    {% for project in projects %}
+                    <div class="card">
+                        <a href="{{url_for('pufter.pufter', project_id=project[0]) }}">
+                            <p class="title">{{ project[1] }}</p>
+                            <img src="{% if project[2] == 'noImage' %}{{ url_for('static', filename='img/projects/thumb/noimage.png') }}{% else %}{{ url_for('static', filename='img/projects/thumb/' ~ project[2]) }}{% endif %}"
+                                alt="">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="next">
+                    {% if page > 1%}
+                    <a href="{{url_for('mypage.mypage',page = page-1) }}">前へ</a>
+                    {% endif %}
+                    {{ page }} / {{ total_page }}ページ
+                    {% if total_page > page %}
+                    <a href="{{url_for('mypage.mypage',page = page+1 )}}">次へ</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div id="likes" class="tabcontent">
+                {% if not liked_projects %}
+                <p id="not">いいねをしたものが存在しないようです。</p>
+                {% else %}
+                <div class="card-list">
+                    {% for project in liked_projects %}
+                    <div class="card">
+                        <a href="{{url_for('pufter.pufter', project_id=project[0]) }}">
+                            <p class="title">{{ project[1] }}</p>
+                            <img src="{% if project[2] == 'noImage' %}{{ url_for('static', filename='img/projects/thumb/noimage.png') }}{% else %}{{ url_for('static', filename='img/projects/thumb/' ~ project[2]) }}{% endif %}"
+                                alt="">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/front/mypage.js') }}"></script>
+{% endblock %}

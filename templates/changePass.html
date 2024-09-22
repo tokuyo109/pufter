@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+パスワード変更
+{% endblock %}
+
+{% block extra_links %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/changePass/changePass.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<form action="/changePassCheck" method="post">
+    <div class="changePass">
+        <h1>パスワード変更</h1>
+        <p class="error-msg">{{err.msg}}</p>
+        <p class="error-msg">{{err.email}}</p>
+        <p class="error-msg">{{err.pas}}</p>
+        <p class="error-msg">{{err.check}}</p>
+        <div class="textArea">
+            <label>メールアドレス</label>
+            <input type="email" name="email" class="textbox" value="{{result.mail}}">
+        </div>
+        <div class="textArea">
+            <label>パスワード</label>
+            <input type="password" name="pas" class="textbox">
+        </div>
+        <div class="textArea">
+            <label>パスワード(再入力)</label>
+            <input type="password" name="check" class="textbox">
+        </div>
+
+        <div class="box">
+            <input type="submit" value="登　録">
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

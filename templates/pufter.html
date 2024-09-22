@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUFTER</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/login/favicon.ico') }}" sizes="48x48">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/pufter/reset.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/pufter/pufter.css')}}">
+    <script async src="https://unpkg.com/es-module-shims@1.5.8/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+        "imports": {
+            "three": "https://unpkg.com/three@v0.162.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@v0.162.0/examples/jsm/",
+            "ecsy": "https://ecsyjs.github.io/ecsy/build/ecsy.module.js",
+            "axios": "https://unpkg.com/axios@1.6.8/dist/esm/axios.min.js",
+            "textalive-app-api": "https://unpkg.com/textalive-app-api/dist/index.es.js",
+            "lil-gui": "https://cdn.jsdelivr.net/npm/lil-gui@0.19.1/+esm"
+        }
+        }
+    </script>
+    <script src="" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='img/login/pufter_logo.png') }}" alt="PUFTERのロゴ" id="logo">
+        <input id="title_input" type="text" placeholder="プロジェクト名" value="{{ project_data.title }}">
+        <div>
+            <img src="{% if project_data.icon_path %}{{ url_for('static', filename=project_data.icon_path.split('static/', 1)[1]) }}{% else %}{{ url_for('static', filename='img/login/default_icon.png') }}{% endif %}" alt="UserIcon" id="user-icon">
+            <ul class="header-dropdown-menu" id="dropdown-menu">
+                <li><a href="/mypage">マイページ</a></li>
+                <li><a href="/pufter">編集ページ</a></li>
+                <li><a href="/share">シェアページ</a></li>
+                <li><a href="/logout">ログアウト</a></li>
+            </ul>
+            {% if project_data.user_id == login_user_id or project_data.user_id == None %}
+            <button><a href="{{ url_for('pufterSetting.pufterSetting', id=project_data.project_id) }}">投稿</a></button>
+            {% else %}
+            <div class="favorite">
+                <form action="{{ url_for('pufterFavorite.pufterFavorite', id=project_data.project_id) }}" method="POST">
+                    <input type="hidden" name="title" value="{{ project_data.title }}">
+                    {% if project_data.favorite %}
+                        <input type="hidden" name="action" value="unfavorite">
+                        <button type="submit" value="いいね解除" class="fav">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                    {% else %}
+                        <input type="hidden" name="action" value="favorite">
+                        <button type="submit" value="いいね" class="fav">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+    <main>
+        <aside class="side">
+            <div id="avaiable">
+                <div id="avaiable-list" role="tablist" aria-label="avaiable">
+                    <span role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1" tabindex="0">
+                        <i class="fas fa-cube"></i>
+                        <span class="tooltip">オブジェクト</span>
+                    </span>
+                    <span role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2" tabindex="-1">
+                        <i class="fas fa-music"></i>
+                        <span class="tooltip">歌詞</span>
+                    </span>
+                    <span role="tab" aria-selected="false" aria-controls="panel-3" id="tab-3" tabindex="-1">
+                        <i class="fas fa-drum"></i>
+                        <span class="tooltip">ビート</span>
+                    </span>
+                </div>
+                <div id="panel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
+                    <ul>
+                    </ul>
+                </div>
+                <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" class="display-none">
+                    <ul>
+                    </ul>
+                </div>
+                <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" class="display-none">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+            <div id="player">
+                <div id="media"></div>
+                <div id="controls">
+                    <input id="seekBar" type="range" max="100" min="0" step="1" value="0">
+                </div>
+                <div id="song">
+                    <input id="songUrl" type="url" placeholder="Songle登録楽曲を入力(Youtubeのみ)">
+                    <button id="changeSong">適用</button>
+                </div>
+            </div>
+        </aside>
+        <section id="main">
+            <canvas id="c"></canvas>
+        </section>
+        <aside class="side">
+            <div id="contextmenu" class="display-none">
+                <ul>
+                    <li id="delete">削除</li>
+                </ul>
+            </div>
+            <ul id="selector">
+            </ul>
+            <div id="parameter">
+            </div>
+        </aside>
+    </main>
+    <script>
+        const project_data = {{ project_data | tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='js/front/pufter.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pufter/main.js') }}" type="module"></script>
+</body>
+
+</html>

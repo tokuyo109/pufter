@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+ユーザ検索結果
+{% endblock %}
+
+{% block extra_links %}
+<!-- <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}"> -->
+{% endblock %}
+
+{% block content %}
+
+<h1>検索したいユーザを入れて</h1>
+<form action="/userSearch" method="get">
+    <input type="text" name="text">
+</form>
+<br>
+
+<table border="1">
+    {% for username, is_following in result.items() %}
+    <tr>
+        <td>{{ username }}</td>
+        <td>
+            {% if is_following %}
+            <form action="{{ url_for('userFollow.userFollow') }}" method="POST"> <!-- userFollow Blueprintのエンドポイントを指定 -->
+                <input type="hidden" name="username" value="{{ username }}">
+                <input type="hidden" name="action" value="unfollow">  <!-- フォロー解除アクションを指定 -->
+                <input type="submit" value="フォロー解除">
+            </form>
+            {% else %}
+            <form action="{{ url_for('userFollow.userFollow') }}" method="POST"> <!-- userFollow Blueprintのエンドポイントを指定 -->
+                <input type="hidden" name="username" value="{{ username }}">
+                <input type="hidden" name="action" value="follow">
+                <input type="submit" value="フォローする">
+            </form>
+            {% endif %}
+        </td>
+        <td>
+            <a href="{{ url_for('profile.profile', username=username) }}"><button type="button">プロフィール詳細</button></a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="/share">シェアページへ戻る</a>
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}
